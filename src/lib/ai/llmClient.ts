@@ -1,22 +1,26 @@
 /**
- * llmClient.ts — OpenAI-compatible HTTP client for mimo-v2.5-pro
+ * llmClient.ts — client for the server-proxied mimo-v2.5-pro chat API.
  *
- * Provider abstraction layer. Only this file knows about the specific
- * LLM provider. To swap providers (OpenAI, Anthropic, Google), change
- * only this file.
+ * Provider abstraction layer. Only this file (plus its server-side
+ * counterpart, server/routes/ai.ts) knows about the specific LLM provider.
+ *
+ * Requests go to this same-origin server route rather than the provider
+ * directly — the server holds the real API key so it never ships in the
+ * client bundle, and this same code path works in both dev (Vite proxies
+ * /api/v1 → the local Express server) and production.
  *
  * Uses raw fetch for streaming support. No SDK dependency.
  */
 
 import { LLMMessage } from '../../types';
+import { isLLMConfigured as isLLMConfiguredCached } from './aiStatus';
 
 // =============================================
 // Configuration
 // =============================================
 
-const API_KEY = import.meta.env.VITE_MIMO_API_KEY ?? '';
 const MODEL = import.meta.env.VITE_MIMO_MODEL ?? 'mimo-v2.5-pro';
-const BASE_URL = '/api/mimo/v1'; // Proxied by Vite → https://api.xiaomimimo.com/v1
+const BASE_URL = '/api/v1/ai';
 
 interface LLMOptions {
   model?: string;
@@ -63,7 +67,6 @@ export async function chatCompletion(
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${API_KEY}`,
     },
     body: JSON.stringify(body),
   });
@@ -105,7 +108,6 @@ export async function chatCompletionStream(
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${API_KEY}`,
     },
     body: JSON.stringify(body),
   });
@@ -155,7 +157,9 @@ export async function chatCompletionStream(
 
 /**
  * Check if the LLM client is configured with valid credentials.
+ * Backed by a cached server-status check (see ./aiStatus) since the
+ * client no longer holds the API key itself.
  */
 export function isLLMConfigured(): boolean {
-  return API_KEY.length > 0;
+  return isLLMConfiguredCached();
 }

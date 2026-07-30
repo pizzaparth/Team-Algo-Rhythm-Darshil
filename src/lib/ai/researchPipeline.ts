@@ -3,7 +3,9 @@
  *
  * Search → Filter → Deduplicate → Rank → Summarise → Feed into Planning Engine
  *
- * Uses Tavily API via Vite proxy (/api/tavily → api.tavily.com).
+ * Uses Tavily via the server-side proxy (/api/v1/ai/search) — the real
+ * Tavily key stays server-side (see server/routes/ai.ts) rather than
+ * shipping in the client bundle.
  * Raw results are summarised by the LLM before being consumed.
  */
 
@@ -11,8 +13,7 @@ import { ResearchResult, ProcessedResearch, EnhancedAIContext } from '../../type
 import { chatCompletion } from './llmClient';
 import { buildResearchSummaryPrompt } from './prompts/research';
 import { planningMemory } from './planningMemory';
-
-const TAVILY_API_KEY = import.meta.env.VITE_TAVILY_API_KEY ?? '';
+import { isSearchConfigured } from './aiStatus';
 
 interface TavilySearchOptions {
   searchDepth?: 'basic' | 'advanced';
@@ -105,17 +106,16 @@ async function tavilySearch(
   query: string,
   options?: TavilySearchOptions,
 ): Promise<ResearchResult[]> {
-  if (!TAVILY_API_KEY) {
-    console.warn('[ResearchPipeline] No Tavily API key configured');
+  if (!isSearchConfigured()) {
+    console.warn('[ResearchPipeline] Tavily is not configured on the server');
     return [];
   }
 
   try {
-    const response = await fetch('/api/tavily/search', {
+    const response = await fetch('/api/v1/ai/search', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        api_key: TAVILY_API_KEY,
         query,
         search_depth: options?.searchDepth ?? 'advanced',
         max_results: options?.maxResults ?? 10,
@@ -149,5 +149,5 @@ async function tavilySearch(
  * Check if Tavily is configured.
  */
 export function isTavilyConfigured(): boolean {
-  return TAVILY_API_KEY.length > 0;
+  return isSearchConfigured();
 }

@@ -17,23 +17,16 @@ export default defineConfig(() => {
       hmr: process.env.DISABLE_HMR !== 'true',
       // Disable file watching when DISABLE_HMR is true to save CPU during agent edits.
       watch: process.env.DISABLE_HMR === 'true' ? null : {},
-      // Phase 4: Proxy API calls to avoid CORS in development
+      // Proxy the backend API (including /api/v1/ai — the mimo/Tavily
+      // proxy routes in server/routes/ai.ts) to avoid CORS in development.
+      // This is the same route prefix used in production, so AI features
+      // work identically in both — no more separate dev-only proxy
+      // straight to the external providers (that bypassed the server
+      // entirely and only worked in `npm run dev`).
       proxy: {
-        // Phase 5: Backend API
         '/api/v1': {
           target: 'http://localhost:3002',
           changeOrigin: true,
-        },
-        // Phase 4: External AI APIs
-        '/api/mimo': {
-          target: 'https://api.xiaomimimo.com',
-          changeOrigin: true,
-          rewrite: (path: string) => path.replace(/^\/api\/mimo/, ''),
-        },
-        '/api/tavily': {
-          target: 'https://api.tavily.com',
-          changeOrigin: true,
-          rewrite: (path: string) => path.replace(/^\/api\/tavily/, ''),
         },
       },
     },

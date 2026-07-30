@@ -35,6 +35,7 @@ import sessionRoutes from './routes/sessions.js';
 import fileRoutes from './routes/files.js';
 import searchRoutes from './routes/search.js';
 import userRoutes from './routes/users.js';
+import aiRoutes from './routes/ai.js';
 import { errorHandler, notFoundHandler } from './middleware/errorHandler.js';
 import { logger } from './utils/logger.js';
 import { jobQueue } from './jobs/jobQueue.js';
@@ -116,6 +117,7 @@ app.use(`${API}/projects`, projectRoutes);
 app.use(`${API}/sessions`, sessionRoutes);
 app.use(`${API}/files`, fileRoutes);
 app.use(`${API}/search`, searchRoutes);
+app.use(`${API}/ai`, aiRoutes);
 
 // Serve static frontend in production
 if (IS_PROD) {
