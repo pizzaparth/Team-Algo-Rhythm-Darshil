@@ -6,6 +6,7 @@ import {
   Undo2, Redo2, Download, Settings, ChevronRight, Menu, X, FileEdit
 } from 'lucide-react';
 import { useAppStore, useGraphStore, useChatStore } from '../../store/';
+import { NavToggleButton } from './NavToggleButton';
 
 export const Header: React.FC = () => {
   const { viewMode, setViewMode, openModal, addToast } = useAppStore();
@@ -31,56 +32,37 @@ export const Header: React.FC = () => {
 
         {/* View Mode Nav Toggles */}
         <div className="hidden md:flex items-center space-x-1.5">
-          <button
+          <NavToggleButton
+            active={viewMode === 'landing'}
             onClick={() => setViewMode('landing')}
-            className={`px-3 py-1 rounded-full text-sm font-medium transition-all flex items-center space-x-1.5 border ${
-              viewMode === 'landing'
-                ? 'bg-[#1A1A1A] border-[#1A1A1A] text-white shadow-sm font-semibold'
-                : 'border-transparent text-[#666666] hover:text-[#1A1A1A] hover:bg-[#F3F1ED]'
-            }`}
-          >
-            <Sparkles className={`w-3.5 h-3.5 ${viewMode === 'landing' ? 'text-white opacity-80' : 'text-amber-600'}`} />
-            <span className="hidden sm:inline">Overview</span>
-          </button>
+            icon={<Sparkles className={`w-3.5 h-3.5 ${viewMode === 'landing' ? 'text-white opacity-80' : 'text-amber-600'}`} />}
+            label="Overview"
+            hideLabelOnMobile
+          />
 
-          <button
+          <NavToggleButton
+            active={viewMode === 'chat'}
             onClick={() => setViewMode('chat')}
-            className={`px-3 py-1 rounded-full text-sm font-medium transition-all flex items-center space-x-1.5 border ${
-              viewMode === 'chat'
-                ? 'bg-[#1A1A1A] border-[#1A1A1A] text-white shadow-sm font-semibold'
-                : 'border-transparent text-[#666666] hover:text-[#1A1A1A] hover:bg-[#F3F1ED]'
-            }`}
-          >
-            <MessageSquare className={`w-3.5 h-3.5 ${viewMode === 'chat' ? 'text-white opacity-80' : 'text-blue-600'}`} />
-            <span className="hidden sm:inline">Chat</span>
-          </button>
+            icon={<MessageSquare className={`w-3.5 h-3.5 ${viewMode === 'chat' ? 'text-white opacity-80' : 'text-blue-600'}`} />}
+            label="Chat"
+            hideLabelOnMobile
+          />
 
-          <button
+          <NavToggleButton
+            active={viewMode === 'workspace'}
             onClick={() => contextSufficient && setViewMode('workspace')}
             disabled={!contextSufficient}
-            className={`px-3 py-1 rounded-full text-sm font-medium transition-all flex items-center space-x-1.5 border ${
-              viewMode === 'workspace'
-                ? 'bg-[#1A1A1A] border-[#1A1A1A] text-white shadow-sm font-semibold'
-                : contextSufficient
-                  ? 'border-transparent text-[#666666] hover:text-[#1A1A1A] hover:bg-[#F3F1ED]'
-                  : 'border-transparent text-[#AAAAAA] cursor-not-allowed opacity-50'
-            }`}
-          >
-            <LayoutGrid className={`w-3.5 h-3.5 ${viewMode === 'workspace' ? 'text-white opacity-80' : ''}`} />
-            <span>Graph Canvas</span>
-          </button>
+            icon={<LayoutGrid className={`w-3.5 h-3.5 ${viewMode === 'workspace' ? 'text-white opacity-80' : ''}`} />}
+            label="Graph Canvas"
+          />
 
-          <button
+          <NavToggleButton
+            active={viewMode === 'editor'}
             onClick={() => setViewMode('editor')}
-            className={`px-3 py-1 rounded-full text-sm font-medium transition-all flex items-center space-x-1.5 border ${
-              viewMode === 'editor'
-                ? 'bg-[#1A1A1A] border-[#1A1A1A] text-white shadow-sm font-semibold'
-                : 'border-transparent text-[#666666] hover:text-[#1A1A1A] hover:bg-[#F3F1ED]'
-            }`}
-          >
-            <FileEdit className={`w-3.5 h-3.5 ${viewMode === 'editor' ? 'text-white opacity-80' : 'text-emerald-600'}`} />
-            <span className="hidden sm:inline">Editor</span>
-          </button>
+            icon={<FileEdit className={`w-3.5 h-3.5 ${viewMode === 'editor' ? 'text-white opacity-80' : 'text-emerald-600'}`} />}
+            label="Editor"
+            hideLabelOnMobile
+          />
         </div>
       </div>
 
@@ -156,56 +138,38 @@ export const Header: React.FC = () => {
       {mobileMenuOpen && (
         <div className="md:hidden fixed top-14 left-0 right-0 bg-white border-b border-[#E5E2DD] shadow-lg z-30 px-4 py-3 space-y-3">
           <div className="flex flex-col space-y-1.5">
-            <button
+            <NavToggleButton
+              variant="mobile"
+              active={viewMode === 'landing'}
               onClick={() => { setViewMode('landing'); setMobileMenuOpen(false); }}
-              className={`px-3 py-2 rounded-lg text-sm font-medium transition-all flex items-center space-x-2 ${
-                viewMode === 'landing'
-                  ? 'bg-[#1A1A1A] text-white font-semibold'
-                  : 'text-[#666666] hover:bg-[#F3F1ED] hover:text-[#1A1A1A]'
-              }`}
-            >
-              <Sparkles className={`w-4 h-4 ${viewMode === 'landing' ? 'text-white opacity-80' : 'text-amber-600'}`} />
-              <span>Overview</span>
-            </button>
+              icon={<Sparkles className={`w-4 h-4 ${viewMode === 'landing' ? 'text-white opacity-80' : 'text-amber-600'}`} />}
+              label="Overview"
+            />
 
-            <button
+            <NavToggleButton
+              variant="mobile"
+              active={viewMode === 'chat'}
               onClick={() => { setViewMode('chat'); setMobileMenuOpen(false); }}
-              className={`px-3 py-2 rounded-lg text-sm font-medium transition-all flex items-center space-x-2 ${
-                viewMode === 'chat'
-                  ? 'bg-[#1A1A1A] text-white font-semibold'
-                  : 'text-[#666666] hover:bg-[#F3F1ED] hover:text-[#1A1A1A]'
-              }`}
-            >
-              <MessageSquare className={`w-4 h-4 ${viewMode === 'chat' ? 'text-white opacity-80' : 'text-blue-600'}`} />
-              <span>Chat</span>
-            </button>
+              icon={<MessageSquare className={`w-4 h-4 ${viewMode === 'chat' ? 'text-white opacity-80' : 'text-blue-600'}`} />}
+              label="Chat"
+            />
 
-            <button
+            <NavToggleButton
+              variant="mobile"
+              active={viewMode === 'workspace'}
               onClick={() => { if (contextSufficient) { setViewMode('workspace'); setMobileMenuOpen(false); } }}
               disabled={!contextSufficient}
-              className={`px-3 py-2 rounded-lg text-sm font-medium transition-all flex items-center space-x-2 ${
-                viewMode === 'workspace'
-                  ? 'bg-[#1A1A1A] text-white font-semibold'
-                  : contextSufficient
-                    ? 'text-[#666666] hover:bg-[#F3F1ED] hover:text-[#1A1A1A]'
-                    : 'text-[#AAAAAA] cursor-not-allowed opacity-50'
-              }`}
-            >
-              <LayoutGrid className={`w-4 h-4 ${viewMode === 'workspace' ? 'text-white opacity-80' : ''}`} />
-              <span>Graph Canvas</span>
-            </button>
+              icon={<LayoutGrid className={`w-4 h-4 ${viewMode === 'workspace' ? 'text-white opacity-80' : ''}`} />}
+              label="Graph Canvas"
+            />
 
-            <button
+            <NavToggleButton
+              variant="mobile"
+              active={viewMode === 'editor'}
               onClick={() => { setViewMode('editor'); setMobileMenuOpen(false); }}
-              className={`px-3 py-2 rounded-lg text-sm font-medium transition-all flex items-center space-x-2 ${
-                viewMode === 'editor'
-                  ? 'bg-[#1A1A1A] text-white font-semibold'
-                  : 'text-[#666666] hover:bg-[#F3F1ED] hover:text-[#1A1A1A]'
-              }`}
-            >
-              <FileEdit className={`w-4 h-4 ${viewMode === 'editor' ? 'text-white opacity-80' : 'text-emerald-600'}`} />
-              <span>Editor</span>
-            </button>
+              icon={<FileEdit className={`w-4 h-4 ${viewMode === 'editor' ? 'text-white opacity-80' : 'text-emerald-600'}`} />}
+              label="Editor"
+            />
           </div>
 
           {viewMode === 'workspace' && (
