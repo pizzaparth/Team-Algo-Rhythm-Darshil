@@ -4,6 +4,7 @@ import React, { useRef, useEffect } from 'react';
 import { Bot, User, Loader2, Copy, Check } from 'lucide-react';
 import { useChatStore, useAppStore } from '../../../store/';
 import { renderMarkdown } from '../../../lib/markdownRenderer';
+import { AvatarBubble } from '../../common/AvatarBubble';
 
 
 
@@ -38,9 +39,7 @@ export const ConversationThread: React.FC = () => {
             {/* Avatar */}
             <div className="flex items-start space-x-2">
               {msg.sender === 'ai' && (
-                <div className="w-6 h-6 rounded-full bg-[#1A1A1A] flex items-center justify-center shrink-0 mt-0.5">
-                  <Bot className="w-3.5 h-3.5 text-white" />
-                </div>
+                <AvatarBubble icon={<Bot className="w-3.5 h-3.5 text-white" />} className="mt-0.5" />
               )}
               <div className={`rounded-lg p-2.5 text-[11px] leading-relaxed ${
                 msg.sender === 'user'
@@ -77,9 +76,7 @@ export const ConversationThread: React.FC = () => {
                 )}
               </div>
               {msg.sender === 'user' && (
-                <div className="w-6 h-6 rounded-full bg-indigo-600 flex items-center justify-center shrink-0 mt-0.5">
-                  <User className="w-3.5 h-3.5 text-white" />
-                </div>
+                <AvatarBubble icon={<User className="w-3.5 h-3.5 text-white" />} bg="bg-indigo-600" className="mt-0.5" />
               )}
             </div>
 
@@ -103,9 +100,7 @@ export const ConversationThread: React.FC = () => {
       {/* Typing indicator */}
       {isGenerating && (
         <div className="flex items-start space-x-2">
-          <div className="w-6 h-6 rounded-full bg-[#1A1A1A] flex items-center justify-center shrink-0">
-            <Bot className="w-3.5 h-3.5 text-white" />
-          </div>
+          <AvatarBubble icon={<Bot className="w-3.5 h-3.5 text-white" />} />
           <div className="bg-white border border-[#E5E2DD] rounded-lg rounded-bl-sm p-2.5 shadow-sm">
             <div className="flex items-center space-x-1.5">
               <Loader2 className="w-3.5 h-3.5 text-indigo-500 animate-spin" />
