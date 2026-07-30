@@ -16,9 +16,6 @@ import {
 import { buildExpansionPrompt } from './ai/prompts/planning';
 import { planningMemory } from './ai/planningMemory';
 
-/** No longer needed — LLM has its own latency */
-export const MOCK_EXPANSION_DELAY_MS = 0;
-
 /**
  * Generate expansion nodes for a parent via the real LLM.
  *
