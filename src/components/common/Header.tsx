@@ -32,7 +32,7 @@ export const Header: React.FC = () => {
         <div className="hidden md:flex items-center space-x-1.5">
           <button
             onClick={() => setViewMode('landing')}
-            className={`px-3 py-1 rounded-full text-xs font-medium transition-all flex items-center space-x-1.5 border ${
+            className={`px-3 py-1 rounded-full text-sm font-medium transition-all flex items-center space-x-1.5 border ${
               viewMode === 'landing'
                 ? 'bg-white border-[#E5E2DD] text-[#1A1A1A] shadow-sm font-semibold'
                 : 'border-transparent text-[#666666] hover:text-[#1A1A1A] hover:bg-[#F3F1ED]'
@@ -44,7 +44,7 @@ export const Header: React.FC = () => {
 
           <button
             onClick={() => setViewMode('chat')}
-            className={`px-3 py-1 rounded-full text-xs font-medium transition-all flex items-center space-x-1.5 border ${
+            className={`px-3 py-1 rounded-full text-sm font-medium transition-all flex items-center space-x-1.5 border ${
               viewMode === 'chat'
                 ? 'bg-white border-[#E5E2DD] text-[#1A1A1A] shadow-sm font-semibold'
                 : 'border-transparent text-[#666666] hover:text-[#1A1A1A] hover:bg-[#F3F1ED]'
@@ -57,7 +57,7 @@ export const Header: React.FC = () => {
           <button
             onClick={() => contextSufficient && setViewMode('workspace')}
             disabled={!contextSufficient}
-            className={`px-3 py-1 rounded-full text-xs font-medium transition-all flex items-center space-x-1.5 border ${
+            className={`px-3 py-1 rounded-full text-sm font-medium transition-all flex items-center space-x-1.5 border ${
               viewMode === 'workspace'
                 ? 'bg-[#1A1A1A] border-[#1A1A1A] text-white shadow-sm font-semibold'
                 : contextSufficient
@@ -71,7 +71,7 @@ export const Header: React.FC = () => {
 
           <button
             onClick={() => setViewMode('editor')}
-            className={`px-3 py-1 rounded-full text-xs font-medium transition-all flex items-center space-x-1.5 border ${
+            className={`px-3 py-1 rounded-full text-sm font-medium transition-all flex items-center space-x-1.5 border ${
               viewMode === 'editor'
                 ? 'bg-white border-[#E5E2DD] text-[#1A1A1A] shadow-sm font-semibold'
                 : 'border-transparent text-[#666666] hover:text-[#1A1A1A] hover:bg-[#F3F1ED]'
@@ -134,7 +134,7 @@ export const Header: React.FC = () => {
               setViewMode('workspace');
               addToast('Transitioned into Planning Workspace', 'success');
             }}
-            className="ml-2 px-4 py-1.5 rounded-full bg-[#1A1A1A] hover:bg-[#2c2c2c] text-white text-xs font-semibold flex items-center space-x-1.5 transition-all shadow-sm"
+            className="ml-2 px-4 py-1.5 rounded-full bg-[#1A1A1A] hover:bg-[#2c2c2c] text-white text-sm font-semibold flex items-center space-x-1.5 transition-all shadow-sm"
           >
             <span>Start Planning</span>
             <ChevronRight className="w-3.5 h-3.5" />
