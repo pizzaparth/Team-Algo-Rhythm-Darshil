@@ -1,4 +1,4 @@
-import { Project, Session, StrategyTemplate, GraphNode, GraphEdge, ChatMessage, AISuggestion } from '../types';
+import type { Project, Session, StrategyTemplate, GraphNode, GraphEdge, ChatMessage, AISuggestion } from '../types';
 
 export const INITIAL_PROJECTS: Project[] = [
   {
