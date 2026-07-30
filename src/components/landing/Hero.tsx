@@ -103,7 +103,7 @@ export const Hero: React.FC<HeroProps> = ({ onStartReasoning, onExploreDemo }) =
             transition={{ duration: 0.8, delay: 0.2 }}
             className="w-full lg:w-1/2 relative"
           >
-            <div className="relative bg-white/60 border border-black/5 rounded-[32px] shadow-2xl backdrop-blur-md overflow-hidden flex flex-col min-h-[460px]">
+            <div className="relative bg-white/60 border border-black/5 rounded-[32px] shadow-2xl backdrop-blur-md overflow-hidden flex flex-col min-h-[420px] sm:min-h-[460px]">
 
               {/* Window Header */}
               <div className="h-12 border-b border-black/5 px-6 flex items-center justify-between bg-white/80">
@@ -120,54 +120,63 @@ export const Hero: React.FC<HeroProps> = ({ onStartReasoning, onExploreDemo }) =
                 </div>
               </div>
 
-              {/* Window Body: Clean Minimal Graph Nodes */}
-              <div className="flex-1 relative p-6 bg-[#fafaf9]/50 bg-graph-grid min-h-[340px]">
-                <svg className="absolute inset-0 w-full h-full pointer-events-none">
-                  <path
-                    d="M 60 160 L 190 90 M 60 160 L 190 230 M 190 90 L 330 60 M 190 90 L 330 125"
-                    stroke="#d4d4d4"
-                    strokeWidth="1.5"
-                    fill="none"
-                  />
+              {/* Window Body: Clean Minimal Graph Nodes — percentage-positioned so
+                  nodes and edges scale together and never overlap or clip, at any
+                  container width (mobile through desktop). */}
+              <div className="flex-1 relative p-4 sm:p-6 bg-[#fafaf9]/50 bg-graph-grid min-h-[280px] sm:min-h-[340px]">
+                <svg
+                  className="absolute inset-0 w-full h-full pointer-events-none"
+                  viewBox="0 0 100 100"
+                  preserveAspectRatio="none"
+                >
+                  {/* Root -> Proposal A */}
+                  <path d="M30,48 C34,48 34,20 38,20" stroke="#171717" strokeWidth="2.2" strokeOpacity="0.12" fill="none" />
+                  <path className="react-flow__edge-path" d="M30,48 C34,48 34,20 38,20" stroke="#a3a3a3" strokeWidth="0.8" fill="none" />
+                  {/* Root -> Proposal B */}
+                  <path d="M30,48 C34,48 34,80 38,80" stroke="#171717" strokeWidth="2.2" strokeOpacity="0.12" fill="none" />
+                  <path className="react-flow__edge-path" d="M30,48 C34,48 34,80 38,80" stroke="#a3a3a3" strokeWidth="0.8" fill="none" />
+                  {/* Proposal A -> Reasoning */}
+                  <path d="M64,20 C67,20 67,20 70,20" stroke="#171717" strokeWidth="2.2" strokeOpacity="0.12" fill="none" />
+                  <path className="react-flow__edge-path" d="M64,20 C67,20 67,20 70,20" stroke="#3b82f6" strokeOpacity="0.5" strokeWidth="0.8" fill="none" />
                 </svg>
 
                 {/* Root Query Node */}
-                <div className="absolute top-[120px] left-[16px] sm:left-[24px] w-40 p-3.5 bg-[#171717] text-white rounded-xl shadow-xl z-10 transition-transform hover:scale-105">
-                  <div className="text-[9px] font-mono text-slate-400 mb-1 tracking-wider uppercase">
+                <div className="absolute left-[4%] top-[38%] w-[26%] p-2 sm:p-3.5 bg-[#171717] text-white rounded-xl shadow-xl z-10 transition-transform hover:scale-105">
+                  <div className="text-[7px] sm:text-[9px] font-mono text-slate-400 mb-1 tracking-wider uppercase truncate">
                     ROOT QUERY
                   </div>
-                  <div className="text-xs leading-snug font-medium">
-                    Market Entry Strategy: EU Phase 1
+                  <div className="text-[9px] sm:text-xs leading-snug font-medium">
+                    EU Market Entry
                   </div>
                 </div>
 
                 {/* Proposal A Node */}
-                <div className="absolute top-[50px] left-[180px] sm:left-[200px] w-40 p-3.5 bg-white border border-[#e5e5e5] rounded-xl shadow-md z-10 transition-transform hover:scale-105">
-                  <div className="text-[9px] font-bold text-[#22c55e] mb-1 font-mono uppercase">
+                <div className="absolute left-[38%] top-[8%] w-[26%] p-2 sm:p-3.5 bg-white border border-[#e5e5e5] rounded-xl shadow-md z-10 transition-transform hover:scale-105">
+                  <div className="text-[7px] sm:text-[9px] font-bold text-[#22c55e] mb-1 font-mono uppercase truncate">
                     PROPOSAL A
                   </div>
-                  <div className="text-xs text-[#525252] font-medium leading-tight">
-                    Direct digital distribution focus
+                  <div className="text-[9px] sm:text-xs text-[#525252] font-medium leading-tight">
+                    Digital Distribution Focus
                   </div>
                 </div>
 
                 {/* Proposal B Node */}
-                <div className="absolute top-[190px] left-[180px] sm:left-[200px] w-40 p-3.5 bg-white border border-[#e5e5e5] rounded-xl shadow-md opacity-70 z-10">
-                  <div className="text-[9px] font-bold text-[#737373] mb-1 font-mono uppercase">
+                <div className="absolute left-[38%] top-[68%] w-[26%] p-2 sm:p-3.5 bg-white border border-[#e5e5e5] rounded-xl shadow-md opacity-70 z-10">
+                  <div className="text-[7px] sm:text-[9px] font-bold text-[#737373] mb-1 font-mono uppercase truncate">
                     PROPOSAL B
                   </div>
-                  <div className="text-xs text-[#525252] font-medium leading-tight">
-                    Local partnership model
+                  <div className="text-[9px] sm:text-xs text-[#525252] font-medium leading-tight">
+                    Local Partnership Model
                   </div>
                 </div>
 
                 {/* Reasoning Node */}
-                <div className="absolute top-[20px] left-[320px] sm:left-[350px] w-36 p-3 bg-blue-50/90 border border-blue-100 rounded-lg shadow-sm ring-2 ring-blue-500/20 z-10 hidden sm:block">
-                  <div className="text-[9px] font-bold text-blue-600 font-mono mb-1">
+                <div className="absolute left-[70%] top-[8%] w-[26%] p-2 sm:p-3 bg-blue-50/90 border border-blue-100 rounded-lg shadow-sm ring-2 ring-blue-500/20 z-10">
+                  <div className="text-[7px] sm:text-[9px] font-bold text-blue-600 font-mono mb-1 truncate">
                     REASONING
                   </div>
-                  <div className="text-[11px] text-[#525252] leading-tight">
-                    High scalability, lower initial OPEX cost
+                  <div className="text-[8px] sm:text-[11px] text-[#525252] leading-tight">
+                    Lower OPEX Cost
                   </div>
                 </div>
               </div>
