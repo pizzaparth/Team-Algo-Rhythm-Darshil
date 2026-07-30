@@ -1,10 +1,10 @@
 // Author: Parth Pancholi
 
 import React, { useState, useRef, useEffect } from 'react';
-import { 
-  Send, Bot, User, Paperclip, Sparkles, ChevronRight, 
+import {
+  Send, Bot, User, Paperclip, Sparkles, ChevronRight,
   ArrowUpRight, Plus, MessageSquare, Terminal, Copy, Check,
-  Edit3, Trash2
+  Edit3, Trash2, PanelLeftClose, PanelLeftOpen, X
 } from 'lucide-react';
 import { useChatStore, useAppStore, useProjectStore } from '../../store/';
 import { renderMarkdown, getRelativeTime } from '../../lib/markdownRenderer';
@@ -16,6 +16,11 @@ export const ChatInterface: React.FC = () => {
 
   const [input, setInput] = useState('');
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  // Sidebar starts open on desktop, closed on mobile — matches the device's
+  // actual width at load rather than forcing one default for every screen.
+  const [sidebarOpen, setSidebarOpen] = useState(() =>
+    typeof window !== 'undefined' ? window.innerWidth >= 768 : true
+  );
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -52,18 +57,39 @@ export const ChatInterface: React.FC = () => {
   ];
 
   return (
-    <div className="flex h-[calc(100vh-3.5rem)] bg-[#F9F8F6] text-[#1A1A1A] overflow-hidden select-none">
-      {/* Sessions Left Sidebar */}
-      <div className="w-64 bg-[#F3F1ED] border-r border-[#E5E2DD] flex flex-col hidden md:flex">
+    <div className="relative flex h-[calc(100vh-3.5rem)] bg-[#F9F8F6] text-[#1A1A1A] overflow-hidden select-none">
+      {/* Backdrop — closes the sidebar when tapped outside it on mobile */}
+      {sidebarOpen && (
+        <div
+          onClick={() => setSidebarOpen(false)}
+          className="fixed inset-0 top-14 bg-black/40 z-30 md:hidden"
+        />
+      )}
+
+      {/* Sessions Left Sidebar — slides in as an overlay on mobile, docks inline on desktop */}
+      <div
+        className={`fixed md:static inset-y-0 top-14 md:top-0 left-0 z-40 md:z-auto w-72 md:w-64 h-[calc(100vh-3.5rem)] md:h-full bg-[#F3F1ED] border-r border-[#E5E2DD] flex flex-col transform transition-transform duration-200 ease-in-out ${
+          sidebarOpen ? 'translate-x-0' : '-translate-x-full md:hidden'
+        }`}
+      >
         <div className="p-4 border-b border-[#E5E2DD] flex items-center justify-between">
           <h3 className="text-xs font-bold text-[#1A1A1A] uppercase tracking-wider">Sessions</h3>
-          <button
-            onClick={() => createSession(`Session ${sessions.length + 1}`)}
-            className="p-1 rounded bg-[#1A1A1A] text-white hover:bg-[#2c2c2c] transition-colors"
-            title="New Chat Session"
-          >
-            <Plus className="w-4 h-4" />
-          </button>
+          <div className="flex items-center space-x-1.5">
+            <button
+              onClick={() => createSession(`Session ${sessions.length + 1}`)}
+              className="p-1 rounded bg-[#1A1A1A] text-white hover:bg-[#2c2c2c] transition-colors"
+              title="New Chat Session"
+            >
+              <Plus className="w-4 h-4" />
+            </button>
+            <button
+              onClick={() => setSidebarOpen(false)}
+              className="p-1 rounded bg-[#1A1A1A] text-white hover:bg-[#2c2c2c] transition-colors md:hidden"
+              title="Close Sessions"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
         </div>
 
         <div className="flex-1 overflow-y-auto p-2 space-y-1">
@@ -131,12 +157,24 @@ export const ChatInterface: React.FC = () => {
       </div>
 
       {/* Main Conversation Stream */}
-      <div className="flex-1 flex flex-col h-full bg-[#F9F8F6] relative">
+      <div className="flex-1 flex flex-col h-full min-w-0 bg-[#F9F8F6] relative">
+        {/* Sidebar Toggle Bar — always reachable regardless of screen size */}
+        <div className="flex items-center px-4 py-2.5 border-b border-[#E5E2DD] bg-[#F9F8F6] shrink-0">
+          <button
+            onClick={() => setSidebarOpen((open) => !open)}
+            className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-[#1A1A1A] hover:bg-[#2c2c2c] text-white text-xs font-semibold transition-colors shadow-sm"
+            title={sidebarOpen ? 'Collapse Sessions' : 'Expand Sessions'}
+          >
+            {sidebarOpen ? <PanelLeftClose className="w-4 h-4" /> : <PanelLeftOpen className="w-4 h-4" />}
+            <span>Sessions</span>
+          </button>
+        </div>
+
         {/* Banner Alert for Transition to Planning Workspace */}
         {contextSufficient && (
-          <div className="bg-[#EEEBE6] border-b border-[#E5E2DD] px-4 py-2.5 flex items-center justify-between text-xs text-[#1A1A1A]">
+          <div className="bg-[#EEEBE6] border-b border-[#E5E2DD] px-4 py-2.5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs text-[#1A1A1A]">
             <div className="flex items-center space-x-2">
-              <span className="flex h-2 w-2 relative">
+              <span className="flex h-2 w-2 relative shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-600"></span>
               </span>
@@ -144,7 +182,7 @@ export const ChatInterface: React.FC = () => {
             </div>
             <button
               onClick={() => setViewMode('workspace')}
-              className="px-3 py-1 bg-[#1A1A1A] hover:bg-[#2c2c2c] text-white font-semibold rounded-md flex items-center space-x-1 transition-colors shadow-sm text-xs"
+              className="shrink-0 px-3 py-1 bg-[#1A1A1A] hover:bg-[#2c2c2c] text-white font-semibold rounded-md flex items-center space-x-1 transition-colors shadow-sm text-xs"
             >
               <span>Start Planning Workspace</span>
               <ChevronRight className="w-3.5 h-3.5" />
