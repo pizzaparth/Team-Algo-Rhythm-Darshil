@@ -1,6 +1,6 @@
 import React from 'react';
-import { 
-  Plus, Copy, Trash2, Edit3, Columns, Star, 
+import {
+  Plus, Copy, Trash2, Edit3, Columns, Star,
   ChevronUp, ChevronDown, FileText, Users, Bookmark,
   Sparkles, Crosshair, Loader2
 } from 'lucide-react';
@@ -10,6 +10,28 @@ import { graphCommands } from '../../lib/graphCommands';
 interface NodeToolbarProps {
   nodeId: string;
 }
+
+interface ToolbarButtonProps {
+  onClick: () => void;
+  label: string;
+  disabled?: boolean;
+  className: string;
+  children: React.ReactNode;
+}
+
+// Wraps a toolbar button with an instant (no-delay) hover tooltip showing
+// what the button does — replaces the native `title` attribute, whose
+// browser-default hover delay is too slow for a dense icon toolbar.
+const ToolbarButton: React.FC<ToolbarButtonProps> = ({ onClick, label, disabled, className, children }) => (
+  <div className="relative group/tooltip">
+    <button onClick={onClick} disabled={disabled} aria-label={label} className={className}>
+      {children}
+    </button>
+    <span className="pointer-events-none absolute left-1/2 top-full mt-2 -translate-x-1/2 whitespace-nowrap rounded-md bg-[#1A1A1A] px-2 py-1 text-[10px] font-medium text-white opacity-0 group-hover/tooltip:opacity-100 transition-opacity duration-75 z-50">
+      {label}
+    </span>
+  </div>
+);
 
 export const NodeToolbar: React.FC<NodeToolbarProps> = ({ nodeId }) => {
   const { nodes, deleteNode, duplicateNode, toggleNodeBookmark, toggleNodeCollapse, expandingNodeId } = useGraphStore();
@@ -22,55 +44,55 @@ export const NodeToolbar: React.FC<NodeToolbarProps> = ({ nodeId }) => {
   return (
     <div className="flex items-center space-x-2 bg-white/95 backdrop-blur-md border border-[#E5E2DD] p-2.5 rounded-full shadow-lg z-40 text-xs animate-in fade-in zoom-in-95 duration-150">
       {/* Expand (AI) */}
-      <button
+      <ToolbarButton
         onClick={() => openModal('expand_node', { nodeId })}
         disabled={isExpanding}
+        label="Expand with AI (E)"
         className="px-4 py-1.5 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium flex items-center space-x-1 transition-colors shadow-sm disabled:opacity-60"
-        title="Expand with AI (E)"
       >
         {isExpanding ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Sparkles className="w-3.5 h-3.5" />}
         <span>{isExpanding ? 'Expanding...' : 'Expand'}</span>
-      </button>
+      </ToolbarButton>
 
       {/* Add Child */}
-      <button
+      <ToolbarButton
         onClick={() => openModal('create_node', { parentId: nodeId })}
+        label="Add Child Node"
         className="px-4 py-1.5 rounded-full bg-[#1A1A1A] hover:bg-[#2c2c2c] text-white font-medium flex items-center space-x-1 transition-colors shadow-sm"
-        title="Add Child Node"
       >
         <Plus className="w-3.5 h-3.5" />
         <span>Add Child</span>
-      </button>
+      </ToolbarButton>
 
       {/* Compare */}
-      <button
+      <ToolbarButton
         onClick={() => openModal('compare', { firstNodeId: nodeId })}
+        label="Compare with another node"
         className="p-2 text-[#1A1A1A] hover:bg-[#F3F1ED] rounded-full transition-colors"
-        title="Compare with another node"
       >
         <Columns className="w-3.5 h-3.5 text-blue-600" />
-      </button>
+      </ToolbarButton>
 
       {/* Focus Branch */}
-      <button
+      <ToolbarButton
         onClick={() => graphCommands.focusBranch(nodeId)}
+        label="Focus this branch"
         className="p-2 text-[#1A1A1A] hover:bg-[#F3F1ED] rounded-full transition-colors"
-        title="Focus this branch"
       >
         <Crosshair className="w-3.5 h-3.5 text-indigo-600" />
-      </button>
+      </ToolbarButton>
 
       {/* Rename */}
-      <button
+      <ToolbarButton
         onClick={() => openModal('rename_node', { nodeId })}
+        label="Rename Node"
         className="p-2 text-[#1A1A1A] hover:bg-[#F3F1ED] rounded-full transition-colors"
-        title="Rename Node"
       >
         <Edit3 className="w-3.5 h-3.5 text-emerald-600" />
-      </button>
+      </ToolbarButton>
 
       {/* Notes */}
-      <button
+      <ToolbarButton
         onClick={() => {
           if (node.data.notes) {
             addToast(`📝 Notes: ${node.data.notes.slice(0, 60)}${node.data.notes.length > 60 ? '…' : ''}`, 'info');
@@ -79,14 +101,14 @@ export const NodeToolbar: React.FC<NodeToolbarProps> = ({ nodeId }) => {
             addToast('Open notes by editing the node', 'info');
           }
         }}
+        label="View Notes"
         className="p-2 text-[#1A1A1A] hover:bg-[#F3F1ED] rounded-full transition-colors"
-        title="View Notes"
       >
         <FileText className="w-3.5 h-3.5 text-amber-600" />
-      </button>
+      </ToolbarButton>
 
       {/* Experts */}
-      <button
+      <ToolbarButton
         onClick={() => {
           const expertsCount = node.data.experts?.length ?? 0;
           if (expertsCount > 0) {
@@ -95,47 +117,47 @@ export const NodeToolbar: React.FC<NodeToolbarProps> = ({ nodeId }) => {
             addToast('No expert references on this node yet', 'info');
           }
         }}
+        label="View Experts"
         className="p-2 text-[#1A1A1A] hover:bg-[#F3F1ED] rounded-full transition-colors"
-        title="View Experts"
       >
         <Users className="w-3.5 h-3.5 text-purple-600" />
-      </button>
+      </ToolbarButton>
 
       {/* Bookmark */}
-      <button
+      <ToolbarButton
         onClick={() => toggleNodeBookmark(nodeId)}
+        label="Toggle Bookmark"
         className="p-2 text-[#1A1A1A] hover:bg-[#F3F1ED] rounded-full transition-colors"
-        title="Toggle Bookmark"
       >
         <Star className={`w-3.5 h-3.5 ${node.data.bookmarked ? 'text-amber-500 fill-amber-500' : ''}`} />
-      </button>
+      </ToolbarButton>
 
       {/* Duplicate */}
-      <button
+      <ToolbarButton
         onClick={() => duplicateNode(nodeId)}
+        label="Duplicate Node"
         className="p-2 text-[#1A1A1A] hover:bg-[#F3F1ED] rounded-full transition-colors"
-        title="Duplicate Node"
       >
         <Copy className="w-3.5 h-3.5" />
-      </button>
+      </ToolbarButton>
 
       {/* Collapse/Expand */}
-      <button
+      <ToolbarButton
         onClick={() => toggleNodeCollapse(nodeId)}
+        label={node.data.collapsed ? 'Expand Branch' : 'Collapse Branch'}
         className="p-2 text-[#1A1A1A] hover:bg-[#F3F1ED] rounded-full transition-colors"
-        title={node.data.collapsed ? 'Expand Branch' : 'Collapse Branch'}
       >
         {node.data.collapsed ? <ChevronDown className="w-3.5 h-3.5" /> : <ChevronUp className="w-3.5 h-3.5" />}
-      </button>
+      </ToolbarButton>
 
       {/* Delete */}
-      <button
+      <ToolbarButton
         onClick={() => openModal('delete_node', { nodeId: nodeId })}
+        label="Delete Node"
         className="p-2 text-rose-600 hover:bg-rose-50 rounded-full transition-colors"
-        title="Delete Node"
       >
         <Trash2 className="w-3.5 h-3.5" />
-      </button>
+      </ToolbarButton>
     </div>
   );
 };
