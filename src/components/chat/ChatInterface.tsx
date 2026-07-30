@@ -114,7 +114,7 @@ export const ChatInterface: React.FC = () => {
             <div className="p-2 border-t border-[#E5E2DD]">
               <button
                 onClick={() => setViewMode('workspace')}
-                className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-lg text-sm text-[#1A1A1A] hover:bg-[#F3F1ED] transition-colors"
+                className={primaryButtonClasses('w-full flex items-center justify-center space-x-2 px-3 py-2.5 rounded-lg text-sm')}
               >
                 <ArrowUpRight className="w-4 h-4" />
                 <span>Open Decision Canvas</span>
