@@ -13,17 +13,13 @@ export const ToastContainer: React.FC = () => {
     <div className="fixed bottom-5 right-5 z-50 flex flex-col space-y-2 max-w-sm w-full pointer-events-none">
       {toasts.map((toast) => {
         let icon = <Info className="w-4 h-4 text-blue-400" />;
-        let borderColor = 'border-blue-500/40';
 
         if (toast.type === 'success') {
           icon = <CheckCircle2 className="w-4 h-4 text-emerald-400" />;
-          borderColor = 'border-emerald-500/40';
         } else if (toast.type === 'warning') {
           icon = <AlertTriangle className="w-4 h-4 text-amber-400" />;
-          borderColor = 'border-amber-500/40';
         } else if (toast.type === 'error') {
           icon = <XCircle className="w-4 h-4 text-rose-400" />;
-          borderColor = 'border-rose-500/40';
         }
 
         return (

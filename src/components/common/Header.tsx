@@ -2,11 +2,10 @@
 
 import React, { useState } from 'react';
 import {
-  BrainCircuit, LayoutGrid, MessageSquare, Sparkles,
+  LayoutGrid, MessageSquare, Sparkles,
   Undo2, Redo2, Download, Settings, ChevronRight, Menu, X, FileEdit
 } from 'lucide-react';
 import { useAppStore, useGraphStore, useChatStore } from '../../store/';
-import { ViewMode } from '../../types';
 
 export const Header: React.FC = () => {
   const { viewMode, setViewMode, openModal, addToast } = useAppStore();
