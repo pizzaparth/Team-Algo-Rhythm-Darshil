@@ -9,7 +9,7 @@
  * - Type validation against GeneratedNode schema
  */
 
-import { GeneratedNode, AISuggestion, NodeType, NodeStatus } from '../../types';
+import type { GeneratedNode, AISuggestion, NodeType, NodeStatus } from '../../types';
 
 // =============================================
 // JSON Extraction

@@ -9,7 +9,7 @@
  * Raw results are summarised by the LLM before being consumed.
  */
 
-import { ResearchResult, ProcessedResearch, EnhancedAIContext } from '../../types';
+import type { ResearchResult, ProcessedResearch, EnhancedAIContext } from '../../types';
 import { chatCompletion } from './llmClient';
 import { buildResearchSummaryPrompt } from './prompts/research';
 import { planningMemory } from './planningMemory';

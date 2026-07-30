@@ -8,7 +8,7 @@
  * Persisted to localStorage for session recovery.
  */
 
-import { PlanningMemorySnapshot } from '../../types';
+import type { PlanningMemorySnapshot } from '../../types';
 
 const STORAGE_KEY = 'ai-reasoning-planning-memory';
 
