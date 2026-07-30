@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { useGraphStore, useAIStore, useSessionStore } from '../../store/';
 import { AvatarBubble } from '../common/AvatarBubble';
+import { SidebarEdgeToggle } from '../common/SidebarEdgeToggle';
 import { primaryButtonClasses } from '../../lib/uiClasses';
 import { NodeContextCard } from './AIPanel/NodeContextCard';
 import { ConversationThread } from './AIPanel/ConversationThread';
@@ -49,13 +50,12 @@ export const AIPanel: React.FC<AIPanelProps> = ({ onClose }) => {
   return (
     <div className="relative w-80 md:w-96 bg-[#F3F1ED] border-l border-[#E5E2DD] flex flex-col h-full z-20 text-xs text-[#1A1A1A] select-none">
       {/* Collapse Handle — left edge, vertically centered */}
-      <button
+      <SidebarEdgeToggle
+        side="left"
         onClick={onClose}
         title="Collapse AI Reasoning Assistant"
-        className="absolute top-1/2 -left-3 -translate-y-1/2 z-30 w-6 h-6 rounded-full bg-[#1A1A1A] hover:bg-[#2c2c2c] flex items-center justify-center shadow-md transition-colors"
-      >
-        <ChevronRight className="w-3.5 h-3.5 text-white" />
-      </button>
+        icon={<ChevronRight className="w-3.5 h-3.5 text-white" />}
+      />
 
       {/* Panel Header — fixed at top */}
       <div className="flex items-center justify-between bg-[#EEEBE6] border-b border-[#E5E2DD] px-3 py-2 shrink-0">
