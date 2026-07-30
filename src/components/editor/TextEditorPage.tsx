@@ -11,6 +11,7 @@ import { useEditorStore } from '../../store/';
 import { getRelativeTime } from '../../lib/markdownRenderer';
 import { exportElementToPDF } from '../../lib/pdfExport';
 import { primaryButtonClasses } from '../../lib/uiClasses';
+import { CollapsibleSidebarShell } from '../common/CollapsibleSidebarShell';
 
 interface ToolbarButton {
   icon: React.ReactNode;
@@ -132,27 +133,13 @@ export const TextEditorPage: React.FC = () => {
 
   return (
     <div className="relative flex h-[calc(100vh-3.5rem)] bg-[#F9F8F6] overflow-hidden">
-      {/* Backdrop — closes the files drawer when tapped outside it on mobile */}
-      {sidebarOpen && (
-        <div
-          onClick={() => setSidebarOpen(false)}
-          className="fixed inset-0 top-14 bg-black/40 z-30 md:hidden"
-        />
-      )}
-
-      {/* Collapsible Files Sidebar */}
-      <div className="relative flex h-full bg-[#F3F1ED] border-r border-[#E5E2DD] shrink-0">
-        {/* Expand/Collapse Handle — sits centered on the sidebar's right edge */}
-        <button
-          onClick={() => setSidebarOpen(!sidebarOpen)}
-          title={sidebarOpen ? 'Collapse Sidebar' : 'Expand Sidebar'}
-          className="absolute top-1/2 -right-3 -translate-y-1/2 z-30 w-6 h-6 rounded-full bg-[#1A1A1A] hover:bg-[#2c2c2c] flex items-center justify-center shadow-md transition-colors"
-        >
-          {sidebarOpen ? <ChevronLeft className="w-3.5 h-3.5 text-white" /> : <ChevronRight className="w-3.5 h-3.5 text-white" />}
-        </button>
-
-        <div className="w-12 flex flex-col items-center py-3 space-y-3 border-r border-[#E5E2DD] bg-[#EEEBE6] shrink-0">
-          {sidebarOpen && (
+      <CollapsibleSidebarShell
+        open={sidebarOpen}
+        onToggle={() => setSidebarOpen(!sidebarOpen)}
+        toggleTitle={sidebarOpen ? 'Collapse Sidebar' : 'Expand Sidebar'}
+        toggleIcon={sidebarOpen ? <ChevronLeft className="w-3.5 h-3.5 text-white" /> : <ChevronRight className="w-3.5 h-3.5 text-white" />}
+        railChildren={
+          sidebarOpen && (
             <button
               onClick={createDocument}
               title="New Document"
@@ -160,65 +147,62 @@ export const TextEditorPage: React.FC = () => {
             >
               <Plus className="w-4 h-4" />
             </button>
-          )}
-        </div>
-
-        {sidebarOpen && (
-          <div className="fixed md:static inset-y-0 top-14 md:top-auto left-12 md:left-auto z-40 md:z-auto w-64 h-[calc(100vh-3.5rem)] md:h-full flex flex-col overflow-y-auto bg-[#F3F1ED]">
-            <div className="p-4">
-              <div className="flex items-center justify-between mb-3">
-                <div className="text-[10px] uppercase tracking-widest font-bold opacity-50 text-[#1A1A1A]">
-                  Files
-                </div>
-                <button
-                  onClick={() => setSidebarOpen(false)}
-                  className={primaryButtonClasses('md:hidden p-1 rounded-md')}
-                  title="Close"
-                >
-                  <X className="w-3.5 h-3.5" />
-                </button>
+          )
+        }
+        drawerChildren={
+          <div className="p-4">
+            <div className="flex items-center justify-between mb-3">
+              <div className="text-[10px] uppercase tracking-widest font-bold opacity-50 text-[#1A1A1A]">
+                Files
               </div>
-              <div className="space-y-2">
-                {documents.map((doc) => (
-                  <div
-                    key={doc.id}
-                    onClick={() => selectDocument(doc.id)}
-                    className={`p-3 rounded-lg border text-xs cursor-pointer transition-all group relative ${
-                      activeDocumentId === doc.id
-                        ? 'bg-white border-[#1A1A1A] shadow-sm text-[#1A1A1A] font-semibold'
-                        : 'bg-white/60 border-[#E5E2DD] hover:border-[#1A1A1A]/40 text-[#1A1A1A]/80'
-                    }`}
-                  >
-                    <div className="flex items-start space-x-2">
-                      <FileText className="w-3.5 h-3.5 mt-0.5 shrink-0 opacity-60" />
-                      <div className="min-w-0 flex-1">
-                        <div className="font-semibold truncate pr-10">{doc.title}</div>
-                        <div className="text-[10px] mt-0.5 text-amber-700">{getRelativeTime(doc.updatedAt)}</div>
-                      </div>
-                    </div>
-                    <div className="absolute top-2 right-2 flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <button
-                        onClick={(e) => { e.stopPropagation(); handleRename(doc.id, doc.title); }}
-                        className="p-1 rounded hover:bg-[#E5E2DD] transition-colors"
-                        title="Rename"
-                      >
-                        <Edit3 className="w-3 h-3 text-[#666]" />
-                      </button>
-                      <button
-                        onClick={(e) => { e.stopPropagation(); handleDelete(doc.id, doc.title); }}
-                        className="p-1 rounded hover:bg-rose-100 transition-colors"
-                        title="Delete"
-                      >
-                        <Trash2 className="w-3 h-3 text-rose-500" />
-                      </button>
+              <button
+                onClick={() => setSidebarOpen(false)}
+                className={primaryButtonClasses('md:hidden p-1 rounded-md')}
+                title="Close"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            </div>
+            <div className="space-y-2">
+              {documents.map((doc) => (
+                <div
+                  key={doc.id}
+                  onClick={() => selectDocument(doc.id)}
+                  className={`p-3 rounded-lg border text-xs cursor-pointer transition-all group relative ${
+                    activeDocumentId === doc.id
+                      ? 'bg-white border-[#1A1A1A] shadow-sm text-[#1A1A1A] font-semibold'
+                      : 'bg-white/60 border-[#E5E2DD] hover:border-[#1A1A1A]/40 text-[#1A1A1A]/80'
+                  }`}
+                >
+                  <div className="flex items-start space-x-2">
+                    <FileText className="w-3.5 h-3.5 mt-0.5 shrink-0 opacity-60" />
+                    <div className="min-w-0 flex-1">
+                      <div className="font-semibold truncate pr-10">{doc.title}</div>
+                      <div className="text-[10px] mt-0.5 text-amber-700">{getRelativeTime(doc.updatedAt)}</div>
                     </div>
                   </div>
-                ))}
-              </div>
+                  <div className="absolute top-2 right-2 flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button
+                      onClick={(e) => { e.stopPropagation(); handleRename(doc.id, doc.title); }}
+                      className="p-1 rounded hover:bg-[#E5E2DD] transition-colors"
+                      title="Rename"
+                    >
+                      <Edit3 className="w-3 h-3 text-[#666]" />
+                    </button>
+                    <button
+                      onClick={(e) => { e.stopPropagation(); handleDelete(doc.id, doc.title); }}
+                      className="p-1 rounded hover:bg-rose-100 transition-colors"
+                      title="Delete"
+                    >
+                      <Trash2 className="w-3 h-3 text-rose-500" />
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-        )}
-      </div>
+        }
+      />
 
       {/* Editor Column */}
       <div className="flex-1 flex flex-col min-w-0">
