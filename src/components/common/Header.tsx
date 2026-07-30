@@ -24,7 +24,7 @@ export const Header: React.FC = () => {
         >
           <img src="/logo.png" alt="Logo" className="w-8 h-8 rounded object-cover shadow-sm" />
           <span className="font-semibold text-[#1A1A1A] tracking-tight uppercase text-xs md:text-sm hidden md:inline-block">
-            Reasoning Workspace
+            StateGraph
           </span>
         </button>
 
