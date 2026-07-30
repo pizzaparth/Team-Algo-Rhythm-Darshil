@@ -79,21 +79,3 @@ Be specific. Reference actual node titles and data.`;
 
   return [system, { role: 'user', content }];
 }
-
-/**
- * Build messages for handling a clarification response.
- * Resumes the pending expansion with the user's answer.
- */
-export function buildClarificationResponsePrompt(
-  userAnswer: string,
-  originalNodeId: string,
-  context: EnhancedAIContext,
-): LLMMessage[] {
-  // Reuse the expansion prompt but include the clarification answer
-  const { buildExpansionPrompt } = require('./planning');
-  return buildExpansionPrompt(
-    originalNodeId,
-    context,
-    `The user was asked a clarification question and responded: "${userAnswer}". Incorporate this preference into the expansion.`,
-  );
-}
