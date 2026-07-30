@@ -12,7 +12,7 @@
  * Uses raw fetch for streaming support. No SDK dependency.
  */
 
-import { LLMMessage } from '../../types';
+import type { LLMMessage } from '../../types';
 import { isLLMConfigured as isLLMConfiguredCached } from './aiStatus';
 
 // =============================================

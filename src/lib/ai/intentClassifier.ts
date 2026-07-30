@@ -7,7 +7,7 @@
  * Per PRD §12.2
  */
 
-import { UserIntent, AIContext } from '../../types';
+import type { UserIntent, AIContext } from '../../types';
 
 /** Keyword patterns for each intent */
 const INTENT_PATTERNS: { intent: UserIntent; patterns: RegExp[] }[] = [
