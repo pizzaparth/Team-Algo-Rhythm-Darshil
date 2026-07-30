@@ -39,8 +39,8 @@ export const LandingPage: React.FC = () => {
 
         {/* Description */}
         <p className="mt-5 text-base md:text-lg text-[#666666] max-w-2xl leading-relaxed">
-          Not just another chatbot. The AI Reasoning Workspace combines dynamic conversation, 
-          infinite decision trees, multi-expert reasoning, and risk evaluation into a unified SaaS environment.
+          StateGraph transforms complex conversations into interactive decision trees.
+          Explore alternatives, expand strategies, and map your logic in real-time.
         </p>
 
         {/* Call to Actions */}
