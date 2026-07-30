@@ -2,13 +2,13 @@
 
 import React from 'react';
 import {
-  FolderKanban, MessageSquare, Layers, Network, Search,
+  MessageSquare, Layers, Search,
   Download, Settings, ChevronLeft, ChevronRight, Plus,
-  Check, FileText, Image, Code, Sparkles, Filter,
+  FileText, Image, Code,
   Edit3, Trash2
 } from 'lucide-react';
 import { useAppStore, useGraphStore, useProjectStore } from '../../store/';
-import { SidebarTab } from '../../types';
+import type { SidebarTab } from '../../types';
 import { STRATEGY_TEMPLATES } from '../../data/mockData';
 import { getRelativeTime } from '../../lib/markdownRenderer';
 
@@ -25,13 +25,9 @@ export const Sidebar: React.FC = () => {
   } = useAppStore();
 
   const {
-    projects,
-    activeProjectId,
-    selectProject,
     sessions,
     activeSessionId,
     selectSession,
-    createProject,
     createSession,
     deleteSession,
     renameSession,
@@ -41,8 +37,6 @@ export const Sidebar: React.FC = () => {
     nodes,
     selectNode
   } = useGraphStore();
-
-  const activeProject = projects.find(p => p.id === activeProjectId);
 
   // Filter nodes for search tab
   const filteredNodes = searchQuery.trim()
