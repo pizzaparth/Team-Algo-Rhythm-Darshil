@@ -111,10 +111,10 @@ export const ChatInterface: React.FC = () => {
             </div>
 
             {/* Transition Helper Footer */}
-            <div className="p-2 border-t border-[#E5E2DD]">
+            <div className="p-2 border-t border-[#E5E2DD] flex justify-center">
               <button
                 onClick={() => setViewMode('workspace')}
-                className={primaryButtonClasses('w-full flex items-center justify-center space-x-2 px-3 py-2.5 rounded-lg text-sm')}
+                className={primaryButtonClasses('flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm')}
               >
                 <ArrowUpRight className="w-4 h-4" />
                 <span>Open Decision Canvas</span>
