@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Modal } from '../common/Modal';
 import { ModalFooter } from '../common/ModalFooter';
 import { useAppStore, useGraphStore } from '../../store/';
-import { NodeType, NodeStatus } from '../../types';
+import type { NodeType, NodeStatus } from '../../types';
 
 export const CreateNodeModal: React.FC = () => {
   const { activeModal, closeModal, modalData } = useAppStore();

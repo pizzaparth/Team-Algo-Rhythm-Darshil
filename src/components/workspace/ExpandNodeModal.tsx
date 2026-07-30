@@ -1,9 +1,9 @@
 // Author: Parth Pancholi
 
 import React, { useState, useEffect } from 'react';
-import { Sparkles, Plus, X, Loader2, ChevronRight, Bot, AlertTriangle, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { Sparkles, Plus, X, Loader2, Bot, AlertTriangle, CheckCircle2 } from 'lucide-react';
 import { useAppStore, useGraphStore } from '../../store';
-import { GeneratedNode } from '../../types';
+import type { GeneratedNode } from '../../types';
 import { getMockedExpansion } from '../../lib/mockExpansion';
 
 /**
@@ -20,7 +20,7 @@ import { getMockedExpansion } from '../../lib/mockExpansion';
  */
 export const ExpandNodeModal: React.FC = () => {
   const { activeModal, modalData, closeModal } = useAppStore();
-  const { nodes, addGeneratedNodes, expandingNodeId } = useGraphStore();
+  const { nodes, addGeneratedNodes } = useGraphStore();
 
   const [loading, setLoading] = useState(false);
   const [preview, setPreview] = useState<GeneratedNode[]>([]);
