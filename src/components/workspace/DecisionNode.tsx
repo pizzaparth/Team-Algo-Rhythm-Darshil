@@ -9,7 +9,19 @@ import {
   Users, CheckCircle2, HelpCircle, XCircle, Cpu, Loader2
 } from 'lucide-react';
 import { useGraphStore } from '../../store/';
-import type { NodeData } from '../../types';
+import type { NodeData, NodeStatus } from '../../types';
+
+const STATUS_BADGES: Record<NodeStatus, { bg: string; icon: React.ReactNode; label: string }> = {
+  approved: { bg: 'bg-emerald-700', icon: <CheckCircle2 className="w-3 h-3 mr-1" />, label: 'Approved' },
+  evaluated: { bg: 'bg-blue-700', icon: <ShieldCheck className="w-3 h-3 mr-1" />, label: 'Evaluated' },
+  in_review: { bg: 'bg-amber-700', icon: <HelpCircle className="w-3 h-3 mr-1" />, label: 'In Review' },
+  rejected: { bg: 'bg-rose-700', icon: <XCircle className="w-3 h-3 mr-1" />, label: 'Rejected' },
+  proposed: { bg: 'bg-gray-700', icon: null, label: 'Proposed' },
+};
+
+function statusBadgeClasses(bg: string): string {
+  return `inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium ${bg} text-white`;
+}
 
 export const DecisionNode: React.FC<NodeProps> = ({ id, data, selected }) => {
   const nodeData = data as unknown as NodeData;
@@ -37,18 +49,13 @@ export const DecisionNode: React.FC<NodeProps> = ({ id, data, selected }) => {
   };
 
   const getStatusBadge = () => {
-    switch (nodeData.status) {
-      case 'approved':
-        return <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-emerald-700 text-white"><CheckCircle2 className="w-3 h-3 mr-1" /> Approved</span>;
-      case 'evaluated':
-        return <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-blue-700 text-white"><ShieldCheck className="w-3 h-3 mr-1" /> Evaluated</span>;
-      case 'in_review':
-        return <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-amber-700 text-white"><HelpCircle className="w-3 h-3 mr-1" /> In Review</span>;
-      case 'rejected':
-        return <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-rose-700 text-white"><XCircle className="w-3 h-3 mr-1" /> Rejected</span>;
-      default:
-        return <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-gray-700 text-white">Proposed</span>;
-    }
+    const badge = STATUS_BADGES[nodeData.status] ?? STATUS_BADGES.proposed;
+    return (
+      <span className={statusBadgeClasses(badge.bg)}>
+        {badge.icon}
+        {badge.label}
+      </span>
+    );
   };
 
   const typeStyle = getTypeStyle();
