@@ -12,7 +12,7 @@
  */
 
 import { graphCommands } from './graphCommands';
-import { GraphCommand } from '../types';
+import type { GraphCommand } from '../types';
 
 export interface CommandParseResult {
   recognized: boolean;

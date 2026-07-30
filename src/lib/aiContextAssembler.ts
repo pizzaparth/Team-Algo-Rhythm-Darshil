@@ -10,7 +10,7 @@
  */
 
 import { useGraphStore, useProjectStore, useAIStore } from '../store';
-import { AIContext, AIQuestion, GraphNode } from '../types';
+import type { AIContext, AIQuestion, GraphNode } from '../types';
 import { useChatStore } from '../store';
 
 /**

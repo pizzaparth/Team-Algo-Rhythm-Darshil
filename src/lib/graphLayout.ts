@@ -9,7 +9,7 @@
  */
 
 import dagre from '@dagrejs/dagre';
-import { GraphNode, GraphEdge } from '../types';
+import type { GraphNode, GraphEdge } from '../types';
 
 // Dimensions matching DecisionNode's w-72 (288px) card
 // NODE_HEIGHT must match the actual rendered card height to prevent overlap

@@ -7,7 +7,7 @@
  * Flow: Build context → Build expansion prompt → LLM call → Parse → Return GeneratedNode[]
  */
 
-import { GeneratedNode } from '../types';
+import type { GeneratedNode } from '../types';
 import {
   chatCompletion, isLLMConfigured,
   buildEnhancedContext,
@@ -28,7 +28,7 @@ import { planningMemory } from './ai/planningMemory';
  */
 export async function getMockedExpansion(
   parentNodeId: string,
-  parentInternalType: string
+  _parentInternalType: string
 ): Promise<GeneratedNode[]> {
   // If LLM is not configured, return a fallback node explaining the issue
   if (!isLLMConfigured()) {

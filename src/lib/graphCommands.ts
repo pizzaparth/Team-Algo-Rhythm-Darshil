@@ -17,7 +17,7 @@
 
 import { useGraphStore } from '../store';
 import { useAppStore } from '../store';
-import { NodeData } from '../types';
+import type { NodeData } from '../types';
 
 // Expose a ReactFlow instance setter so commands can call fitView
 let _reactFlowInstance: any = null;
