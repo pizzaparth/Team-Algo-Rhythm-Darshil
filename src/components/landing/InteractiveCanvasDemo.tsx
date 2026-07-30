@@ -119,9 +119,6 @@ export const InteractiveCanvasDemo: React.FC = () => {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
           <div>
-            <span className="text-[11px] font-mono font-semibold tracking-widest text-[#737373] uppercase mb-2 block">
-              Miniature Canvas Environment
-            </span>
             <h2 className="text-3xl sm:text-5xl font-serif text-[#111111] tracking-tight">
               Interactive Reasoning Graph Preview
             </h2>
