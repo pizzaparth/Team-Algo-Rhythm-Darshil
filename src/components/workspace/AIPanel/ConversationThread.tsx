@@ -1,7 +1,7 @@
 // Author: Parth Pancholi
 
 import React, { useRef, useEffect } from 'react';
-import { Bot, User, Loader2, RefreshCw, Copy, Check } from 'lucide-react';
+import { Bot, User, Loader2, Copy, Check } from 'lucide-react';
 import { useChatStore, useAppStore } from '../../../store/';
 import { renderMarkdown } from '../../../lib/markdownRenderer';
 

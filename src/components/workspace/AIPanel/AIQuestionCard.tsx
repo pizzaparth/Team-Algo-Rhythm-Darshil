@@ -11,7 +11,7 @@ import { useSessionStore, useChatStore } from '../../../store/';
  * Per PRD FR-7.6: "AI asks clarifying questions in the panel, graph waits"
  */
 export const AIQuestionCard: React.FC = () => {
-  const { pendingQuestion, answerQuestion, setConversationMode, setPendingQuestion, pendingExpansionNodeId } = useSessionStore();
+  const { pendingQuestion, answerQuestion, setConversationMode, setPendingQuestion } = useSessionStore();
   const { sendUserMessage, addAIMessage } = useChatStore();
   const [answer, setAnswer] = useState('');
   const [showContext, setShowContext] = useState(false);

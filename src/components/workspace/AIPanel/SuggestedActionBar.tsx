@@ -14,7 +14,7 @@ import { graphCommands } from '../../../lib/graphCommands';
  */
 export const SuggestedActionBar: React.FC = () => {
   const { selectedNodeId, expandingNodeId, nodes } = useGraphStore();
-  const { openModal, addToast } = useAppStore();
+  const { openModal } = useAppStore();
   const { conversationMode } = useSessionStore();
 
   const selectedNode = selectedNodeId ? nodes.find(n => n.id === selectedNodeId) : null;
@@ -51,11 +51,6 @@ export const SuggestedActionBar: React.FC = () => {
 
     // Clear expanding state defensively
     useGraphStore.getState().setExpandingNodeId(null);
-  };
-
-  const handleSummarise = () => {
-    if (!selectedNodeId) return;
-    addToast('Generating branch summary...', 'info');
   };
 
   const actions = selectedNode
