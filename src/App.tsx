@@ -15,7 +15,7 @@ export default function App() {
       <Header />
 
       {/* Main View Mode Area */}
-      <main className="flex-1 relative overflow-hidden">
+      <main className="flex-1 relative overflow-hidden pt-14">
         {viewMode === 'landing' && <LandingPage />}
         {viewMode === 'chat' && <ChatInterface />}
         {viewMode === 'workspace' && <PlanningWorkspace />}

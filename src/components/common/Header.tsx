@@ -12,7 +12,7 @@ export const Header: React.FC = () => {
   const { contextSufficient } = useChatStore();
 
   return (
-    <header className="h-14 bg-white/90 backdrop-blur-md border-b border-[#E5E2DD] px-4 md:px-6 flex items-center justify-between z-30 select-none">
+    <header className="fixed top-0 left-0 right-0 h-14 bg-white/60 backdrop-blur-xl backdrop-saturate-150 border-b border-[#E5E2DD] px-4 md:px-6 flex items-center justify-between z-30 select-none">
       {/* Brand & Active Project Selector */}
       <div className="flex items-center space-x-3 md:space-x-4">
         <button 
