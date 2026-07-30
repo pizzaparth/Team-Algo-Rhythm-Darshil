@@ -39,16 +39,6 @@ export interface DomainConfig {
   researchPriorities: string[];
 }
 
-/** Historical reference extracted by the AI */
-export interface HistoricalReference {
-  entity: string;
-  caseStudy: string;
-  outcome: string;
-  relevance: string;
-  timePeriod?: string;
-  sourceUrl?: string;
-}
-
 /** User intent classification */
 export type UserIntent = 'CHAT' | 'EXPAND_NODE' | 'GRAPH_COMMAND' | 'CLARIFICATION_RESPONSE'
   | 'RESEARCH_REQUEST' | 'CREATE_NODE' | 'ANALYSE' | 'SUMMARISE';
