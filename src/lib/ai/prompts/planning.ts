@@ -5,7 +5,7 @@
  * for graph expansion. Uses structured JSON output.
  */
 
-import { LLMMessage, EnhancedAIContext } from '../../../types';
+import type { LLMMessage, EnhancedAIContext } from '../../../types';
 import { buildSystemPrompt, buildGraphContextBlock, buildResearchContextBlock } from './system';
 
 /**

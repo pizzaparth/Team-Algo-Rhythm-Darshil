@@ -5,7 +5,7 @@
  * into structured, actionable research briefs.
  */
 
-import { LLMMessage, ResearchResult, EnhancedAIContext } from '../../../types';
+import type { LLMMessage, ResearchResult, EnhancedAIContext } from '../../../types';
 
 /**
  * Build messages for summarising raw research results.

@@ -5,7 +5,7 @@
  * hasn't considered. Used after analysis, not during expansion.
  */
 
-import { LLMMessage, EnhancedAIContext } from '../../../types';
+import type { LLMMessage, EnhancedAIContext } from '../../../types';
 import { buildSystemPrompt, buildGraphContextBlock } from './system';
 
 /**

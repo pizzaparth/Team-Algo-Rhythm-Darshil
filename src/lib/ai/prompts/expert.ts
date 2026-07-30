@@ -5,7 +5,7 @@
  * Only used when the context genuinely warrants expert consultation.
  */
 
-import { LLMMessage, EnhancedAIContext } from '../../../types';
+import type { LLMMessage, EnhancedAIContext } from '../../../types';
 import { buildSystemPrompt, buildGraphContextBlock } from './system';
 
 /**
