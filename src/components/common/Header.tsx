@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   BrainCircuit, LayoutGrid, MessageSquare, Sparkles,
-  Undo2, Redo2, Download, Settings, ChevronRight, Menu, X
+  Undo2, Redo2, Download, Settings, ChevronRight, Menu, X, FileEdit
 } from 'lucide-react';
 import { useAppStore, useGraphStore, useChatStore } from '../../store/';
 import { ViewMode } from '../../types';
@@ -67,6 +67,18 @@ export const Header: React.FC = () => {
           >
             <LayoutGrid className={`w-3.5 h-3.5 ${viewMode === 'workspace' ? 'text-white opacity-80' : ''}`} />
             <span>Graph Canvas</span>
+          </button>
+
+          <button
+            onClick={() => setViewMode('editor')}
+            className={`px-3 py-1 rounded-full text-xs font-medium transition-all flex items-center space-x-1.5 border ${
+              viewMode === 'editor'
+                ? 'bg-white border-[#E5E2DD] text-[#1A1A1A] shadow-sm font-semibold'
+                : 'border-transparent text-[#666666] hover:text-[#1A1A1A] hover:bg-[#F3F1ED]'
+            }`}
+          >
+            <FileEdit className="w-3.5 h-3.5 text-emerald-600" />
+            <span className="hidden sm:inline">Editor</span>
           </button>
         </div>
       </div>
@@ -180,6 +192,18 @@ export const Header: React.FC = () => {
             >
               <LayoutGrid className={`w-4 h-4 ${viewMode === 'workspace' ? 'text-white opacity-80' : ''}`} />
               <span>Graph Canvas</span>
+            </button>
+
+            <button
+              onClick={() => { setViewMode('editor'); setMobileMenuOpen(false); }}
+              className={`px-3 py-2 rounded-lg text-sm font-medium transition-all flex items-center space-x-2 ${
+                viewMode === 'editor'
+                  ? 'bg-[#F3F1ED] text-[#1A1A1A] font-semibold'
+                  : 'text-[#666666] hover:bg-[#F3F1ED] hover:text-[#1A1A1A]'
+              }`}
+            >
+              <FileEdit className="w-4 h-4 text-emerald-600" />
+              <span>Editor</span>
             </button>
           </div>
 

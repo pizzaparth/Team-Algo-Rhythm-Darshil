@@ -52,6 +52,60 @@
   box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03);
 }
 
+/* Text Editor — restores rich-text styling inside the contentEditable body,
+   since Tailwind's preflight strips default heading/list styles. */
+.prose-editor {
+  user-select: text;
+}
+
+.prose-editor h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  font-family: 'Newsreader', 'Playfair Display', Georgia, serif;
+  margin: 1.25rem 0 0.5rem;
+  line-height: 1.25;
+}
+
+.prose-editor h2 {
+  font-size: 1.375rem;
+  font-weight: 700;
+  font-family: 'Newsreader', 'Playfair Display', Georgia, serif;
+  margin: 1.1rem 0 0.5rem;
+  line-height: 1.3;
+}
+
+.prose-editor p {
+  margin: 0.6rem 0;
+}
+
+.prose-editor ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+  margin: 0.6rem 0;
+}
+
+.prose-editor ol {
+  list-style: decimal;
+  padding-left: 1.5rem;
+  margin: 0.6rem 0;
+}
+
+.prose-editor li {
+  margin: 0.25rem 0;
+}
+
+.prose-editor strong {
+  font-weight: 700;
+}
+
+.prose-editor em {
+  font-style: italic;
+}
+
+.prose-editor u {
+  text-decoration: underline;
+}
+
 /* Custom editorial scrollbar */
 ::-webkit-scrollbar {
   width: 6px;

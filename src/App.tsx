@@ -4,6 +4,7 @@ import { ToastContainer } from './components/common/ToastContainer';
 import { LandingPage } from './components/landing/LandingPage';
 import { ChatInterface } from './components/chat/ChatInterface';
 import { PlanningWorkspace } from './components/workspace/PlanningWorkspace';
+import { TextEditorPage } from './components/editor/TextEditorPage';
 import { useAppStore } from './store/';
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
         {viewMode === 'landing' && <LandingPage />}
         {viewMode === 'chat' && <ChatInterface />}
         {viewMode === 'workspace' && <PlanningWorkspace />}
+        {viewMode === 'editor' && <TextEditorPage />}
       </main>
 
       {/* Floating Toast Notification Container */}

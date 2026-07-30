@@ -1,4 +1,4 @@
-export type ViewMode = 'landing' | 'chat' | 'workspace';
+export type ViewMode = 'landing' | 'chat' | 'workspace' | 'editor';
 
 export type SidebarTab = 'projects' | 'sessions' | 'templates' | 'search' | 'exports' | 'settings';
 
