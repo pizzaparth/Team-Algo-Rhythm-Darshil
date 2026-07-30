@@ -11,10 +11,10 @@ interface RenameDeleteListItemProps {
   onSelect: () => void;
   onRename: () => void;
   onDelete: () => void;
-  /** Matches the three existing row styles: editor/chat's colored-border
-   * card, the workspace sidebar's monochrome card, and chat's borderless
-   * flat row. */
-  variant?: 'bordered' | 'bordered-mono' | 'flat';
+  /** Matches the existing row styles: editor/chat's colored-border card,
+   * the workspace sidebar's monochrome card, chat's borderless flat row,
+   * and a dark-theme borderless row. */
+  variant?: 'bordered' | 'bordered-mono' | 'flat' | 'dark';
 }
 
 /**
@@ -58,6 +58,31 @@ export const RenameDeleteListItem: React.FC<RenameDeleteListItemProps> = ({
           </button>
           <button onClick={handleDelete} className="p-1 rounded hover:bg-rose-100 transition-colors" title="Delete">
             <Trash2 className="w-3 h-3 text-rose-500" />
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (variant === 'dark') {
+    return (
+      <div
+        onClick={onSelect}
+        className={`w-full text-left p-2.5 rounded-lg text-xs transition-all flex items-start space-x-2 group relative cursor-pointer ${
+          selected ? 'bg-white/10 text-white font-semibold' : 'text-white/70 hover:bg-white/5 hover:text-white'
+        }`}
+      >
+        {icon}
+        <div className="truncate min-w-0 flex-1">
+          <div className="truncate font-medium pr-8">{title}</div>
+          <div className="text-[10px] text-white/40 mt-0.5">{updatedAt}</div>
+        </div>
+        <div className="absolute top-1.5 right-1.5 flex items-center space-x-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
+          <button onClick={handleRename} className="p-1 rounded hover:bg-white/10 transition-colors" title="Rename">
+            <Edit3 className="w-3 h-3 text-white/70" />
+          </button>
+          <button onClick={handleDelete} className="p-1 rounded hover:bg-white/10 transition-colors" title="Delete">
+            <Trash2 className="w-3 h-3 text-white/70" />
           </button>
         </div>
       </div>
