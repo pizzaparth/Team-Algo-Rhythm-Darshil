@@ -119,9 +119,6 @@ export const InteractiveCanvasDemo: React.FC = () => {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
           <div>
-            <h2 className="text-3xl sm:text-5xl font-serif text-[#111111] tracking-tight">
-              Interactive Reasoning Graph Preview
-            </h2>
             <p className="text-[#525252] text-sm sm:text-base mt-2 max-w-xl">
               Experience StateGraph live. Pan, zoom, click nodes to expand sub-branches, and add your own custom reasoning nodes.
             </p>
