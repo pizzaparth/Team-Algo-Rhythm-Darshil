@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { useGraphStore, useAppStore } from '../../store/';
 import { graphCommands } from '../../lib/graphCommands';
+import { primaryButtonClasses } from '../../lib/uiClasses';
 
 interface NodeToolbarProps {
   nodeId: string;
@@ -60,7 +61,7 @@ export const NodeToolbar: React.FC<NodeToolbarProps> = ({ nodeId }) => {
       <ToolbarButton
         onClick={() => openModal('create_node', { parentId: nodeId })}
         label="Add Child Node"
-        className="px-4 py-1.5 rounded-full bg-[#1A1A1A] hover:bg-[#2c2c2c] text-white font-medium flex items-center space-x-1 transition-colors shadow-sm"
+        className={primaryButtonClasses('px-4 py-1.5 rounded-full font-medium flex items-center space-x-1 shadow-sm')}
       >
         <Plus className="w-3.5 h-3.5" />
         <span>Add Child</span>

@@ -5,6 +5,7 @@ import { Sparkles, Plus, X, Loader2, Bot, AlertTriangle, CheckCircle2 } from 'lu
 import { useAppStore, useGraphStore } from '../../store';
 import type { GeneratedNode } from '../../types';
 import { getMockedExpansion } from '../../lib/mockExpansion';
+import { primaryButtonClasses } from '../../lib/uiClasses';
 
 /**
  * ExpandNodeModal — Expansion preview workflow.
@@ -184,7 +185,7 @@ export const ExpandNodeModal: React.FC = () => {
             <button
               onClick={handleConfirm}
               disabled={loading || preview.length === 0}
-              className="px-4 py-2 text-xs font-semibold text-white bg-[#1A1A1A] hover:bg-[#2c2c2c] disabled:opacity-50 disabled:cursor-not-allowed rounded-lg flex items-center space-x-1.5 transition-colors shadow-sm"
+              className={primaryButtonClasses('px-4 py-2 text-xs font-semibold disabled:opacity-50 disabled:cursor-not-allowed rounded-lg flex items-center space-x-1.5 shadow-sm')}
             >
               <Plus className="w-3.5 h-3.5" />
               <span>Add to Graph</span>

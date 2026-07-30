@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { useGraphStore, useAIStore, useSessionStore } from '../../store/';
 import { AvatarBubble } from '../common/AvatarBubble';
+import { primaryButtonClasses } from '../../lib/uiClasses';
 import { NodeContextCard } from './AIPanel/NodeContextCard';
 import { ConversationThread } from './AIPanel/ConversationThread';
 import { ChatInput } from './AIPanel/ChatInput';
@@ -111,7 +112,7 @@ export const AIPanel: React.FC<AIPanelProps> = ({ onClose }) => {
                 <div className="flex items-center space-x-1.5 pt-1 border-t border-[#E5E2DD]">
                   <button
                     onClick={() => addBranchFromSuggestion(sug)}
-                    className="flex-1 py-1 px-2 bg-[#1A1A1A] hover:bg-[#2c2c2c] text-white font-semibold rounded text-[10px] transition-colors"
+                    className={primaryButtonClasses('flex-1 py-1 px-2 font-semibold rounded text-[10px]')}
                   >
                     Add Branch
                   </button>

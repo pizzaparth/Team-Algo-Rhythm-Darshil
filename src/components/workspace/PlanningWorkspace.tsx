@@ -13,6 +13,7 @@ import { RenameNodeModal } from './RenameNodeModal';
 import { CreateProjectModal } from './CreateProjectModal';
 import { DeleteNodeModal } from './DeleteNodeModal';
 import { ExpandNodeModal } from './ExpandNodeModal';
+import { primaryButtonClasses } from '../../lib/uiClasses';
 
 export const PlanningWorkspace: React.FC = () => {
   const [aiPanelOpen, setAiPanelOpen] = useState(false);
@@ -31,7 +32,7 @@ export const PlanningWorkspace: React.FC = () => {
           <button
             onClick={() => setAiPanelOpen(true)}
             title="Open AI Reasoning Assistant"
-            className="absolute top-4 right-4 z-20 flex items-center space-x-1.5 px-3 py-2 rounded-lg bg-[#1A1A1A] hover:bg-[#2c2c2c] text-white shadow-lg transition-colors"
+            className={primaryButtonClasses('absolute top-4 right-4 z-20 flex items-center space-x-1.5 px-3 py-2 rounded-lg shadow-lg')}
           >
             <MessageSquare className="w-4 h-4 text-white" />
             <span className="text-xs font-semibold text-white">Chat</span>

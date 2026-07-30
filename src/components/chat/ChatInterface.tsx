@@ -9,6 +9,7 @@ import {
 import { useChatStore, useAppStore, useProjectStore } from '../../store/';
 import { renderMarkdown, getRelativeTime } from '../../lib/markdownRenderer';
 import { AvatarBubble } from '../common/AvatarBubble';
+import { primaryButtonClasses } from '../../lib/uiClasses';
 
 export const ChatInterface: React.FC = () => {
   const { messages, sendUserMessage, isGenerating, contextSufficient } = useChatStore();
@@ -84,7 +85,7 @@ export const ChatInterface: React.FC = () => {
             <button
               onClick={() => createSession(`Session ${sessions.length + 1}`)}
               title="New Chat Session"
-              className="p-2 rounded-md bg-[#1A1A1A] text-white hover:bg-[#2c2c2c] transition-colors"
+              className={primaryButtonClasses('p-2 rounded-md')}
             >
               <Plus className="w-4 h-4" />
             </button>
@@ -98,7 +99,7 @@ export const ChatInterface: React.FC = () => {
               <h3 className="text-xs font-bold text-[#1A1A1A] uppercase tracking-wider">Sessions</h3>
               <button
                 onClick={() => setSidebarOpen(false)}
-                className="md:hidden p-1 rounded-md bg-[#1A1A1A] text-white hover:bg-[#2c2c2c] transition-colors"
+                className={primaryButtonClasses('md:hidden p-1 rounded-md')}
                 title="Close Sessions"
               >
                 <X className="w-4 h-4" />
@@ -161,7 +162,7 @@ export const ChatInterface: React.FC = () => {
             <div className="p-3 border-t border-[#E5E2DD] bg-[#EEEBE6]/50">
               <button
                 onClick={() => setViewMode('workspace')}
-                className="w-full py-2 px-3 bg-[#1A1A1A] hover:bg-[#2c2c2c] text-white text-xs font-semibold rounded-md flex items-center justify-center space-x-1.5 transition-all shadow-sm"
+                className={primaryButtonClasses('w-full py-2 px-3 text-xs font-semibold rounded-md flex items-center justify-center space-x-1.5 transition-all shadow-sm')}
               >
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>Open Decision Canvas</span>
@@ -185,7 +186,7 @@ export const ChatInterface: React.FC = () => {
             </div>
             <button
               onClick={() => setViewMode('workspace')}
-              className="shrink-0 px-3 py-1 bg-[#1A1A1A] hover:bg-[#2c2c2c] text-white font-semibold rounded-md flex items-center space-x-1 transition-colors shadow-sm text-xs"
+              className={primaryButtonClasses('shrink-0 px-3 py-1 font-semibold rounded-md flex items-center space-x-1 shadow-sm text-xs')}
             >
               <span>Start Planning Workspace</span>
               <ChevronRight className="w-3.5 h-3.5" />
@@ -256,7 +257,7 @@ export const ChatInterface: React.FC = () => {
                           setViewMode('workspace');
                           addToast(`Executing action: ${act.label}`, 'info');
                         }}
-                        className="px-2.5 py-1 bg-[#1A1A1A] hover:bg-[#2c2c2c] text-white rounded-md text-[11px] font-semibold flex items-center space-x-1 transition-colors shadow-sm"
+                        className={primaryButtonClasses('px-2.5 py-1 rounded-md text-[11px] font-semibold flex items-center space-x-1 shadow-sm')}
                       >
                         <span>{act.label}</span>
                         <ArrowUpRight className="w-3 h-3" />
@@ -327,7 +328,7 @@ export const ChatInterface: React.FC = () => {
             <button
               type="submit"
               disabled={!input.trim() || isGenerating}
-              className="p-2 bg-[#1A1A1A] hover:bg-[#2c2c2c] disabled:opacity-40 text-white rounded-lg transition-colors shadow-sm"
+              className={primaryButtonClasses('p-2 disabled:opacity-40 rounded-lg shadow-sm')}
             >
               <Send className="w-4 h-4" />
             </button>

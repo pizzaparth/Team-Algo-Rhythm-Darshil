@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, Command, Loader2 } from 'lucide-react';
 import { useChatStore } from '../../../store/';
+import { primaryButtonClasses } from '../../../lib/uiClasses';
 
 /**
  * ChatInput — rich input with command detection and send button.
@@ -73,7 +74,7 @@ export const ChatInput: React.FC = () => {
         <button
           onClick={handleSubmit}
           disabled={!input.trim() || isGenerating}
-          className="p-2 m-1 rounded-md transition-all disabled:opacity-30 disabled:cursor-not-allowed bg-[#1A1A1A] hover:bg-[#2c2c2c] text-white shadow-sm"
+          className={primaryButtonClasses('p-2 m-1 rounded-md transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-sm')}
           title="Send (Enter)"
         >
           {isGenerating ? (
