@@ -4,13 +4,14 @@ import React, { useState, useRef, useEffect } from 'react';
 import {
   Send, Bot, User, Paperclip, Sparkles, ChevronLeft, ChevronRight,
   ArrowUpRight, Plus, MessageSquare, Copy, Check,
-  Edit3, Trash2, X
+  X
 } from 'lucide-react';
 import { useChatStore, useAppStore, useProjectStore } from '../../store/';
 import { renderMarkdown, getRelativeTime } from '../../lib/markdownRenderer';
 import { AvatarBubble } from '../common/AvatarBubble';
 import { primaryButtonClasses } from '../../lib/uiClasses';
 import { CollapsibleSidebarShell } from '../common/CollapsibleSidebarShell';
+import { RenameDeleteListItem } from '../common/RenameDeleteListItem';
 
 export const ChatInterface: React.FC = () => {
   const { messages, sendUserMessage, isGenerating, contextSufficient } = useChatStore();
@@ -92,53 +93,30 @@ export const ChatInterface: React.FC = () => {
 
             <div className="flex-1 overflow-y-auto p-2 space-y-1">
               {sessions.map((sess) => (
-                <div
+                <RenameDeleteListItem
                   key={sess.id}
-                  onClick={() => selectSession(sess.id)}
-                  className={`w-full text-left p-2.5 rounded-lg text-xs transition-all flex items-start space-x-2 group relative cursor-pointer ${
-                    activeSessionId === sess.id
-                      ? 'bg-white text-[#1A1A1A] border border-[#E5E2DD] font-bold shadow-sm'
-                      : 'text-[#666666] hover:bg-white/60 hover:text-[#1A1A1A]'
-                  }`}
-                >
-                  <MessageSquare className="w-3.5 h-3.5 mt-0.5 shrink-0 text-[#1A1A1A]" />
-                  <div className="truncate min-w-0 flex-1">
-                    <div className="truncate font-medium pr-8">{sess.title}</div>
-                    <div className="text-[10px] text-amber-700 mt-0.5">{getRelativeTime(sess.updatedAt)}</div>
-                  </div>
-                  {/* Rename & Delete — visible on hover */}
-                  <div className="absolute top-1.5 right-1.5 flex items-center space-x-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        const newName = window.prompt('Rename session:', sess.title);
-                        if (newName && newName.trim()) {
-                          renameSession(sess.id, newName.trim());
-                        }
-                      }}
-                      className="p-1 rounded hover:bg-[#E5E2DD] transition-colors"
-                      title="Rename session"
-                    >
-                      <Edit3 className="w-3 h-3 text-[#666]" />
-                    </button>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        if (sessions.length <= 1) {
-                          addToast('Cannot delete the last session', 'warning');
-                          return;
-                        }
-                        if (window.confirm(`Delete session "${sess.title}"?`)) {
-                          deleteSession(sess.id);
-                        }
-                      }}
-                      className="p-1 rounded hover:bg-rose-100 transition-colors"
-                      title="Delete session"
-                    >
-                      <Trash2 className="w-3 h-3 text-rose-500" />
-                    </button>
-                  </div>
-                </div>
+                  variant="flat"
+                  selected={activeSessionId === sess.id}
+                  icon={<MessageSquare className="w-3.5 h-3.5 mt-0.5 shrink-0 text-[#1A1A1A]" />}
+                  title={sess.title}
+                  updatedAt={getRelativeTime(sess.updatedAt)}
+                  onSelect={() => selectSession(sess.id)}
+                  onRename={() => {
+                    const newName = window.prompt('Rename session:', sess.title);
+                    if (newName && newName.trim()) {
+                      renameSession(sess.id, newName.trim());
+                    }
+                  }}
+                  onDelete={() => {
+                    if (sessions.length <= 1) {
+                      addToast('Cannot delete the last session', 'warning');
+                      return;
+                    }
+                    if (window.confirm(`Delete session "${sess.title}"?`)) {
+                      deleteSession(sess.id);
+                    }
+                  }}
+                />
               ))}
             </div>
 
