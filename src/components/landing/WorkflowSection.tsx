@@ -47,7 +47,7 @@ export const WorkflowSection: React.FC = () => {
         <div className="relative max-w-4xl mx-auto">
 
           {/* Central Vertical Timeline Connecting Line */}
-          <div className="absolute left-6 md:left-1/2 top-4 bottom-4 w-0.5 bg-[#e5e5e5] -translate-x-1/2 hidden md:block" />
+          <div className="absolute left-1/2 top-4 bottom-4 w-0.5 bg-[#e5e5e5] -translate-x-1/2" />
 
           <div className="space-y-12">
             {WORKFLOW_STEPS.map((stepItem, idx) => {
