@@ -23,7 +23,6 @@
     "@xyflow/react": "^12.11.2",
     "archiver": "^7.0.1",
     "bcryptjs": "^2.4.3",
-    "clsx": "^2.1.1",
     "concurrently": "^9.1.2",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
