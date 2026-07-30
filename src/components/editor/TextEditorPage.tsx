@@ -140,7 +140,16 @@ export const TextEditorPage: React.FC = () => {
       )}
 
       {/* Collapsible Files Sidebar */}
-      <div className="flex h-full bg-[#F3F1ED] border-r border-[#E5E2DD] shrink-0">
+      <div className="relative flex h-full bg-[#F3F1ED] border-r border-[#E5E2DD] shrink-0">
+        {/* Expand/Collapse Handle — sits centered on the sidebar's right edge */}
+        <button
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          title={sidebarOpen ? 'Collapse Sidebar' : 'Expand Sidebar'}
+          className="absolute top-1/2 -right-3 -translate-y-1/2 z-30 w-6 h-6 rounded-full bg-[#1A1A1A] hover:bg-[#2c2c2c] flex items-center justify-center shadow-md transition-colors"
+        >
+          {sidebarOpen ? <ChevronLeft className="w-3.5 h-3.5 text-white" /> : <ChevronRight className="w-3.5 h-3.5 text-white" />}
+        </button>
+
         <div className="w-12 flex flex-col items-center py-3 space-y-3 border-r border-[#E5E2DD] bg-[#EEEBE6] shrink-0">
           {sidebarOpen && (
             <button
@@ -151,14 +160,6 @@ export const TextEditorPage: React.FC = () => {
               <Plus className="w-4 h-4" />
             </button>
           )}
-          <div className="flex-1" />
-          <button
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            title={sidebarOpen ? 'Collapse Sidebar' : 'Expand Sidebar'}
-            className="p-2 rounded-md bg-[#1A1A1A] text-white hover:bg-[#2c2c2c] transition-colors"
-          >
-            {sidebarOpen ? <ChevronLeft className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
-          </button>
         </div>
 
         {sidebarOpen && (
