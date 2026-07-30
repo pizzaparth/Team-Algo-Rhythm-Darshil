@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import {
   Send, Bot, User, Paperclip, Sparkles, ChevronLeft, ChevronRight,
-  ArrowUpRight, Plus, MessageSquare, Terminal, Copy, Check,
+  ArrowUpRight, Plus, MessageSquare, Copy, Check,
   Edit3, Trash2, X
 } from 'lucide-react';
 import { useChatStore, useAppStore, useProjectStore } from '../../store/';
