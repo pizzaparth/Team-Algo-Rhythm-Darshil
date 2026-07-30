@@ -1,14 +1,15 @@
 // Author: Parth Pancholi
 
 import React from 'react';
-import { Handle, Position, NodeProps } from '@xyflow/react';
-import { 
-  ShieldCheck, AlertTriangle, GitBranch, ArrowUpRight, 
-  User, Bot, Star, ChevronRight, ChevronLeft, FileText, ChevronDown, ChevronUp,
+import { Handle, Position } from '@xyflow/react';
+import type { NodeProps } from '@xyflow/react';
+import {
+  ShieldCheck, GitBranch,
+  User, Bot, Star, FileText, ChevronDown, ChevronUp,
   Users, CheckCircle2, HelpCircle, XCircle, Cpu, Loader2
 } from 'lucide-react';
 import { useGraphStore } from '../../store/';
-import { NodeData } from '../../types';
+import type { NodeData } from '../../types';
 
 export const DecisionNode: React.FC<NodeProps> = ({ id, data, selected }) => {
   const nodeData = data as unknown as NodeData;
