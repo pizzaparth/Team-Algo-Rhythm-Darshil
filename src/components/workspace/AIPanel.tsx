@@ -1,6 +1,6 @@
 import React from 'react';
-import { 
-  Bot, Sparkles, Clock, BarChart3, Users, 
+import {
+  Bot, Sparkles, Clock, BarChart3, Users,
   ChevronLeft, ChevronRight, Wifi, WifiOff
 } from 'lucide-react';
 import { useGraphStore, useAppStore, useAIStore, useSessionStore } from '../../store/';
@@ -18,7 +18,11 @@ import { SuggestedActionBar } from './AIPanel/SuggestedActionBar';
  * suggestions, and chat) scrolls as one column so that AI suggestions
  * never push the conversation off-screen.
  */
-export const AIPanel: React.FC = () => {
+interface AIPanelProps {
+  onClose: () => void;
+}
+
+export const AIPanel: React.FC<AIPanelProps> = ({ onClose }) => {
   const { selectedNodeId } = useGraphStore();
   const { aiSuggestions, addBranchFromSuggestion, ignoreSuggestion } = useAIStore();
   const { conversationMode, isStreaming } = useSessionStore();
@@ -40,7 +44,16 @@ export const AIPanel: React.FC = () => {
   }[conversationMode];
 
   return (
-    <div className="w-80 md:w-96 bg-[#F3F1ED] border-l border-[#E5E2DD] flex flex-col h-full z-20 text-xs text-[#1A1A1A] select-none">
+    <div className="relative w-80 md:w-96 bg-[#F3F1ED] border-l border-[#E5E2DD] flex flex-col h-full z-20 text-xs text-[#1A1A1A] select-none">
+      {/* Collapse Handle — left edge, vertically centered */}
+      <button
+        onClick={onClose}
+        title="Collapse AI Reasoning Assistant"
+        className="absolute top-1/2 -left-3 -translate-y-1/2 z-30 w-6 h-6 rounded-full bg-[#1A1A1A] hover:bg-[#2c2c2c] flex items-center justify-center shadow-md transition-colors"
+      >
+        <ChevronRight className="w-3.5 h-3.5 text-white" />
+      </button>
+
       {/* Panel Header — fixed at top */}
       <div className="flex items-center justify-between bg-[#EEEBE6] border-b border-[#E5E2DD] px-3 py-2 shrink-0">
         <div className="flex items-center space-x-2">
