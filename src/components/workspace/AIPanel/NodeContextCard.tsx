@@ -6,6 +6,7 @@ import {
   ChevronRight, MapPin
 } from 'lucide-react';
 import { useGraphStore } from '../../../store/';
+import { AvatarBubble } from '../../common/AvatarBubble';
 
 /**
  * NodeContextCard — shows selected node info inline at the top of the AI panel.
@@ -75,9 +76,11 @@ export const NodeContextCard: React.FC = () => {
           }`}>
             {selectedNode.data.riskFactor}
           </div>
-          <div className="w-7 h-7 rounded-full bg-[#1A1A1A] text-white flex items-center justify-center font-mono text-[10px] font-bold">
-            {selectedNode.data.confidence}
-          </div>
+          <AvatarBubble
+            icon={selectedNode.data.confidence}
+            size="lg"
+            className="font-mono text-[10px] font-bold"
+          />
         </div>
       </div>
 

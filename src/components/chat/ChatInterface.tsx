@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { useChatStore, useAppStore, useProjectStore } from '../../store/';
 import { renderMarkdown, getRelativeTime } from '../../lib/markdownRenderer';
+import { AvatarBubble } from '../common/AvatarBubble';
 
 export const ChatInterface: React.FC = () => {
   const { messages, sendUserMessage, isGenerating, contextSufficient } = useChatStore();
@@ -202,15 +203,14 @@ export const ChatInterface: React.FC = () => {
               }`}
             >
               {/* Avatar */}
-              <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 text-xs shadow-sm border border-[#E5E2DD] ${
-                  msg.sender === 'ai'
-                    ? 'bg-[#1A1A1A] text-white'
-                    : 'bg-white text-[#1A1A1A]'
-                }`}
-              >
-                {msg.sender === 'ai' ? <Bot className="w-4 h-4" /> : <User className="w-4 h-4" />}
-              </div>
+              <AvatarBubble
+                icon={msg.sender === 'ai' ? <Bot className="w-4 h-4" /> : <User className="w-4 h-4" />}
+                size="md"
+                bg={msg.sender === 'ai' ? 'bg-[#1A1A1A]' : 'bg-white'}
+                textColor={msg.sender === 'ai' ? 'text-white' : 'text-[#1A1A1A]'}
+                bordered
+                className="text-xs"
+              />
 
               {/* Message Content Bubble */}
               <div
@@ -271,9 +271,7 @@ export const ChatInterface: React.FC = () => {
           {/* Typing / Generating Indicator */}
           {isGenerating && (
             <div className="flex space-x-3.5 max-w-3xl">
-              <div className="w-8 h-8 rounded-full bg-[#1A1A1A] text-white flex items-center justify-center text-xs">
-                <Bot className="w-4 h-4 animate-bounce" />
-              </div>
+              <AvatarBubble icon={<Bot className="w-4 h-4 animate-bounce" />} size="md" className="text-xs" />
               <div className="p-4 bg-white border border-[#E5E2DD] rounded-xl flex items-center space-x-2 text-xs text-[#1A1A1A] shadow-sm">
                 <div className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
                 <span className="font-serif italic font-bold">Evaluating decision pathways and updating graph structure...</span>

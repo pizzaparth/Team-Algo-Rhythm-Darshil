@@ -6,6 +6,7 @@ import {
   ChevronRight, Wifi
 } from 'lucide-react';
 import { useGraphStore, useAIStore, useSessionStore } from '../../store/';
+import { AvatarBubble } from '../common/AvatarBubble';
 import { NodeContextCard } from './AIPanel/NodeContextCard';
 import { ConversationThread } from './AIPanel/ConversationThread';
 import { ChatInput } from './AIPanel/ChatInput';
@@ -58,9 +59,7 @@ export const AIPanel: React.FC<AIPanelProps> = ({ onClose }) => {
       {/* Panel Header — fixed at top */}
       <div className="flex items-center justify-between bg-[#EEEBE6] border-b border-[#E5E2DD] px-3 py-2 shrink-0">
         <div className="flex items-center space-x-2">
-          <div className="w-6 h-6 rounded-full bg-[#1A1A1A] flex items-center justify-center">
-            <Bot className="w-3.5 h-3.5 text-white" />
-          </div>
+          <AvatarBubble icon={<Bot className="w-3.5 h-3.5 text-white" />} />
           <div>
             <div className="text-[11px] font-bold text-[#1A1A1A]">AI Reasoning Assistant</div>
             <div className={`text-[9px] font-medium flex items-center space-x-1 ${modeColor}`}>

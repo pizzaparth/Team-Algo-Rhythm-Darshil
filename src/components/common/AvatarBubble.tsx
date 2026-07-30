@@ -4,16 +4,17 @@ import React from 'react';
 
 interface AvatarBubbleProps {
   icon: React.ReactNode;
-  size?: 'sm' | 'md';
+  size?: 'sm' | 'md' | 'lg';
   bg?: string;
   textColor?: string;
   bordered?: boolean;
   className?: string;
 }
 
-const SIZE_CLASSES: Record<'sm' | 'md', string> = {
+const SIZE_CLASSES: Record<'sm' | 'md' | 'lg', string> = {
   sm: 'w-6 h-6',
   md: 'w-8 h-8',
+  lg: 'w-7 h-7',
 };
 
 export const AvatarBubble: React.FC<AvatarBubbleProps> = ({
