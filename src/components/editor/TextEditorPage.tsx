@@ -142,13 +142,15 @@ export const TextEditorPage: React.FC = () => {
       {/* Collapsible Files Sidebar */}
       <div className="flex h-full bg-[#F3F1ED] border-r border-[#E5E2DD] shrink-0">
         <div className="w-12 flex flex-col items-center py-3 space-y-3 border-r border-[#E5E2DD] bg-[#EEEBE6] shrink-0">
-          <button
-            onClick={createDocument}
-            title="New Document"
-            className="p-2 rounded-md bg-[#1A1A1A] text-white hover:bg-[#2c2c2c] transition-colors"
-          >
-            <Plus className="w-4 h-4" />
-          </button>
+          {sidebarOpen && (
+            <button
+              onClick={createDocument}
+              title="New Document"
+              className="p-2 rounded-md bg-[#1A1A1A] text-white hover:bg-[#2c2c2c] transition-colors"
+            >
+              <Plus className="w-4 h-4" />
+            </button>
+          )}
           <div className="flex-1" />
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
