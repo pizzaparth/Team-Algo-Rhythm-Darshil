@@ -1,15 +1,8 @@
 import React, { useRef } from 'react';
 import {
-  ZoomIn, ZoomOut, Maximize2, Undo2, Redo2,
-  Crosshair, LayoutTemplate, Keyboard, Info,
+  Crosshair, Keyboard, Info,
   ChevronRight, Bot, User
 } from 'lucide-react';
-import { useGraphStore } from '../../store';
-import { graphCommands } from '../../lib/graphCommands';
-
-interface CanvasControlsProps {
-  reactFlowInstance: React.MutableRefObject<any>;
-}
 
 const shortcutGroups = [
   {
@@ -42,82 +35,13 @@ const shortcutGroups = [
   },
 ];
 
-export const CanvasControls: React.FC<CanvasControlsProps> = ({ reactFlowInstance }) => {
-  const { canUndo, canRedo } = useGraphStore();
+export const CanvasControls: React.FC = () => {
   const [showShortcuts, setShowShortcuts] = React.useState(false);
-
-  const handleFitView = () => {
-    reactFlowInstance.current?.fitView({ padding: 0.12, duration: 500 });
-  };
-
-  const handleZoomIn = () => {
-    reactFlowInstance.current?.zoomIn({ duration: 300 });
-  };
-
-  const handleZoomOut = () => {
-    reactFlowInstance.current?.zoomOut({ duration: 300 });
-  };
-
-  const handleLayout = () => {
-    graphCommands.applyLayout();
-  };
 
   return (
     <>
       {/* Main Controls — bottom-left above ReactFlow controls */}
       <div className="absolute bottom-16 left-4 z-20 flex flex-col space-y-1.5">
-        {/* Undo / Redo */}
-        <div className="flex space-x-1 bg-white/90 backdrop-blur-sm border border-[#E5E2DD] rounded-lg p-1 shadow-sm">
-          <button
-            onClick={() => graphCommands.undoLastAction()}
-            disabled={!canUndo}
-            title="Undo (Ctrl+Z)"
-            className={`p-1.5 rounded transition-colors ${canUndo ? 'text-[#1A1A1A] hover:bg-[#F3F1ED]' : 'text-[#CCCCCC] cursor-not-allowed'}`}
-          >
-            <Undo2 className="w-3.5 h-3.5" />
-          </button>
-          <button
-            onClick={() => graphCommands.redoLastAction()}
-            disabled={!canRedo}
-            title="Redo (Ctrl+Shift+Z)"
-            className={`p-1.5 rounded transition-colors ${canRedo ? 'text-[#1A1A1A] hover:bg-[#F3F1ED]' : 'text-[#CCCCCC] cursor-not-allowed'}`}
-          >
-            <Redo2 className="w-3.5 h-3.5" />
-          </button>
-        </div>
-
-        {/* Zoom & Fit */}
-        <div className="flex flex-col bg-white/90 backdrop-blur-sm border border-[#E5E2DD] rounded-lg p-1 shadow-sm">
-          <button
-            onClick={handleZoomIn}
-            title="Zoom In"
-            className="p-1.5 text-[#1A1A1A] hover:bg-[#F3F1ED] rounded transition-colors"
-          >
-            <ZoomIn className="w-3.5 h-3.5" />
-          </button>
-          <button
-            onClick={handleZoomOut}
-            title="Zoom Out"
-            className="p-1.5 text-[#1A1A1A] hover:bg-[#F3F1ED] rounded transition-colors"
-          >
-            <ZoomOut className="w-3.5 h-3.5" />
-          </button>
-          <button
-            onClick={handleFitView}
-            title="Fit to View (F)"
-            className="p-1.5 text-[#1A1A1A] hover:bg-[#F3F1ED] rounded transition-colors"
-          >
-            <Maximize2 className="w-3.5 h-3.5" />
-          </button>
-          <button
-            onClick={handleLayout}
-            title="Re-apply LR Layout"
-            className="p-1.5 text-indigo-600 hover:bg-indigo-50 rounded transition-colors"
-          >
-            <LayoutTemplate className="w-3.5 h-3.5" />
-          </button>
-        </div>
-
         {/* Keyboard Shortcuts Legend */}
         <button
           onClick={() => setShowShortcuts(v => !v)}

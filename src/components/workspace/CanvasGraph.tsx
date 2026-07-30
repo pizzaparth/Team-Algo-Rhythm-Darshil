@@ -203,8 +203,8 @@ const CanvasGraphInner: React.FC = () => {
       {/* Right-click Context Menu */}
       <ContextMenu />
 
-      {/* Canvas Controls (zoom, fit, undo, legend) */}
-      <CanvasControls reactFlowInstance={reactFlowRef} />
+      {/* Canvas Controls (keyboard shortcuts, legend) */}
+      <CanvasControls />
     </div>
   );
 };
