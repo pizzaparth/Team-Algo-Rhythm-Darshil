@@ -176,9 +176,9 @@ export const useAppStore = create<AppState>((set, get) => ({
       }
     }
   },
-  sidebarOpen: true,
+  sidebarOpen: false,
   setSidebarOpen: (open) => set({ sidebarOpen: open }),
-  activeSidebarTab: 'projects',
+  activeSidebarTab: 'sessions',
   setActiveSidebarTab: (tab) => set({ activeSidebarTab: tab }),
   activeAssistantTab: 'detail',
   setActiveAssistantTab: (tab) => set({ activeAssistantTab: tab }),
