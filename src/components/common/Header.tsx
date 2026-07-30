@@ -72,43 +72,47 @@ export const Header: React.FC = () => {
 
       {/* Right Action Tools */}
       <div className="flex items-center space-x-2">
-        {/* Undo / Redo buttons */}
-        <div className="hidden md:flex items-center space-x-1 border-r border-[#E5E2DD] pr-2 mr-1">
-          <button
-            onClick={undo}
-            disabled={!canUndo}
-            title="Undo (Ctrl+Z)"
-            className="p-1.5 rounded-full text-[#666666] hover:text-[#1A1A1A] hover:bg-[#F3F1ED] disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
-          >
-            <Undo2 className="w-4 h-4" />
-          </button>
-          <button
-            onClick={redo}
-            disabled={!canRedo}
-            title="Redo (Ctrl+Y)"
-            className="p-1.5 rounded-full text-[#666666] hover:text-[#1A1A1A] hover:bg-[#F3F1ED] disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
-          >
-            <Redo2 className="w-4 h-4" />
-          </button>
-        </div>
+        {viewMode === 'workspace' && (
+          <>
+            {/* Undo / Redo buttons */}
+            <div className="hidden md:flex items-center space-x-1 border-r border-[#E5E2DD] pr-2 mr-1">
+              <button
+                onClick={undo}
+                disabled={!canUndo}
+                title="Undo (Ctrl+Z)"
+                className="p-1.5 rounded-full text-[#666666] hover:text-[#1A1A1A] hover:bg-[#F3F1ED] disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
+              >
+                <Undo2 className="w-4 h-4" />
+              </button>
+              <button
+                onClick={redo}
+                disabled={!canRedo}
+                title="Redo (Ctrl+Y)"
+                className="p-1.5 rounded-full text-[#666666] hover:text-[#1A1A1A] hover:bg-[#F3F1ED] disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
+              >
+                <Redo2 className="w-4 h-4" />
+              </button>
+            </div>
 
-        {/* Quick Export */}
-        <button
-          onClick={() => openModal('export')}
-          className="p-1.5 rounded-full text-[#666666] hover:text-[#1A1A1A] hover:bg-[#F3F1ED] transition-colors"
-          title="Export Decision Graph"
-        >
-          <Download className="w-4 h-4" />
-        </button>
+            {/* Quick Export */}
+            <button
+              onClick={() => openModal('export')}
+              className="p-1.5 rounded-full text-[#666666] hover:text-[#1A1A1A] hover:bg-[#F3F1ED] transition-colors"
+              title="Export Decision Graph"
+            >
+              <Download className="w-4 h-4" />
+            </button>
 
-        {/* Quick Settings */}
-        <button
-          onClick={() => openModal('settings')}
-          className="p-1.5 rounded-full text-[#666666] hover:text-[#1A1A1A] hover:bg-[#F3F1ED] transition-colors"
-          title="Workspace Settings"
-        >
-          <Settings className="w-4 h-4" />
-        </button>
+            {/* Quick Settings */}
+            <button
+              onClick={() => openModal('settings')}
+              className="p-1.5 rounded-full text-[#666666] hover:text-[#1A1A1A] hover:bg-[#F3F1ED] transition-colors"
+              title="Workspace Settings"
+            >
+              <Settings className="w-4 h-4" />
+            </button>
+          </>
+        )}
 
         {/* Transition / Start Planning CTA */}
         {viewMode !== 'workspace' && contextSufficient && (
