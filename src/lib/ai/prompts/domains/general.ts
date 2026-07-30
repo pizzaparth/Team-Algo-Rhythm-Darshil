@@ -5,7 +5,7 @@
  * Works for personal planning, generic strategy, etc.
  */
 
-import { DomainConfig } from '../../../../types';
+import type { DomainConfig } from '../../../../types';
 
 export const generalDomain: DomainConfig = {
   id: 'general',

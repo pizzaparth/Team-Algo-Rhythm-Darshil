@@ -1,4 +1,4 @@
-import { DomainConfig } from '../../../../types';
+import type { DomainConfig } from '../../../../types';
 
 export const softwareDomain: DomainConfig = {
   id: 'software',
