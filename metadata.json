@@ -1,0 +1,6 @@
+{
+  "name": "AI Reasoning Workspace",
+  "description": "An AI Reasoning Workspace featuring interactive decision graphs, conversation interface, multi-panel workspace layout, and rich decision canvas tools.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

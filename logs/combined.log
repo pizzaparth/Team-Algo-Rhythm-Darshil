@@ -1,0 +1,16 @@
+13:07:10 [[32minfo[39m] [DB] Connected to SQLite: /Users/parth/University/gsoc/temp-polyfix/data/workspace.db
+13:07:10 [[34mdebug[39m] [Queue] Enqueued cleanup job b0216a11-ca48-4c2b-bc76-a8c2663167ac
+13:07:10 [[32minfo[39m] ✅ API Server running on http://localhost:3002
+13:07:10 [[32minfo[39m]    Environment: development
+13:07:10 [[32minfo[39m]    Database: data/workspace.db
+13:07:10 [[32minfo[39m]    CORS origin: *
+13:07:10 [[32minfo[39m]    Job queue: started
+13:20:14 [[32minfo[39m] SIGINT received — shutting down
+13:52:47 [[32minfo[39m] [DB] Connected to SQLite: /Users/parth/University/gsoc/temp-polyfix/data/workspace.db
+13:52:47 [[34mdebug[39m] [Queue] Enqueued cleanup job 6e0961f4-df96-45d6-b75f-058e8b888b6e
+13:52:47 [[32minfo[39m] ✅ API Server running on http://localhost:3002
+13:52:47 [[32minfo[39m]    Environment: development
+13:52:47 [[32minfo[39m]    Database: data/workspace.db
+13:52:47 [[32minfo[39m]    CORS origin: *
+13:52:47 [[32minfo[39m]    Job queue: started
+13:55:13 [[32minfo[39m] SIGINT received — shutting down

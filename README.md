@@ -1,75 +1,107 @@
-# React + TypeScript + Vite
+# AI Reasoning Workspace
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A collaborative AI-powered reasoning and planning workspace with interactive graph-based decision trees, multi-domain AI research agents, and a full-stack architecture.
 
-Currently, two official plugins are available:
+## Prerequisites
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Node.js 25+** — Required for the built-in `node:sqlite` module
+- Otherwise the server won't start (uses `--experimental-sqlite` flag)
 
-## React Compiler
+### Checking your Node version
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+node --version
+# Should be v25.x or later
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+made by- parth and darshil
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Install Node 25 via [nvm](https://github.com/nvm-sh/nvm) (recommended):
+
+```bash
+nvm install 25
+nvm use 25
+```
+
+Or download directly from [nodejs.org](https://nodejs.org/en/download/current).
+
+## Getting Started (macOS/Linux)
+
+```bash
+# 1. Clone the repo
+git clone https://github.com/Darshil1532/temp-polyfix.git
+cd temp-polyfix
+
+# 2. Install dependencies (npm or bun both work)
+npm install
+# or: bun install
+
+# 3. The .env file is already included (private repo) — no setup needed.
+#    If you need to change API keys, edit .env directly.
+
+# 4. Run both frontend + backend together
+npm run dev:all
+```
+
+The app opens at **http://localhost:3000** with the API server at **http://localhost:3002**.
+
+### Running separately
+
+```bash
+# Terminal 1: Frontend (Vite)
+npm run dev
+
+# Terminal 2: Backend (Express + SQLite)
+npm run server:dev
+```
+
+## What's Inside
 
 ```
+├── src/            # React frontend (Vite + TypeScript + Tailwind CSS)
+│   ├── components/ # UI components (workspace, chat, landing, common)
+│   ├── lib/        # AI pipeline, API client, graph commands
+│   ├── store/      # Zustand state management
+│   └── types/      # TypeScript types
+├── server/         # Express backend (Node 25 + built-in SQLite)
+│   ├── database/   # SQLite schema + connection
+│   ├── routes/     # REST API routes
+│   ├── services/   # Business logic
+│   └── middleware/  # Auth, error handling, validation
+├── packages/       # Shared packages (WIP)
+├── data/           # SQLite database files
+└── .env            # API keys (included — repo is private)
+```
+
+## Tech Stack
+
+| Layer | Tech |
+|-------|------|
+| Frontend | React 19, Vite 6, Tailwind CSS 4, Zustand |
+| Graph UI | @xyflow/react (React Flow), dagre |
+| Backend | Express 4, Node 25 built-in SQLite |
+| AI | Mimo AI, Tavily Search, Google GenAI |
+| Auth | JWT + bcryptjs |
+
+## Scripts
+
+| Command | What it does |
+|---------|-------------|
+| `npm run dev` | Start Vite frontend on port 3000 |
+| `npm run server:dev` | Start backend with hot reload on port 3002 |
+| `npm run dev:all` | Start both concurrently |
+| `npm run build` | Production build of frontend |
+| `npm run server:build` | Bundle backend for production |
+| `npm run lint` | TypeScript type check |
+
+## Troubleshooting
+
+**`Cannot find module 'node:sqlite'`**
+→ You need Node.js 25+. Run `node --version` to check.
+
+**`Cannot access '/api/v1/...'`**
+→ Make sure you ran `npm run dev:all` (both frontend + backend need to be running).
+
+**Database errors**
+→ Delete `data/workspace.db` and restart — the server auto-creates it from `server/database/schema.sql`.
