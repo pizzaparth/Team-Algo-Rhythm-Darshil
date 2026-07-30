@@ -119,13 +119,6 @@ export const InteractiveCanvasDemo: React.FC = () => {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
           <div></div>
-
-          <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-3.5 py-1 text-xs font-semibold text-emerald-700 border border-emerald-500/20 shadow-sm">
-              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-              Live Interactive Workspace
-            </span>
-          </div>
         </div>
 
         {/* Canvas Frame Container */}
