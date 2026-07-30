@@ -1,5 +1,6 @@
 import React from 'react';
 import { Modal } from '../common/Modal';
+import { ModalFooter } from '../common/ModalFooter';
 import { useAppStore } from '../../store/';
 import { Settings, Check } from 'lucide-react';
 
@@ -53,21 +54,7 @@ export const SettingsModal: React.FC = () => {
           </div>
         </div>
 
-        <div className="pt-3 border-t border-[#1f293d] flex justify-end space-x-2">
-          <button
-            type="button"
-            onClick={closeModal}
-            className="px-4 py-2 bg-[#1f293d] hover:bg-[#2b384e] text-gray-300 rounded-lg"
-          >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-lg shadow-md shadow-indigo-600/20"
-          >
-            Save Settings
-          </button>
-        </div>
+        <ModalFooter onCancel={closeModal} confirmLabel="Save Settings" />
       </form>
     </Modal>
   );

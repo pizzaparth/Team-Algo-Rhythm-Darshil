@@ -243,37 +243,9 @@ export const projectRepository = {
     isAutosave?: boolean;
     createdBy?: string;
   }): DbGraphSnapshot {
-    const nextVersion = (queryOne<{ v: number }>(
-      'SELECT COALESCE(MAX(version_number), 0) + 1 as v FROM graph_snapshots WHERE project_id = ?',
-      [data.projectId]
-    )?.v) ?? 1;
-
-    const id = uid();
-    execute(
-      `INSERT INTO graph_snapshots
-         (id, project_id, version_number, label, description, is_checkpoint, is_autosave, nodes_json, edges_json, viewport_json, metadata_json, created_by)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [id, data.projectId, nextVersion, data.label ?? null, data.description ?? null,
-       data.isCheckpoint ? 1 : 0, data.isAutosave ? 1 : 0,
-       data.nodesJson, data.edgesJson,
-       data.viewportJson ?? '{}', data.metadataJson ?? '{}',
-       data.createdBy ?? null]
-    );
-
-    // Update project node count
-    const nodeCount = JSON.parse(data.nodesJson).length;
-    execute(
-      `UPDATE projects SET node_count = ?, updated_at = datetime('now') WHERE id = ?`,
-      [nodeCount, data.projectId]
-    );
-
-    // Prune old autosaves (keep last 20)
-    execute(
-      `DELETE FROM graph_snapshots WHERE project_id = ? AND is_autosave = 1
-       AND id NOT IN (SELECT id FROM graph_snapshots WHERE project_id = ? AND is_autosave = 1 ORDER BY version_number DESC LIMIT 20)`,
-      [data.projectId, data.projectId]
-    );
-
+    const id = insertSnapshot(data);
+    updateProjectNodeCount(data.projectId, data.nodesJson);
+    pruneOldAutosaves(data.projectId);
     return this.getSnapshot(id)!;
   },
 
@@ -281,3 +253,50 @@ export const projectRepository = {
     execute('DELETE FROM graph_snapshots WHERE id = ?', [id]);
   },
 };
+
+function insertSnapshot(data: {
+  projectId: string;
+  nodesJson: string;
+  edgesJson: string;
+  viewportJson?: string;
+  metadataJson?: string;
+  label?: string;
+  description?: string;
+  isCheckpoint?: boolean;
+  isAutosave?: boolean;
+  createdBy?: string;
+}): string {
+  const nextVersion = (queryOne<{ v: number }>(
+    'SELECT COALESCE(MAX(version_number), 0) + 1 as v FROM graph_snapshots WHERE project_id = ?',
+    [data.projectId]
+  )?.v) ?? 1;
+
+  const id = uid();
+  execute(
+    `INSERT INTO graph_snapshots
+       (id, project_id, version_number, label, description, is_checkpoint, is_autosave, nodes_json, edges_json, viewport_json, metadata_json, created_by)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    [id, data.projectId, nextVersion, data.label ?? null, data.description ?? null,
+     data.isCheckpoint ? 1 : 0, data.isAutosave ? 1 : 0,
+     data.nodesJson, data.edgesJson,
+     data.viewportJson ?? '{}', data.metadataJson ?? '{}',
+     data.createdBy ?? null]
+  );
+  return id;
+}
+
+function updateProjectNodeCount(projectId: string, nodesJson: string): void {
+  const nodeCount = JSON.parse(nodesJson).length;
+  execute(
+    `UPDATE projects SET node_count = ?, updated_at = datetime('now') WHERE id = ?`,
+    [nodeCount, projectId]
+  );
+}
+
+function pruneOldAutosaves(projectId: string): void {
+  execute(
+    `DELETE FROM graph_snapshots WHERE project_id = ? AND is_autosave = 1
+     AND id NOT IN (SELECT id FROM graph_snapshots WHERE project_id = ? AND is_autosave = 1 ORDER BY version_number DESC LIMIT 20)`,
+    [projectId, projectId]
+  );
+}

@@ -5,7 +5,7 @@
  */
 
 import { projectRepository } from '../repositories/projectRepository.js';
-import { execute, queryOne } from '../database/db.js';
+import { exportRepository } from '../repositories/exportRepository.js';
 import { uid } from '../utils/id.js';
 import { NotFoundError } from '../utils/errors.js';
 import path from 'path';
@@ -207,25 +207,13 @@ export const exportService = {
 
     // Record in exports table
     const exportId = uid();
-    execute(
-      `INSERT INTO exports (id, project_id, requested_by, format, status, completed_at)
-       VALUES (?, ?, ?, ?, 'done', datetime('now'))`,
-      [exportId, projectId, userId, format]
-    );
+    exportRepository.create({ id: exportId, projectId, userId, format });
 
     return { content, filename, mimeType, exportId };
   },
 
   getHistory(projectId: string, userId: string) {
-    const { queryAll } = require('../database/db.js');
-    return queryAll(
-      `SELECT e.*, u.display_name as requested_by_name
-       FROM exports e
-       JOIN users u ON u.id = e.requested_by
-       WHERE e.project_id = ?
-       ORDER BY e.created_at DESC LIMIT 50`,
-      [projectId]
-    );
+    return exportRepository.listByProject(projectId);
   },
 };
 

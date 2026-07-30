@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Modal } from '../common/Modal';
+import { ModalFooter } from '../common/ModalFooter';
 import { useAppStore, useProjectStore } from '../../store/';
 
 export const CreateProjectModal: React.FC = () => {
@@ -65,21 +66,7 @@ export const CreateProjectModal: React.FC = () => {
           />
         </div>
 
-        <div className="pt-3 border-t border-[#1f293d] flex justify-end space-x-2">
-          <button
-            type="button"
-            onClick={closeModal}
-            className="px-4 py-2 bg-[#1f293d] hover:bg-[#2b384e] text-gray-300 rounded-lg font-medium transition-colors"
-          >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-lg shadow-md transition-colors"
-          >
-            Create Project
-          </button>
-        </div>
+        <ModalFooter onCancel={closeModal} confirmLabel="Create Project" />
       </form>
     </Modal>
   );

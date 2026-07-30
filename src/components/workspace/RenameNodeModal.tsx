@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Modal } from '../common/Modal';
+import { ModalFooter } from '../common/ModalFooter';
 import { useAppStore, useGraphStore } from '../../store/';
 
 export const RenameNodeModal: React.FC = () => {
@@ -54,21 +55,7 @@ export const RenameNodeModal: React.FC = () => {
           />
         </div>
 
-        <div className="pt-3 border-t border-[#1f293d] flex justify-end space-x-2">
-          <button
-            type="button"
-            onClick={closeModal}
-            className="px-4 py-2 bg-[#1f293d] hover:bg-[#2b384e] text-gray-300 rounded-lg"
-          >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-lg shadow-md shadow-indigo-600/20"
-          >
-            Update Node
-          </button>
-        </div>
+        <ModalFooter onCancel={closeModal} confirmLabel="Update Node" />
       </form>
     </Modal>
   );

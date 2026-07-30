@@ -202,9 +202,7 @@ export const projectService = {
 
     return projectRepository.saveSnapshot({
       projectId,
-      nodesJson: latest.nodes_json,
-      edgesJson: latest.edges_json,
-      viewportJson: latest.viewport_json,
+      ...snapshotJsonFields(latest),
       label,
       description,
       isCheckpoint: true,
@@ -222,9 +220,7 @@ export const projectService = {
     // Save as new snapshot (restore = new head)
     const restored = projectRepository.saveSnapshot({
       projectId,
-      nodesJson: snapshot.nodes_json,
-      edgesJson: snapshot.edges_json,
-      viewportJson: snapshot.viewport_json,
+      ...snapshotJsonFields(snapshot),
       label: `Restored from version ${snapshot.version_number}`,
       isCheckpoint: true,
       createdBy: userId,
@@ -234,3 +230,12 @@ export const projectService = {
     return restored;
   },
 };
+
+/** Pulls the nodes/edges/viewport JSON blobs off an existing snapshot for re-saving as a new one. */
+function snapshotJsonFields(snapshot: { nodes_json: string; edges_json: string; viewport_json: string }) {
+  return {
+    nodesJson: snapshot.nodes_json,
+    edgesJson: snapshot.edges_json,
+    viewportJson: snapshot.viewport_json,
+  };
+}

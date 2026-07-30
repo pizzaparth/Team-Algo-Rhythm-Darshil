@@ -1,5 +1,6 @@
 import React from 'react';
 import { Modal } from '../common/Modal';
+import { ModalFooter } from '../common/ModalFooter';
 import { useAppStore, useGraphStore } from '../../store/';
 
 export const DeleteNodeModal: React.FC = () => {
@@ -27,20 +28,13 @@ export const DeleteNodeModal: React.FC = () => {
           Warning: This action will also delete all descendant nodes in this branch. This cannot be undone.
         </p>
 
-        <div className="pt-4 border-t border-[#1f293d] flex justify-end space-x-2">
-          <button
-            onClick={closeModal}
-            className="px-4 py-2 bg-[#1f293d] hover:bg-[#2b384e] text-gray-300 rounded-lg text-xs font-medium transition-colors"
-          >
-            Cancel
-          </button>
-          <button
-            onClick={handleDelete}
-            className="px-4 py-2 bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold rounded-lg shadow-md transition-colors"
-          >
-            Delete Branch
-          </button>
-        </div>
+        <ModalFooter
+          onCancel={closeModal}
+          confirmLabel="Delete Branch"
+          confirmType="button"
+          onConfirm={handleDelete}
+          variant="danger"
+        />
       </div>
     </Modal>
   );

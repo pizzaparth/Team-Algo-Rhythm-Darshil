@@ -7,8 +7,7 @@ import { Router, Request, Response, NextFunction } from 'express';
 import { body } from 'express-validator';
 import { requireAuth } from '../middleware/auth.js';
 import { validate } from '../middleware/validate.js';
-import { userRepository } from '../repositories/userRepository.js';
-import { NotFoundError } from '../utils/errors.js';
+import { userService } from '../services/userService.js';
 
 const router = Router();
 router.use(requireAuth);
@@ -16,8 +15,7 @@ router.use(requireAuth);
 // GET /api/v1/users/me/preferences
 router.get('/me/preferences', (req: Request, res: Response, next: NextFunction) => {
   try {
-    const prefs = userRepository.getPreferences(req.user!.sub);
-    if (!prefs) throw new NotFoundError('Preferences');
+    const prefs = userService.getPreferences(req.user!.sub);
     res.json({ success: true, data: { preferences: prefs } });
   } catch (err) { next(err); }
 });
@@ -36,24 +34,8 @@ router.patch(
   validate,
   (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { theme, defaultDomain, aiVerbosity, autoExpand, graphLayout, exportFormat,
-              showEvidence, showExperts, showHistorical, notificationsEnabled } = req.body;
-
-      userRepository.updatePreferences(req.user!.sub, {
-        ...(theme !== undefined && { theme }),
-        ...(defaultDomain !== undefined && { default_domain: defaultDomain }),
-        ...(aiVerbosity !== undefined && { ai_verbosity: aiVerbosity }),
-        ...(autoExpand !== undefined && { auto_expand: autoExpand ? 1 : 0 }),
-        ...(graphLayout !== undefined && { graph_layout: graphLayout }),
-        ...(exportFormat !== undefined && { export_format: exportFormat }),
-        ...(showEvidence !== undefined && { show_evidence: showEvidence ? 1 : 0 }),
-        ...(showExperts !== undefined && { show_experts: showExperts ? 1 : 0 }),
-        ...(showHistorical !== undefined && { show_historical: showHistorical ? 1 : 0 }),
-        ...(notificationsEnabled !== undefined && { notifications_enabled: notificationsEnabled ? 1 : 0 }),
-      });
-
-      const updated = userRepository.getPreferences(req.user!.sub);
-      res.json({ success: true, data: { preferences: updated } });
+      const preferences = userService.updatePreferences(req.user!.sub, req.body);
+      res.json({ success: true, data: { preferences } });
     } catch (err) { next(err); }
   }
 );
@@ -68,16 +50,8 @@ router.patch(
   validate,
   (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { displayName, bio } = req.body;
-      userRepository.update(req.user!.sub, {
-        ...(displayName !== undefined && { display_name: displayName }),
-        ...(bio !== undefined && { bio }),
-      });
-      const user = userRepository.findById(req.user!.sub);
-      res.json({ success: true, data: { user: {
-        id: user!.id, email: user!.email, username: user!.username,
-        displayName: user!.display_name, avatarUrl: user!.avatar_url, bio: user!.bio,
-      } } });
+      const user = userService.updateProfile(req.user!.sub, req.body);
+      res.json({ success: true, data: { user } });
     } catch (err) { next(err); }
   }
 );

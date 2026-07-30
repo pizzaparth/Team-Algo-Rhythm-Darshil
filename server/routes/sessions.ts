@@ -8,6 +8,7 @@ import { body } from 'express-validator';
 import { sessionService } from '../services/sessionService.js';
 import { requireAuth } from '../middleware/auth.js';
 import { validate } from '../middleware/validate.js';
+import { ValidationError } from '../utils/errors.js';
 
 const router = Router();
 router.use(requireAuth);
@@ -16,10 +17,7 @@ router.use(requireAuth);
 router.get('/', (req: Request, res: Response, next: NextFunction) => {
   try {
     const { projectId, domain } = req.query as Record<string, string>;
-    if (!projectId) {
-      res.status(400).json({ success: false, error: { code: 'MISSING_PARAM', message: 'projectId required' } });
-      return;
-    }
+    if (!projectId) throw new ValidationError('projectId required');
     const session = sessionService.getOrCreate(projectId, req.user!.sub, domain);
     res.json({ success: true, data: { session } });
   } catch (err) { next(err); }

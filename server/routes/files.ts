@@ -9,9 +9,9 @@ import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { requireAuth } from '../middleware/auth.js';
-import { execute, queryOne, queryAll } from '../database/db.js';
+import { fileService } from '../services/fileService.js';
 import { uid } from '../utils/id.js';
-import { NotFoundError, ForbiddenError, ValidationError } from '../utils/errors.js';
+import { ValidationError } from '../utils/errors.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const UPLOAD_DIR = path.join(__dirname, '../../data/uploads');
@@ -51,43 +51,27 @@ router.use(requireAuth);
 // POST /api/v1/files/upload
 router.post('/upload', upload.single('file'), (req: Request, res: Response, next: NextFunction) => {
   try {
-    if (!req.file) {
-      res.status(400).json({ success: false, error: { code: 'NO_FILE', message: 'No file uploaded' } });
-      return;
-    }
+    if (!req.file) throw new ValidationError('No file uploaded');
 
-    const fileId = uid();
-    execute(
-      `INSERT INTO files (id, project_id, node_id, uploaded_by, original_name, stored_name, mime_type, size_bytes, storage_path)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [fileId, req.body.projectId ?? null, req.body.nodeId ?? null,
-       req.user!.sub, req.file.originalname, req.file.filename,
-       req.file.mimetype, req.file.size, req.file.path]
-    );
-
-    res.status(201).json({
-      success: true,
-      data: {
-        file: {
-          id: fileId,
-          originalName: req.file.originalname,
-          mimeType: req.file.mimetype,
-          sizeBytes: req.file.size,
-          url: `/api/v1/files/${fileId}`,
-        },
-      },
+    const file = fileService.upload({
+      projectId: req.body.projectId ?? null,
+      nodeId: req.body.nodeId ?? null,
+      uploadedBy: req.user!.sub,
+      originalName: req.file.originalname,
+      storedName: req.file.filename,
+      mimeType: req.file.mimetype,
+      sizeBytes: req.file.size,
+      storagePath: req.file.path,
     });
+
+    res.status(201).json({ success: true, data: { file } });
   } catch (err) { next(err); }
 });
 
 // GET /api/v1/files/:id  — download file
 router.get('/:id', (req: Request, res: Response, next: NextFunction) => {
   try {
-    const file = queryOne<any>('SELECT * FROM files WHERE id = ? AND is_deleted = 0', [req.params.id]);
-    if (!file) throw new NotFoundError('File');
-
-    if (!fs.existsSync(file.storage_path)) throw new NotFoundError('File data');
-
+    const file = fileService.getForDownload(req.params.id);
     res.setHeader('Content-Type', file.mime_type);
     res.setHeader('Content-Disposition', `inline; filename="${file.original_name}"`);
     res.sendFile(file.storage_path);
@@ -98,10 +82,7 @@ router.get('/:id', (req: Request, res: Response, next: NextFunction) => {
 router.get('/', (req: Request, res: Response, next: NextFunction) => {
   try {
     const { projectId } = req.query;
-    const files = queryAll(
-      'SELECT id, original_name, mime_type, size_bytes, created_at FROM files WHERE project_id = ? AND is_deleted = 0',
-      [projectId]
-    );
+    const files = fileService.listByProject(projectId as string);
     res.json({ success: true, data: { files } });
   } catch (err) { next(err); }
 });
@@ -109,16 +90,7 @@ router.get('/', (req: Request, res: Response, next: NextFunction) => {
 // DELETE /api/v1/files/:id  — soft delete
 router.delete('/:id', (req: Request, res: Response, next: NextFunction) => {
   try {
-    const file = queryOne<any>('SELECT * FROM files WHERE id = ? AND is_deleted = 0', [req.params.id]);
-    if (!file) throw new NotFoundError('File');
-    if (file.uploaded_by !== req.user!.sub) throw new ForbiddenError();
-
-    execute(
-      `UPDATE files SET is_deleted = 1, deleted_at = datetime('now') WHERE id = ?`,
-      [req.params.id]
-    );
-
-    // Schedule physical deletion (future job)
+    fileService.delete(req.params.id, req.user!.sub);
     res.json({ success: true, data: { message: 'File deleted' } });
   } catch (err) { next(err); }
 });

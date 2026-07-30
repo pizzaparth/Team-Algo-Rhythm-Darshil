@@ -4,7 +4,7 @@
  */
 
 import { Request, Response, NextFunction } from 'express';
-import { AppError } from '../utils/errors.js';
+import { AppError, ValidationError } from '../utils/errors.js';
 import { logger } from '../utils/logger.js';
 
 export function errorHandler(
@@ -25,7 +25,7 @@ export function errorHandler(
       error: {
         code: err.code,
         message: err.message,
-        ...(err.statusCode === 400 && (err as any).errors ? { errors: (err as any).errors } : {}),
+        ...(err instanceof ValidationError && err.errors.length > 0 ? { errors: err.errors } : {}),
       },
     });
     return;
