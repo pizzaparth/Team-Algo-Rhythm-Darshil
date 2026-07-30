@@ -4,15 +4,12 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
   ReactFlow,
   Background,
-  Controls,
-  Node,
-  Edge,
   BackgroundVariant,
   SelectionMode,
-  NodeChange,
   useReactFlow,
   ReactFlowProvider,
 } from '@xyflow/react';
+import type { Node, Edge, NodeChange } from '@xyflow/react';
 import { DecisionNode } from './DecisionNode';
 import { CustomEdge } from './CustomEdge';
 import { NodeToolbar } from './NodeToolbar';
@@ -28,9 +25,9 @@ import '@xyflow/react/dist/style.css';
 
 // Inner canvas component — must be inside ReactFlowProvider
 const CanvasGraphInner: React.FC = () => {
-  const { 
-    nodes, edges, setNodes, selectedNodeId, selectNode, 
-    openContextMenu, closeContextMenu, undo, redo,
+  const {
+    nodes, edges, setNodes, selectedNodeId, selectNode,
+    openContextMenu, closeContextMenu,
     searchHighlightIds
   } = useGraphStore();
 
@@ -149,8 +146,6 @@ const CanvasGraphInner: React.FC = () => {
     }, 300);
     return () => clearTimeout(timer);
   }, []);
-
-  const selectedNode = nodes.find(n => n.id === selectedNodeId);
 
   return (
     <div className="relative w-full h-full bg-[#F9F8F6] bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:24px_24px] overflow-hidden select-none">
