@@ -18,10 +18,8 @@ export const LandingPage: React.FC = () => {
   };
 
   const handleExploreDemo = () => {
-    const demoElement = document.getElementById('demo');
-    if (demoElement) {
-      demoElement.scrollIntoView({ behavior: 'smooth' });
-    }
+    setViewMode('workspace');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleSelectDomainTopic = (topic: string) => {
