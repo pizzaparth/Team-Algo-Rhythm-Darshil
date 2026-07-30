@@ -4,7 +4,6 @@ import React from 'react';
 import {
   MessageSquare, Layers, Search,
   Download, ChevronLeft, ChevronRight, Plus,
-  FileText, Image, Code,
 } from 'lucide-react';
 import { useAppStore, useGraphStore, useProjectStore } from '../../store/';
 import type { SidebarTab } from '../../types';
@@ -149,57 +148,16 @@ export const Sidebar: React.FC = () => {
           </div>
         );
 
-      case 'exports':
-        return (
-          <div className="p-4 space-y-4">
-            <div className="text-[10px] uppercase tracking-widest font-bold text-black">Export Decision Tree</div>
-            <div className="space-y-2">
-              <button
-                onClick={() => openModal('export')}
-                className="w-full p-3 bg-white hover:bg-[#F3F1ED] border border-[#E5E2DD] rounded-lg text-left text-xs text-black flex items-center space-x-3 transition-all shadow-sm"
-              >
-                <FileText className="w-4 h-4 text-black shrink-0" />
-                <div>
-                  <div className="font-semibold">Obsidian Markdown (.md)</div>
-                  <div className="text-[10px] text-black">Structured markdown with wiki-links.</div>
-                </div>
-              </button>
-
-              <button
-                onClick={() => openModal('export')}
-                className="w-full p-3 bg-white hover:bg-[#F3F1ED] border border-[#E5E2DD] rounded-lg text-left text-xs text-black flex items-center space-x-3 transition-all shadow-sm"
-              >
-                <Image className="w-4 h-4 text-black shrink-0" />
-                <div>
-                  <div className="font-semibold">PNG Canvas Image</div>
-                  <div className="text-[10px] text-black">High-resolution visual snapshot.</div>
-                </div>
-              </button>
-
-              <button
-                onClick={() => openModal('export')}
-                className="w-full p-3 bg-white hover:bg-[#F3F1ED] border border-[#E5E2DD] rounded-lg text-left text-xs text-black flex items-center space-x-3 transition-all shadow-sm"
-              >
-                <Code className="w-4 h-4 text-black shrink-0" />
-                <div>
-                  <div className="font-semibold">JSON Blueprint Schema</div>
-                  <div className="text-[10px] text-black">Raw graph specification structure.</div>
-                </div>
-              </button>
-            </div>
-          </div>
-        );
-
       default:
         return null;
     }
   };
 
-  const navItems: { id: SidebarTab; label: string; icon: React.ReactNode }[] = [
+  const navItems: { id: SidebarTab; label: string; icon: React.ReactNode; onClick?: () => void }[] = [
     { id: 'sessions', label: 'Sessions', icon: <MessageSquare className="w-4 h-4" /> },
     { id: 'templates', label: 'Templates', icon: <Layers className="w-4 h-4" /> },
     { id: 'search', label: 'Search', icon: <Search className="w-4 h-4" /> },
-    { id: 'exports', label: 'Exports', icon: <Download className="w-4 h-4" /> },
+    { id: 'exports', label: 'Export', icon: <Download className="w-4 h-4" />, onClick: () => openModal('export') },
   ];
 
   return (
@@ -209,14 +167,14 @@ export const Sidebar: React.FC = () => {
         {navItems.map(item => (
           <button
             key={item.id}
-            onClick={() => {
+            onClick={item.onClick ?? (() => {
               if (activeSidebarTab === item.id && sidebarOpen) {
                 setSidebarOpen(false);
               } else {
                 setActiveSidebarTab(item.id);
                 setSidebarOpen(true);
               }
-            }}
+            })}
             className={`p-2 rounded-md transition-all relative text-black ${
               activeSidebarTab === item.id && sidebarOpen
                 ? 'bg-[#F3F1ED] shadow-sm border border-[#E5E2DD]'
