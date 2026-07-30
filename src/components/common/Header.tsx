@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { useAppStore, useGraphStore, useChatStore } from '../../store/';
 import { NavToggleButton } from './NavToggleButton';
+import { primaryButtonClasses } from '../../lib/uiClasses';
 
 export const Header: React.FC = () => {
   const { viewMode, setViewMode, openModal, addToast } = useAppStore();
@@ -117,7 +118,7 @@ export const Header: React.FC = () => {
               setViewMode('workspace');
               addToast('Transitioned into Planning Workspace', 'success');
             }}
-            className="ml-2 px-4 py-1.5 rounded-full bg-[#1A1A1A] hover:bg-[#2c2c2c] text-white text-sm font-semibold flex items-center space-x-1.5 transition-all shadow-sm"
+            className={primaryButtonClasses('ml-2 px-4 py-1.5 rounded-full text-sm font-semibold flex items-center space-x-1.5 transition-all shadow-sm')}
           >
             <span>Start Planning</span>
             <ChevronRight className="w-3.5 h-3.5" />
@@ -214,7 +215,7 @@ export const Header: React.FC = () => {
                 addToast('Transitioned into Planning Workspace', 'success');
                 setMobileMenuOpen(false);
               }}
-              className="w-full px-4 py-2 rounded-lg bg-[#1A1A1A] hover:bg-[#2c2c2c] text-white text-sm font-semibold flex items-center justify-center space-x-1.5 transition-all shadow-sm"
+              className={primaryButtonClasses('w-full px-4 py-2 rounded-lg text-sm font-semibold flex items-center justify-center space-x-1.5 transition-all shadow-sm')}
             >
               <span>Start Planning</span>
               <ChevronRight className="w-3.5 h-3.5" />

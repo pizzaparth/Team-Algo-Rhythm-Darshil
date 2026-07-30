@@ -10,6 +10,7 @@ import {
 import { useEditorStore } from '../../store/';
 import { getRelativeTime } from '../../lib/markdownRenderer';
 import { exportElementToPDF } from '../../lib/pdfExport';
+import { primaryButtonClasses } from '../../lib/uiClasses';
 
 interface ToolbarButton {
   icon: React.ReactNode;
@@ -155,7 +156,7 @@ export const TextEditorPage: React.FC = () => {
             <button
               onClick={createDocument}
               title="New Document"
-              className="p-2 rounded-md bg-[#1A1A1A] text-white hover:bg-[#2c2c2c] transition-colors"
+              className={primaryButtonClasses('p-2 rounded-md')}
             >
               <Plus className="w-4 h-4" />
             </button>
@@ -171,7 +172,7 @@ export const TextEditorPage: React.FC = () => {
                 </div>
                 <button
                   onClick={() => setSidebarOpen(false)}
-                  className="md:hidden p-1 rounded-md bg-[#1A1A1A] text-white hover:bg-[#2c2c2c] transition-colors"
+                  className={primaryButtonClasses('md:hidden p-1 rounded-md')}
                   title="Close"
                 >
                   <X className="w-3.5 h-3.5" />
@@ -244,7 +245,7 @@ export const TextEditorPage: React.FC = () => {
           <button
             onClick={handleDownloadPdf}
             disabled={isExporting}
-            className="flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full bg-[#1A1A1A] hover:bg-[#2c2c2c] disabled:opacity-60 text-white text-xs font-semibold transition-all shadow-sm"
+            className={primaryButtonClasses('flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full disabled:opacity-60 text-xs font-semibold transition-all shadow-sm')}
           >
             {isExporting ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Download className="w-3.5 h-3.5" />}
             <span>{isExporting ? 'Exporting...' : 'Download PDF'}</span>
