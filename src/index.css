@@ -44,14 +44,6 @@
   background-image: radial-gradient(#e2e2e2 1px, transparent 1px);
 }
 
-.glass-panel {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid #e5e5e5;
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03);
-}
-
 /* Text Editor — restores rich-text styling inside the contentEditable body,
    since Tailwind's preflight strips default heading/list styles. */
 .prose-editor {
@@ -128,35 +120,6 @@
 /* React Flow custom tweaks for Editorial Aesthetic */
 .react-flow__background {
   background-color: #F9F8F6 !important;
-}
-
-.react-flow__controls {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
-  border-radius: 9999px !important;
-  border: 1px solid #E5E2DD !important;
-  background: rgba(255, 255, 255, 0.9) !important;
-  backdrop-filter: blur(8px);
-  overflow: hidden;
-}
-
-.react-flow__controls-button {
-  background: transparent !important;
-  border-bottom: 1px solid #E5E2DD !important;
-  color: #1A1A1A !important;
-  fill: #1A1A1A !important;
-}
-
-.react-flow__controls-button:hover {
-  background: #F3F1ED !important;
-  color: #1A1A1A !important;
-  fill: #1A1A1A !important;
-}
-
-.react-flow__minimap {
-  background-color: rgba(255, 255, 255, 0.95) !important;
-  border: 1px solid #E5E2DD !important;
-  border-radius: 0.5rem !important;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05) !important;
 }
 
 .react-flow__edge-path {

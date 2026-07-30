@@ -9,32 +9,11 @@ import {
 import { useGraphStore, useAppStore } from '../../store/';
 import { graphCommands } from '../../lib/graphCommands';
 import { primaryButtonClasses } from '../../lib/uiClasses';
+import { TooltipIconButton } from '../common/TooltipIconButton';
 
 interface NodeToolbarProps {
   nodeId: string;
 }
-
-interface ToolbarButtonProps {
-  onClick: () => void;
-  label: string;
-  disabled?: boolean;
-  className: string;
-  children: React.ReactNode;
-}
-
-// Wraps a toolbar button with an instant (no-delay) hover tooltip showing
-// what the button does — replaces the native `title` attribute, whose
-// browser-default hover delay is too slow for a dense icon toolbar.
-const ToolbarButton: React.FC<ToolbarButtonProps> = ({ onClick, label, disabled, className, children }) => (
-  <div className="relative group/tooltip">
-    <button onClick={onClick} disabled={disabled} aria-label={label} className={className}>
-      {children}
-    </button>
-    <span className="pointer-events-none absolute left-1/2 top-full mt-2 -translate-x-1/2 whitespace-nowrap rounded-md bg-[#1A1A1A] px-2 py-1 text-[10px] font-medium text-white opacity-0 group-hover/tooltip:opacity-100 transition-opacity duration-75 z-50">
-      {label}
-    </span>
-  </div>
-);
 
 export const NodeToolbar: React.FC<NodeToolbarProps> = ({ nodeId }) => {
   const { nodes, duplicateNode, toggleNodeBookmark, toggleNodeCollapse, expandingNodeId } = useGraphStore();
@@ -47,7 +26,7 @@ export const NodeToolbar: React.FC<NodeToolbarProps> = ({ nodeId }) => {
   return (
     <div className="flex items-center space-x-2 bg-white/95 backdrop-blur-md border border-[#E5E2DD] p-2.5 rounded-full shadow-lg z-40 text-xs animate-in fade-in zoom-in-95 duration-150">
       {/* Expand (AI) */}
-      <ToolbarButton
+      <TooltipIconButton
         onClick={() => openModal('expand_node', { nodeId })}
         disabled={isExpanding}
         label="Expand with AI (E)"
@@ -55,47 +34,47 @@ export const NodeToolbar: React.FC<NodeToolbarProps> = ({ nodeId }) => {
       >
         {isExpanding ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Sparkles className="w-3.5 h-3.5" />}
         <span>{isExpanding ? 'Expanding...' : 'Expand'}</span>
-      </ToolbarButton>
+      </TooltipIconButton>
 
       {/* Add Child */}
-      <ToolbarButton
+      <TooltipIconButton
         onClick={() => openModal('create_node', { parentId: nodeId })}
         label="Add Child Node"
         className={primaryButtonClasses('px-4 py-1.5 rounded-full font-medium flex items-center space-x-1 shadow-sm')}
       >
         <Plus className="w-3.5 h-3.5" />
         <span>Add Child</span>
-      </ToolbarButton>
+      </TooltipIconButton>
 
       {/* Compare */}
-      <ToolbarButton
+      <TooltipIconButton
         onClick={() => openModal('compare', { firstNodeId: nodeId })}
         label="Compare with another node"
         className="p-2 text-[#1A1A1A] hover:bg-[#F3F1ED] rounded-full transition-colors"
       >
         <Columns className="w-3.5 h-3.5 text-blue-600" />
-      </ToolbarButton>
+      </TooltipIconButton>
 
       {/* Focus Branch */}
-      <ToolbarButton
+      <TooltipIconButton
         onClick={() => graphCommands.focusBranch(nodeId)}
         label="Focus this branch"
         className="p-2 text-[#1A1A1A] hover:bg-[#F3F1ED] rounded-full transition-colors"
       >
         <Crosshair className="w-3.5 h-3.5 text-indigo-600" />
-      </ToolbarButton>
+      </TooltipIconButton>
 
       {/* Rename */}
-      <ToolbarButton
+      <TooltipIconButton
         onClick={() => openModal('rename_node', { nodeId })}
         label="Rename Node"
         className="p-2 text-[#1A1A1A] hover:bg-[#F3F1ED] rounded-full transition-colors"
       >
         <Edit3 className="w-3.5 h-3.5 text-emerald-600" />
-      </ToolbarButton>
+      </TooltipIconButton>
 
       {/* Notes */}
-      <ToolbarButton
+      <TooltipIconButton
         onClick={() => {
           if (node.data.notes) {
             addToast(`📝 Notes: ${node.data.notes.slice(0, 60)}${node.data.notes.length > 60 ? '…' : ''}`, 'info');
@@ -108,10 +87,10 @@ export const NodeToolbar: React.FC<NodeToolbarProps> = ({ nodeId }) => {
         className="p-2 text-[#1A1A1A] hover:bg-[#F3F1ED] rounded-full transition-colors"
       >
         <FileText className="w-3.5 h-3.5 text-amber-600" />
-      </ToolbarButton>
+      </TooltipIconButton>
 
       {/* Experts */}
-      <ToolbarButton
+      <TooltipIconButton
         onClick={() => {
           const expertsCount = node.data.experts?.length ?? 0;
           if (expertsCount > 0) {
@@ -124,43 +103,43 @@ export const NodeToolbar: React.FC<NodeToolbarProps> = ({ nodeId }) => {
         className="p-2 text-[#1A1A1A] hover:bg-[#F3F1ED] rounded-full transition-colors"
       >
         <Users className="w-3.5 h-3.5 text-purple-600" />
-      </ToolbarButton>
+      </TooltipIconButton>
 
       {/* Bookmark */}
-      <ToolbarButton
+      <TooltipIconButton
         onClick={() => toggleNodeBookmark(nodeId)}
         label="Toggle Bookmark"
         className="p-2 text-[#1A1A1A] hover:bg-[#F3F1ED] rounded-full transition-colors"
       >
         <Star className={`w-3.5 h-3.5 ${node.data.bookmarked ? 'text-amber-500 fill-amber-500' : ''}`} />
-      </ToolbarButton>
+      </TooltipIconButton>
 
       {/* Duplicate */}
-      <ToolbarButton
+      <TooltipIconButton
         onClick={() => duplicateNode(nodeId)}
         label="Duplicate Node"
         className="p-2 text-[#1A1A1A] hover:bg-[#F3F1ED] rounded-full transition-colors"
       >
         <Copy className="w-3.5 h-3.5" />
-      </ToolbarButton>
+      </TooltipIconButton>
 
       {/* Collapse/Expand */}
-      <ToolbarButton
+      <TooltipIconButton
         onClick={() => toggleNodeCollapse(nodeId)}
         label={node.data.collapsed ? 'Expand Branch' : 'Collapse Branch'}
         className="p-2 text-[#1A1A1A] hover:bg-[#F3F1ED] rounded-full transition-colors"
       >
         {node.data.collapsed ? <ChevronDown className="w-3.5 h-3.5" /> : <ChevronUp className="w-3.5 h-3.5" />}
-      </ToolbarButton>
+      </TooltipIconButton>
 
       {/* Delete */}
-      <ToolbarButton
+      <TooltipIconButton
         onClick={() => openModal('delete_node', { nodeId: nodeId })}
         label="Delete Node"
         className="p-2 text-rose-600 hover:bg-rose-50 rounded-full transition-colors"
       >
         <Trash2 className="w-3.5 h-3.5" />
-      </ToolbarButton>
+      </TooltipIconButton>
     </div>
   );
 };

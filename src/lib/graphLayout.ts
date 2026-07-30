@@ -22,7 +22,7 @@ const RANK_SEP = 180;
 // Vertical gap between siblings at the same level
 const NODE_SEP = 60;
 
-export interface LayoutedPosition {
+interface LayoutedPosition {
   id: string;
   x: number;
   y: number;
@@ -35,7 +35,7 @@ export interface LayoutedPosition {
  * @param edges - Current graph edges from Zustand store
  * @returns Map of nodeId → {x, y} top-left position for ReactFlow
  */
-export function computeLayout(
+function computeLayout(
   nodes: GraphNode[],
   edges: GraphEdge[]
 ): LayoutedPosition[] {

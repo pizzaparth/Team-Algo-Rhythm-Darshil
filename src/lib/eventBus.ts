@@ -12,7 +12,7 @@
  *   unsub(); // unsubscribe
  */
 
-export type EventType =
+type EventType =
   | 'NODE_SELECTED'
   | 'NODE_EXPANDED'
   | 'NODE_DELETED'

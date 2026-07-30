@@ -2,9 +2,9 @@ export type NodeType = 'root' | 'strategic' | 'alternative' | 'risk' | 'prerequi
 
 export type NodeStatus = 'proposed' | 'evaluated' | 'in_review' | 'approved' | 'rejected';
 
-export type CreatorType = 'ai' | 'user';
+type CreatorType = 'ai' | 'user';
 
-export interface ExpertProfile {
+interface ExpertProfile {
   id: string;
   name: string;
   title: string;
@@ -14,7 +14,7 @@ export interface ExpertProfile {
   quote?: string;
 }
 
-export interface SupportingEvidence {
+interface SupportingEvidence {
   id: string;
   title: string;
   type: 'metric' | 'benchmark' | 'paper' | 'case_study';

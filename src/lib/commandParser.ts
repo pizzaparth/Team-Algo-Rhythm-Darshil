@@ -14,7 +14,7 @@
 import { graphCommands } from './graphCommands';
 import type { GraphCommand } from '../types';
 
-export interface CommandParseResult {
+interface CommandParseResult {
   recognized: boolean;
   command?: GraphCommand;
   executed?: boolean;

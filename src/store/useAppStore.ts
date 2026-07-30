@@ -11,7 +11,7 @@ function getInitialViewMode(): ViewMode {
 
 export type SidebarTab = 'projects' | 'sessions' | 'templates' | 'saved_graphs' | 'search' | 'exports' | 'settings';
 export type AssistantTab = 'chat' | 'detail' | 'summary' | 'evidence' | 'experts' | 'notes' | 'suggestions' | 'activity';
-export type ModalType = 'compare' | 'export' | 'settings' | 'create_node' | 'rename_node' | 'create_project' | 'delete_node' | 'expand_node' | null;
+type ModalType = 'compare' | 'export' | 'settings' | 'create_node' | 'rename_node' | 'create_project' | 'delete_node' | 'expand_node' | null;
 
 interface AppState {
   viewMode: ViewMode;
