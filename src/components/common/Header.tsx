@@ -25,48 +25,49 @@ export const Header: React.FC = () => {
           </span>
         </button>
 
-      </div>
+        <div className="h-4 w-px bg-[#E5E2DD]"></div>
 
-      {/* View Mode Nav Toggles */}
-      <div className="flex items-center bg-[#F3F1ED] p-1 rounded-full border border-[#E5E2DD]">
-        <button
-          onClick={() => setViewMode('landing')}
-          className={`px-3 py-1 rounded-full text-xs font-medium transition-all flex items-center space-x-1.5 ${
-            viewMode === 'landing' 
-              ? 'bg-white text-[#1A1A1A] shadow-sm font-semibold' 
-              : 'text-[#666666] hover:text-[#1A1A1A]'
-          }`}
-        >
-          <Sparkles className="w-3.5 h-3.5 text-amber-600" />
-          <span className="hidden sm:inline">Overview</span>
-        </button>
+        {/* View Mode Nav Toggles */}
+        <div className="flex items-center space-x-1.5">
+          <button
+            onClick={() => setViewMode('landing')}
+            className={`px-3 py-1 rounded-full text-xs font-medium transition-all flex items-center space-x-1.5 border ${
+              viewMode === 'landing'
+                ? 'bg-white border-[#E5E2DD] text-[#1A1A1A] shadow-sm font-semibold'
+                : 'border-transparent text-[#666666] hover:text-[#1A1A1A] hover:bg-[#F3F1ED]'
+            }`}
+          >
+            <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+            <span className="hidden sm:inline">Overview</span>
+          </button>
 
-        <button
-          onClick={() => setViewMode('chat')}
-          className={`px-3 py-1 rounded-full text-xs font-medium transition-all flex items-center space-x-1.5 ${
-            viewMode === 'chat' 
-              ? 'bg-white text-[#1A1A1A] shadow-sm font-semibold' 
-              : 'text-[#666666] hover:text-[#1A1A1A]'
-          }`}
-        >
-          <MessageSquare className="w-3.5 h-3.5 text-blue-600" />
-          <span className="hidden sm:inline">Chat</span>
-        </button>
+          <button
+            onClick={() => setViewMode('chat')}
+            className={`px-3 py-1 rounded-full text-xs font-medium transition-all flex items-center space-x-1.5 border ${
+              viewMode === 'chat'
+                ? 'bg-white border-[#E5E2DD] text-[#1A1A1A] shadow-sm font-semibold'
+                : 'border-transparent text-[#666666] hover:text-[#1A1A1A] hover:bg-[#F3F1ED]'
+            }`}
+          >
+            <MessageSquare className="w-3.5 h-3.5 text-blue-600" />
+            <span className="hidden sm:inline">Chat</span>
+          </button>
 
-        <button
-          onClick={() => contextSufficient && setViewMode('workspace')}
-          disabled={!contextSufficient}
-          className={`px-3 py-1 rounded-full text-xs font-medium transition-all flex items-center space-x-1.5 ${
-            viewMode === 'workspace' 
-              ? 'bg-[#1A1A1A] text-white shadow-sm font-semibold' 
-              : contextSufficient 
-                ? 'text-[#666666] hover:text-[#1A1A1A]' 
-                : 'text-[#AAAAAA] cursor-not-allowed opacity-50'
-          }`}
-        >
-          <LayoutGrid className={`w-3.5 h-3.5 ${viewMode === 'workspace' ? 'text-white opacity-80' : ''}`} />
-          <span>Graph Canvas</span>
-        </button>
+          <button
+            onClick={() => contextSufficient && setViewMode('workspace')}
+            disabled={!contextSufficient}
+            className={`px-3 py-1 rounded-full text-xs font-medium transition-all flex items-center space-x-1.5 border ${
+              viewMode === 'workspace'
+                ? 'bg-[#1A1A1A] border-[#1A1A1A] text-white shadow-sm font-semibold'
+                : contextSufficient
+                  ? 'border-transparent text-[#666666] hover:text-[#1A1A1A] hover:bg-[#F3F1ED]'
+                  : 'border-transparent text-[#AAAAAA] cursor-not-allowed opacity-50'
+            }`}
+          >
+            <LayoutGrid className={`w-3.5 h-3.5 ${viewMode === 'workspace' ? 'text-white opacity-80' : ''}`} />
+            <span>Graph Canvas</span>
+          </button>
+        </div>
       </div>
 
       {/* Right Action Tools */}
