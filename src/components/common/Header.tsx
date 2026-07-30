@@ -22,9 +22,7 @@ export const Header: React.FC = () => {
           onClick={() => setViewMode('landing')}
           className="flex items-center space-x-2.5 text-[#1A1A1A] hover:opacity-80 transition-opacity focus:outline-none"
         >
-          <div className="w-8 h-8 bg-[#1A1A1A] rounded flex items-center justify-center text-white font-bold text-xs italic shadow-sm">
-            AR
-          </div>
+          <img src="/logo.png" alt="Logo" className="w-8 h-8 rounded object-cover shadow-sm" />
           <span className="font-semibold text-[#1A1A1A] tracking-tight uppercase text-xs md:text-sm hidden md:inline-block">
             Reasoning Workspace
           </span>
