@@ -9,11 +9,11 @@
  * with raw conversation. It should consume structured context."
  */
 
-import {
+import type {
   AIContext, EnhancedAIContext, DomainConfig,
-  ProcessedResearch, GraphNode, GraphEdge,
+  ProcessedResearch, GraphNode,
 } from '../../types';
-import { useGraphStore, useProjectStore, useChatStore, useAppStore } from '../../store';
+import { useGraphStore, useProjectStore, useChatStore } from '../../store';
 import { planningMemory } from './planningMemory';
 import { generalDomain } from './prompts/domains/general';
 import { politicsDomain } from './prompts/domains/politics';
