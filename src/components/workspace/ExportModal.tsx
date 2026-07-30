@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Modal } from '../common/Modal';
 import { useAppStore, useGraphStore } from '../../store/';
-import { FileText, Download, Code, Image, Check } from 'lucide-react';
+import { FileText, Download, Code, Check } from 'lucide-react';
 
 export const ExportModal: React.FC = () => {
   const { activeModal, closeModal, addToast } = useAppStore();
@@ -41,7 +41,7 @@ export const ExportModal: React.FC = () => {
           Export your decision graph into documentation formats compatible with Obsidian, GitHub, architecture docs, or image tools.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {/* Obsidian Markdown */}
           <div className="p-4 bg-[#161e2e] border border-[#1f293d] hover:border-indigo-500/40 rounded-xl space-y-3 flex flex-col justify-between">
             <div className="space-y-2">
@@ -75,26 +75,6 @@ export const ExportModal: React.FC = () => {
             >
               {downloadedFormat === 'json' ? <Check className="w-3.5 h-3.5" /> : <Download className="w-3.5 h-3.5" />}
               <span>Download .json</span>
-            </button>
-          </div>
-
-          {/* PNG Canvas Spec */}
-          <div className="p-4 bg-[#161e2e] border border-[#1f293d] hover:border-indigo-500/40 rounded-xl space-y-3 flex flex-col justify-between">
-            <div className="space-y-2">
-              <Image className="w-5 h-5 text-blue-400" />
-              <h4 className="font-bold text-white">High-Res Vector Image</h4>
-              <p className="text-gray-400 text-[11px] leading-relaxed">
-                Export vector visual snapshot of decision canvas for slide decks and RFCs.
-              </p>
-            </div>
-            <button
-              onClick={() => {
-                addToast('Generated PNG image download', 'success');
-              }}
-              className="w-full py-2 bg-[#1f293d] hover:bg-[#2b384e] text-white font-semibold rounded-lg flex items-center justify-center space-x-1.5 transition-colors"
-            >
-              <Download className="w-3.5 h-3.5" />
-              <span>Download PNG</span>
             </button>
           </div>
         </div>
