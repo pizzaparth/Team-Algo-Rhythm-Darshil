@@ -1,10 +1,9 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { 
-  ReactFlow, 
-  Background, 
-  Controls, 
-  MiniMap, 
-  Node, 
+import {
+  ReactFlow,
+  Background,
+  Controls,
+  Node,
   Edge,
   BackgroundVariant,
   SelectionMode,
@@ -174,17 +173,6 @@ const CanvasGraphInner: React.FC = () => {
       >
         <Background variant={BackgroundVariant.Dots} gap={24} size={1.2} color="#D5D1C9" />
         {/* ReactFlow's built-in controls replaced by our CanvasControls */}
-        <MiniMap 
-          position="bottom-right"
-          style={{ marginBottom: '60px' }}
-          nodeColor={(n) => {
-            const storeNode = nodes.find(sn => sn.id === n.id);
-            if (n.id === selectedNodeId) return '#1A1A1A';
-            if (searchHighlightIds.includes(n.id)) return '#f59e0b';
-            return storeNode?.data?.branchColor ?? '#E5E2DD';
-          }}
-          maskColor="rgba(249, 248, 246, 0.75)"
-        />
       </ReactFlow>
 
       {/* Floating Breadcrumb Navigation */}
