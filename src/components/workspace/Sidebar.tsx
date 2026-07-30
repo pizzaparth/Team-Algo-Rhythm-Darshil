@@ -3,7 +3,7 @@
 import React from 'react';
 import {
   MessageSquare, Layers, Search,
-  Download, Settings, ChevronLeft, ChevronRight, Plus,
+  Download, ChevronLeft, ChevronRight, Plus,
   FileText, Image, Code,
 } from 'lucide-react';
 import { useAppStore, useGraphStore, useProjectStore } from '../../store/';
@@ -190,36 +190,6 @@ export const Sidebar: React.FC = () => {
           </div>
         );
 
-      case 'settings':
-        return (
-          <div className="p-4 space-y-4">
-            <div className="text-[10px] uppercase tracking-widest font-bold text-black">Canvas & Preferences</div>
-            <div className="space-y-3 text-xs">
-              <div className="space-y-1">
-                <label className="text-black text-[11px] font-medium">AI Model Alias</label>
-                <select className="w-full bg-white border border-[#E5E2DD] rounded-lg p-2 text-black text-xs">
-                  <option>gemini-2.5-flash (Default)</option>
-                  <option>gemini-2.5-pro (High Reasoning)</option>
-                </select>
-              </div>
-
-              <div className="space-y-1">
-                <label className="text-black text-[11px] font-medium">Background Canvas Pattern</label>
-                <select className="w-full bg-white border border-[#E5E2DD] rounded-lg p-2 text-black text-xs">
-                  <option>Radial Dots (Editorial)</option>
-                  <option>Grid Lines</option>
-                  <option>Clean Canvas</option>
-                </select>
-              </div>
-
-              <div className="flex items-center justify-between pt-2">
-                <span className="text-black font-medium">Smooth Flow Animations</span>
-                <input type="checkbox" defaultChecked className="rounded border-[#E5E2DD] text-black focus:ring-0" />
-              </div>
-            </div>
-          </div>
-        );
-
       default:
         return null;
     }
@@ -230,7 +200,6 @@ export const Sidebar: React.FC = () => {
     { id: 'templates', label: 'Templates', icon: <Layers className="w-4 h-4" /> },
     { id: 'search', label: 'Search', icon: <Search className="w-4 h-4" /> },
     { id: 'exports', label: 'Exports', icon: <Download className="w-4 h-4" /> },
-    { id: 'settings', label: 'Settings', icon: <Settings className="w-4 h-4" /> }
   ];
 
   return (

@@ -3,14 +3,14 @@
 import React, { useState } from 'react';
 import {
   LayoutGrid, MessageSquare, Sparkles,
-  Undo2, Redo2, Download, Settings, ChevronRight, Menu, X, FileEdit
+  Undo2, Redo2, ChevronRight, Menu, X, FileEdit
 } from 'lucide-react';
 import { useAppStore, useGraphStore, useChatStore } from '../../store/';
 import { NavToggleButton } from './NavToggleButton';
 import { primaryButtonClasses } from '../../lib/uiClasses';
 
 export const Header: React.FC = () => {
-  const { viewMode, setViewMode, openModal, addToast } = useAppStore();
+  const { viewMode, setViewMode, addToast } = useAppStore();
   const { canUndo, canRedo, undo, redo } = useGraphStore();
   const { contextSufficient } = useChatStore();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -90,24 +90,6 @@ export const Header: React.FC = () => {
                 <Redo2 className="w-4 h-4" />
               </button>
             </div>
-
-            {/* Quick Export */}
-            <button
-              onClick={() => openModal('export')}
-              className="p-1.5 rounded-full text-[#666666] hover:text-[#1A1A1A] hover:bg-[#F3F1ED] transition-colors"
-              title="Export Decision Graph"
-            >
-              <Download className="w-4 h-4" />
-            </button>
-
-            {/* Quick Settings */}
-            <button
-              onClick={() => openModal('settings')}
-              className="p-1.5 rounded-full text-[#666666] hover:text-[#1A1A1A] hover:bg-[#F3F1ED] transition-colors"
-              title="Workspace Settings"
-            >
-              <Settings className="w-4 h-4" />
-            </button>
           </>
         )}
 
@@ -190,20 +172,6 @@ export const Header: React.FC = () => {
                 className="p-2 rounded-lg text-[#666666] hover:text-[#1A1A1A] hover:bg-[#F3F1ED] disabled:opacity-30 transition-colors"
               >
                 <Redo2 className="w-4 h-4" />
-              </button>
-              <button
-                onClick={() => { openModal('export'); setMobileMenuOpen(false); }}
-                title="Export Decision Graph"
-                className="p-2 rounded-lg text-[#666666] hover:text-[#1A1A1A] hover:bg-[#F3F1ED] transition-colors"
-              >
-                <Download className="w-4 h-4" />
-              </button>
-              <button
-                onClick={() => { openModal('settings'); setMobileMenuOpen(false); }}
-                title="Workspace Settings"
-                className="p-2 rounded-lg text-[#666666] hover:text-[#1A1A1A] hover:bg-[#F3F1ED] transition-colors"
-              >
-                <Settings className="w-4 h-4" />
               </button>
             </div>
           )}
