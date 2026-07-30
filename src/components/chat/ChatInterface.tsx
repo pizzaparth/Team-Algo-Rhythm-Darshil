@@ -10,6 +10,7 @@ import { useChatStore, useAppStore, useProjectStore } from '../../store/';
 import { renderMarkdown, getRelativeTime } from '../../lib/markdownRenderer';
 import { AvatarBubble } from '../common/AvatarBubble';
 import { primaryButtonClasses } from '../../lib/uiClasses';
+import { CollapsibleSidebarShell } from '../common/CollapsibleSidebarShell';
 
 export const ChatInterface: React.FC = () => {
   const { messages, sendUserMessage, isGenerating, contextSufficient } = useChatStore();
@@ -60,28 +61,13 @@ export const ChatInterface: React.FC = () => {
 
   return (
     <div className="relative flex h-[calc(100vh-3.5rem)] bg-[#F9F8F6] text-[#1A1A1A] overflow-hidden select-none">
-      {/* Backdrop — closes the sidebar when tapped outside it on mobile */}
-      {sidebarOpen && (
-        <div
-          onClick={() => setSidebarOpen(false)}
-          className="fixed inset-0 top-14 bg-black/40 z-30 md:hidden"
-        />
-      )}
-
-      {/* Sessions Left Sidebar */}
-      <div className="relative flex h-full bg-[#F3F1ED] border-r border-[#E5E2DD] shrink-0">
-        {/* Expand/Collapse Handle — sits centered on the sidebar's right edge */}
-        <button
-          onClick={() => setSidebarOpen(!sidebarOpen)}
-          title={sidebarOpen ? 'Collapse Sidebar' : 'Expand Sidebar'}
-          className="absolute top-1/2 -right-3 -translate-y-1/2 z-30 w-6 h-6 rounded-full bg-[#1A1A1A] hover:bg-[#2c2c2c] flex items-center justify-center shadow-md transition-colors"
-        >
-          {sidebarOpen ? <ChevronLeft className="w-3.5 h-3.5 text-white" /> : <ChevronRight className="w-3.5 h-3.5 text-white" />}
-        </button>
-
-        {/* Icon Rail — always visible */}
-        <div className="w-12 flex flex-col items-center py-3 space-y-3 border-r border-[#E5E2DD] bg-[#EEEBE6] shrink-0">
-          {sidebarOpen && (
+      <CollapsibleSidebarShell
+        open={sidebarOpen}
+        onToggle={() => setSidebarOpen(!sidebarOpen)}
+        toggleTitle={sidebarOpen ? 'Collapse Sidebar' : 'Expand Sidebar'}
+        toggleIcon={sidebarOpen ? <ChevronLeft className="w-3.5 h-3.5 text-white" /> : <ChevronRight className="w-3.5 h-3.5 text-white" />}
+        railChildren={
+          sidebarOpen && (
             <button
               onClick={() => createSession(`Session ${sessions.length + 1}`)}
               title="New Chat Session"
@@ -89,12 +75,10 @@ export const ChatInterface: React.FC = () => {
             >
               <Plus className="w-4 h-4" />
             </button>
-          )}
-        </div>
-
-        {/* Sessions Drawer — slides in as an overlay on mobile, docks inline on desktop */}
-        {sidebarOpen && (
-          <div className="fixed md:static inset-y-0 top-14 md:top-auto left-12 md:left-auto z-40 md:z-auto w-64 h-[calc(100vh-3.5rem)] md:h-full flex flex-col overflow-y-auto bg-[#F3F1ED]">
+          )
+        }
+        drawerChildren={
+          <>
             <div className="p-4 border-b border-[#E5E2DD] flex items-center justify-between">
               <h3 className="text-xs font-bold text-[#1A1A1A] uppercase tracking-wider">Sessions</h3>
               <button
@@ -168,9 +152,9 @@ export const ChatInterface: React.FC = () => {
                 <span>Open Decision Canvas</span>
               </button>
             </div>
-          </div>
-        )}
-      </div>
+          </>
+        }
+      />
 
       {/* Main Conversation Stream */}
       <div className="flex-1 flex flex-col h-full min-w-0 bg-[#F9F8F6] relative">
