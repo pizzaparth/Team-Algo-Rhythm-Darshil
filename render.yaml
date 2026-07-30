@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: stategraph
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 15m
+      - key: REFRESH_EXPIRES_IN
+        value: 7d
+      - key: LOG_LEVEL
+        value: info
+      - key: ALLOWED_ORIGIN
+        sync: false
+      - key: VITE_MIMO_API_KEY
+        sync: false
+      - key: VITE_MIMO_MODEL
+        value: mimo-v2.5-pro
+      - key: VITE_TAVILY_API_KEY
+        sync: false

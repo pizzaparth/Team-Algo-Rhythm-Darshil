@@ -95,6 +95,17 @@ npm run server:dev
 | `npm run server:build` | Bundle backend for production |
 | `npm run lint` | TypeScript type check |
 
+## Deploy on Render
+
+The repo includes a `Dockerfile` and `render.yaml` Blueprint, so deploying is just:
+
+1. Push this repo to GitHub (if it isn't already).
+2. In the Render dashboard: **New → Blueprint**, connect the repo. Render reads `render.yaml` and creates the web service automatically (Docker runtime, free plan).
+3. Before or after the first deploy, fill in the env vars marked `sync: false` in the Render dashboard (Environment tab): `ALLOWED_ORIGIN` (your Render service URL, e.g. `https://stategraph.onrender.com`), `VITE_MIMO_API_KEY`, `VITE_TAVILY_API_KEY`.
+4. Every `git push` to the connected branch triggers an automatic rebuild + redeploy — no manual Docker build/push needed.
+
+**Free tier caveat**: Render's free web services don't include a persistent disk, so the SQLite database resets on every redeploy and on restart after the service spins down from inactivity. Fine for a demo; if you need real data persistence, add a paid Render Disk or switch to a hosted database.
+
 ## Troubleshooting
 
 **`Cannot find module 'node:sqlite'`**
