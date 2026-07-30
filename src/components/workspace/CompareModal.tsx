@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { Modal } from '../common/Modal';
 import { useAppStore, useGraphStore } from '../../store/';
-import { CheckCircle2, AlertTriangle, ShieldCheck } from 'lucide-react';
 
 export const CompareModal: React.FC = () => {
   const { activeModal, closeModal, modalData } = useAppStore();

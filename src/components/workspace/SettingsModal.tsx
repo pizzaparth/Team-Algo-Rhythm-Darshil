@@ -4,7 +4,6 @@ import React from 'react';
 import { Modal } from '../common/Modal';
 import { ModalFooter } from '../common/ModalFooter';
 import { useAppStore } from '../../store/';
-import { Settings, Check } from 'lucide-react';
 
 export const SettingsModal: React.FC = () => {
   const { activeModal, closeModal, addToast } = useAppStore();
