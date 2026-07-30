@@ -1,18 +1,15 @@
 import React from 'react';
 import { 
   BrainCircuit, LayoutGrid, MessageSquare, Sparkles, 
-  Undo2, Redo2, Download, Settings, ChevronRight, FolderKanban, Plus
+  Undo2, Redo2, Download, Settings, ChevronRight
 } from 'lucide-react';
-import { useAppStore, useGraphStore, useProjectStore, useChatStore } from '../../store/';
+import { useAppStore, useGraphStore, useChatStore } from '../../store/';
 import { ViewMode } from '../../types';
 
 export const Header: React.FC = () => {
   const { viewMode, setViewMode, openModal, addToast } = useAppStore();
   const { canUndo, canRedo, undo, redo } = useGraphStore();
-  const { projects, activeProjectId, selectProject } = useProjectStore();
   const { contextSufficient } = useChatStore();
-
-  const activeProject = projects.find(p => p.id === activeProjectId);
 
   return (
     <header className="h-14 bg-white/90 backdrop-blur-md border-b border-[#E5E2DD] px-4 md:px-6 flex items-center justify-between z-30 select-none">
@@ -28,23 +25,6 @@ export const Header: React.FC = () => {
           </span>
         </button>
 
-        <div className="h-4 w-px bg-[#E5E2DD]"></div>
-
-        {/* Project Selector Dropdown */}
-        <div className="relative flex items-center space-x-1.5 bg-[#F3F1ED] px-3 py-1.5 rounded-md border border-[#E5E2DD] text-xs">
-          <FolderKanban className="w-3.5 h-3.5 text-[#1A1A1A] opacity-60" />
-          <select 
-            value={activeProjectId} 
-            onChange={(e) => selectProject(e.target.value)}
-            className="bg-transparent text-[#1A1A1A] focus:outline-none cursor-pointer text-xs font-semibold max-w-[140px] sm:max-w-[200px] truncate"
-          >
-            {projects.map(p => (
-              <option key={p.id} value={p.id} className="bg-white text-[#1A1A1A]">
-                {p.name}
-              </option>
-            ))}
-          </select>
-        </div>
       </div>
 
       {/* View Mode Nav Toggles */}
