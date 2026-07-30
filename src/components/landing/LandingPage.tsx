@@ -2,7 +2,6 @@ import React from 'react';
 import { Sparkles, ArrowRight } from 'lucide-react';
 import { useAppStore, useChatStore } from '../../store/';
 import { Hero } from './Hero';
-import { CoreFeatures } from './CoreFeatures';
 import { SupportedDomains } from './SupportedDomains';
 import { WorkflowSection } from './WorkflowSection';
 import { LandingFooter } from './LandingFooter';
@@ -33,8 +32,6 @@ export const LandingPage: React.FC = () => {
   return (
     <div className="landing-root min-h-screen bg-[#fafaf9] text-[#171717] overflow-y-auto selection:bg-[#171717] selection:text-white">
       <Hero onStartReasoning={handleStartReasoning} onExploreDemo={handleExploreDemo} />
-
-      <CoreFeatures />
 
       <SupportedDomains onSelectDomainTopic={handleSelectDomainTopic} />
 
