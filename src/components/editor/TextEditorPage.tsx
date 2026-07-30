@@ -5,7 +5,7 @@ import {
   Bold, Italic, Underline, Strikethrough, List, ListOrdered,
   AlignLeft, AlignCenter, AlignRight, Heading1, Heading2, Pilcrow,
   Undo2, Redo2, Download, Plus, FileText, Trash2, Edit3,
-  ChevronLeft, ChevronRight, Loader2,
+  ChevronLeft, ChevronRight, Loader2, X,
 } from 'lucide-react';
 import { useEditorStore } from '../../store/';
 import { getRelativeTime } from '../../lib/markdownRenderer';
@@ -35,6 +35,15 @@ export const TextEditorPage: React.FC = () => {
   const [isExporting, setIsExporting] = useState(false);
 
   const activeDocument = documents.find((d) => d.id === activeDocumentId) ?? documents[0];
+
+  // Start with the files drawer collapsed on mobile so the editor isn't
+  // squeezed into a sliver by a 256px-wide panel on a narrow screen.
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.innerWidth < 768) {
+      setSidebarOpen(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Set editable content imperatively only when switching documents —
   // never on every keystroke, so React doesn't fight the user's cursor.
@@ -121,7 +130,15 @@ export const TextEditorPage: React.FC = () => {
   ];
 
   return (
-    <div className="flex h-[calc(100vh-3.5rem)] bg-[#F9F8F6] overflow-hidden">
+    <div className="relative flex h-[calc(100vh-3.5rem)] bg-[#F9F8F6] overflow-hidden">
+      {/* Backdrop — closes the files drawer when tapped outside it on mobile */}
+      {sidebarOpen && (
+        <div
+          onClick={() => setSidebarOpen(false)}
+          className="fixed inset-0 top-14 bg-black/40 z-30 md:hidden"
+        />
+      )}
+
       {/* Collapsible Files Sidebar */}
       <div className="flex h-full bg-[#F3F1ED] border-r border-[#E5E2DD] shrink-0">
         <div className="w-12 flex flex-col items-center py-3 space-y-3 border-r border-[#E5E2DD] bg-[#EEEBE6] shrink-0">
@@ -136,17 +153,26 @@ export const TextEditorPage: React.FC = () => {
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
             title={sidebarOpen ? 'Collapse Sidebar' : 'Expand Sidebar'}
-            className="p-2 rounded-md text-[#666666] hover:text-[#1A1A1A] hover:bg-white/60 transition-colors"
+            className="p-2 rounded-md bg-[#1A1A1A] text-white hover:bg-[#2c2c2c] transition-colors"
           >
             {sidebarOpen ? <ChevronLeft className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
           </button>
         </div>
 
         {sidebarOpen && (
-          <div className="w-64 flex flex-col h-full overflow-y-auto">
+          <div className="fixed md:static inset-y-0 top-14 md:top-auto left-12 md:left-auto z-40 md:z-auto w-64 h-[calc(100vh-3.5rem)] md:h-full flex flex-col overflow-y-auto bg-[#F3F1ED]">
             <div className="p-4">
-              <div className="text-[10px] uppercase tracking-widest font-bold opacity-50 text-[#1A1A1A] mb-3">
-                Files
+              <div className="flex items-center justify-between mb-3">
+                <div className="text-[10px] uppercase tracking-widest font-bold opacity-50 text-[#1A1A1A]">
+                  Files
+                </div>
+                <button
+                  onClick={() => setSidebarOpen(false)}
+                  className="md:hidden p-1 rounded-md bg-[#1A1A1A] text-white hover:bg-[#2c2c2c] transition-colors"
+                  title="Close"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
               </div>
               <div className="space-y-2">
                 {documents.map((doc) => (
@@ -223,13 +249,13 @@ export const TextEditorPage: React.FC = () => {
         </div>
 
         {/* Document Title */}
-        <div className="px-8 pt-6 max-w-3xl w-full mx-auto">
+        <div className="px-4 sm:px-8 pt-6 max-w-3xl w-full mx-auto">
           <input
             type="text"
             value={activeDocument.title}
             onChange={(e) => renameDocument(activeDocument.id, e.target.value)}
             placeholder="Untitled Document"
-            className="w-full text-3xl font-serif font-bold text-[#1A1A1A] placeholder-[#AAAAAA] focus:outline-none bg-transparent"
+            className="w-full text-2xl sm:text-3xl font-serif font-bold text-[#1A1A1A] placeholder-[#AAAAAA] focus:outline-none bg-transparent"
           />
         </div>
 
@@ -240,7 +266,7 @@ export const TextEditorPage: React.FC = () => {
             contentEditable
             suppressContentEditableWarning
             onInput={syncContent}
-            className="prose-editor max-w-3xl w-full mx-auto px-8 py-6 min-h-[60vh] text-sm text-[#1A1A1A] leading-relaxed focus:outline-none"
+            className="prose-editor max-w-3xl w-full mx-auto px-4 sm:px-8 py-6 min-h-[60vh] text-sm text-[#1A1A1A] leading-relaxed focus:outline-none"
           />
         </div>
       </div>
