@@ -1,16 +1,16 @@
 // Author: Parth Pancholi
 
 import React, { useEffect, useRef } from 'react';
-import { 
-  Plus, Edit3, Copy, Trash2, Columns, Star, 
-  ChevronDown, ChevronUp, Link2, FileText, 
+import {
+  Plus, Edit3, Copy, Trash2, Columns, Star,
+  ChevronDown, ChevronUp, Link2,
   Sparkles, Crosshair, Download, Clipboard
 } from 'lucide-react';
 import { useGraphStore, useAppStore } from '../../store/';
 import { graphCommands } from '../../lib/graphCommands';
 
 export const ContextMenu: React.FC = () => {
-  const { contextMenu, closeContextMenu, nodes, deleteNode, duplicateNode, toggleNodeBookmark, toggleNodeCollapse } = useGraphStore();
+  const { contextMenu, closeContextMenu, nodes, duplicateNode, toggleNodeBookmark, toggleNodeCollapse } = useGraphStore();
   const { openModal, addToast } = useAppStore();
 
   const menuRef = useRef<HTMLDivElement>(null);

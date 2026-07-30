@@ -3,7 +3,7 @@
 import React from 'react';
 import {
   Plus, Copy, Trash2, Edit3, Columns, Star,
-  ChevronUp, ChevronDown, FileText, Users, Bookmark,
+  ChevronUp, ChevronDown, FileText, Users,
   Sparkles, Crosshair, Loader2
 } from 'lucide-react';
 import { useGraphStore, useAppStore } from '../../store/';
@@ -36,8 +36,8 @@ const ToolbarButton: React.FC<ToolbarButtonProps> = ({ onClick, label, disabled,
 );
 
 export const NodeToolbar: React.FC<NodeToolbarProps> = ({ nodeId }) => {
-  const { nodes, deleteNode, duplicateNode, toggleNodeBookmark, toggleNodeCollapse, expandingNodeId } = useGraphStore();
-  const { openModal, setActiveAssistantTab, addToast } = useAppStore();
+  const { nodes, duplicateNode, toggleNodeBookmark, toggleNodeCollapse, expandingNodeId } = useGraphStore();
+  const { openModal, addToast } = useAppStore();
 
   const node = nodes.find(n => n.id === nodeId);
   if (!node) return null;
