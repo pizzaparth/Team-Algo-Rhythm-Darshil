@@ -10,3 +10,8 @@
 export function primaryButtonClasses(extra = ''): string {
   return `bg-[#1A1A1A] hover:bg-[#2c2c2c] text-white transition-colors ${extra}`.trim();
 }
+
+/** Landing page primary button: a distinct near-black token from the app shell. */
+export function landingPrimaryButtonClasses(extra = ''): string {
+  return `bg-[#171717] hover:bg-black text-white ${extra}`.trim();
+}

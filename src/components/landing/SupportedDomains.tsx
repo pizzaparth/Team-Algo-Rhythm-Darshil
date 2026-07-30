@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { DOMAINS } from './landingData';
 import type { LandingDomainItem } from './landingTypes';
+import { landingPrimaryButtonClasses } from '../../lib/uiClasses';
 import {
   Building2,
   Code2,
@@ -100,7 +101,7 @@ export const SupportedDomains: React.FC<SupportedDomainsProps> = ({ onSelectDoma
 
             <button
               onClick={() => onSelectDomainTopic(activeDomain.sampleTopic)}
-              className="shrink-0 flex items-center gap-2 rounded-xl bg-[#171717] px-5 py-2.5 text-xs font-semibold text-white hover:bg-black transition-all shadow"
+              className={landingPrimaryButtonClasses('shrink-0 flex items-center gap-2 rounded-xl px-5 py-2.5 text-xs font-semibold transition-all shadow')}
             >
               <span>Launch Canvas</span>
               <ArrowRight className="h-3.5 w-3.5 text-white" />

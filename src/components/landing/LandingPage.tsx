@@ -7,6 +7,7 @@ import { Hero } from './Hero';
 import { SupportedDomains } from './SupportedDomains';
 import { WorkflowSection } from './WorkflowSection';
 import { LandingFooter } from './LandingFooter';
+import { landingPrimaryButtonClasses } from '../../lib/uiClasses';
 
 export const LandingPage: React.FC = () => {
   const { setViewMode, addToast } = useAppStore();
@@ -58,7 +59,7 @@ export const LandingPage: React.FC = () => {
           <div className="flex justify-center">
             <button
               onClick={handleStartReasoning}
-              className="group flex h-13 items-center justify-center gap-3 rounded-xl bg-[#171717] px-8 text-sm font-semibold text-white shadow-xl shadow-black/10 transition-all duration-200 hover:bg-black active:scale-95"
+              className={landingPrimaryButtonClasses('group flex h-13 items-center justify-center gap-3 rounded-xl px-8 text-sm font-semibold shadow-xl shadow-black/10 transition-all duration-200 active:scale-95')}
             >
               <Sparkles className="h-4 w-4 text-white transition-transform group-hover:rotate-12" />
               <span>Start Reasoning Now</span>

@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, Play } from 'lucide-react';
+import { landingPrimaryButtonClasses } from '../../lib/uiClasses';
 
 interface HeroProps {
   onStartReasoning: () => void;
@@ -52,7 +53,7 @@ export const Hero: React.FC<HeroProps> = ({ onStartReasoning, onExploreDemo }) =
             >
               <button
                 onClick={onStartReasoning}
-                className="px-8 py-4 bg-[#171717] text-white text-sm font-medium rounded-xl hover:bg-black transition-all shadow-lg shadow-black/10 active:scale-95 flex items-center gap-2"
+                className={landingPrimaryButtonClasses('px-8 py-4 text-sm font-medium rounded-xl transition-all shadow-lg shadow-black/10 active:scale-95 flex items-center gap-2')}
               >
                 <span>Start Reasoning</span>
                 <ArrowRight className="h-4 w-4" />
@@ -179,7 +180,7 @@ export const Hero: React.FC<HeroProps> = ({ onStartReasoning, onExploreDemo }) =
                 </div>
                 <button
                   onClick={onStartReasoning}
-                  className="px-3.5 py-2 bg-[#171717] text-white text-[11px] font-semibold rounded-full hover:bg-black transition-colors shrink-0 shadow-sm"
+                  className={landingPrimaryButtonClasses('px-3.5 py-2 text-[11px] font-semibold rounded-full transition-colors shrink-0 shadow-sm')}
                 >
                   Expand Graph
                 </button>
