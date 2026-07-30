@@ -5,7 +5,7 @@
  * and branch summarisation. Returns markdown, not JSON.
  */
 
-import { LLMMessage, EnhancedAIContext } from '../../../types';
+import type { LLMMessage, EnhancedAIContext } from '../../../types';
 import { buildSystemPrompt, buildGraphContextBlock, buildResearchContextBlock } from './system';
 
 /**

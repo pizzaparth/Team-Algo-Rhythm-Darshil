@@ -5,7 +5,7 @@
  * instructions, and planning principles.
  */
 
-import { LLMMessage, DomainConfig, EnhancedAIContext } from '../../../types';
+import type { LLMMessage, EnhancedAIContext } from '../../../types';
 
 /**
  * Builds the base system message used in all planning/conversation requests.
