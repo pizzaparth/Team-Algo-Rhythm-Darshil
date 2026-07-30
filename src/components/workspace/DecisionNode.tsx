@@ -36,15 +36,15 @@ export const DecisionNode: React.FC<NodeProps> = ({ id, data, selected }) => {
   const getStatusBadge = () => {
     switch (nodeData.status) {
       case 'approved':
-        return <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-emerald-500/20 text-emerald-300 border border-emerald-500/30"><CheckCircle2 className="w-3 h-3 mr-1" /> Approved</span>;
+        return <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-emerald-700 text-white"><CheckCircle2 className="w-3 h-3 mr-1" /> Approved</span>;
       case 'evaluated':
-        return <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-blue-500/20 text-blue-300 border border-blue-500/30"><ShieldCheck className="w-3 h-3 mr-1" /> Evaluated</span>;
+        return <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-blue-700 text-white"><ShieldCheck className="w-3 h-3 mr-1" /> Evaluated</span>;
       case 'in_review':
-        return <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-amber-500/20 text-amber-300 border border-amber-500/30"><HelpCircle className="w-3 h-3 mr-1" /> In Review</span>;
+        return <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-amber-700 text-white"><HelpCircle className="w-3 h-3 mr-1" /> In Review</span>;
       case 'rejected':
-        return <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-rose-500/20 text-rose-300 border border-rose-500/30"><XCircle className="w-3 h-3 mr-1" /> Rejected</span>;
+        return <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-rose-700 text-white"><XCircle className="w-3 h-3 mr-1" /> Rejected</span>;
       default:
-        return <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-gray-500/20 text-gray-300 border border-gray-500/30">Proposed</span>;
+        return <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-gray-700 text-white">Proposed</span>;
     }
   };
 
