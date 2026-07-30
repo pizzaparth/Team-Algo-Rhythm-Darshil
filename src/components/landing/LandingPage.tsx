@@ -50,7 +50,7 @@ export const LandingPage: React.FC = () => {
             className="px-6 py-3 rounded-full bg-[#1A1A1A] hover:bg-[#2c2c2c] text-white font-semibold text-sm shadow-lg flex items-center space-x-2 transition-all transform hover:-translate-y-0.5"
           >
             <MessageSquare className="w-4 h-4" />
-            <span>Start AI Conversation</span>
+            <span>Start Reasoning</span>
             <ArrowRight className="w-4 h-4 ml-1" />
           </button>
         </div>
