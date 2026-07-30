@@ -2,6 +2,12 @@ import { create } from 'zustand';
 import { ViewMode } from '../types';
 import { useGraphStore } from './useGraphStore';
 import { useChatStore } from './useChatStore';
+import { ROUTE_TO_VIEW_MODE } from '../lib/routes';
+
+function getInitialViewMode(): ViewMode {
+  if (typeof window === 'undefined') return 'landing';
+  return ROUTE_TO_VIEW_MODE[window.location.pathname] ?? 'landing';
+}
 
 export type SidebarTab = 'projects' | 'sessions' | 'templates' | 'saved_graphs' | 'search' | 'exports' | 'settings';
 export type AssistantTab = 'chat' | 'detail' | 'summary' | 'evidence' | 'experts' | 'notes' | 'suggestions' | 'activity';
@@ -152,7 +158,7 @@ Generate the root node title and 3-5 initial planning branches based on this con
 }
 
 export const useAppStore = create<AppState>((set, get) => ({
-  viewMode: 'landing',
+  viewMode: getInitialViewMode(),
   setViewMode: (mode) => {
     set({ viewMode: mode });
 
