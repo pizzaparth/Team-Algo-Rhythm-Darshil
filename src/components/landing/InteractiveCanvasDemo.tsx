@@ -6,8 +6,6 @@ import {
   ZoomOut,
   RotateCcw,
   Plus,
-  CheckCircle2,
-  FileText,
   X,
   Layers
 } from 'lucide-react';
@@ -28,8 +26,6 @@ export const InteractiveCanvasDemo: React.FC = () => {
   const [showAddModal, setShowAddModal] = useState(false);
   const [newNodeTitle, setNewNodeTitle] = useState('');
   const [newNodeCategory, setNewNodeCategory] = useState<LandingReasoningNode['category']>('strategy');
-
-  const selectedNode = tree.nodes[selectedNodeId] || tree.nodes['root-1'];
 
   const toggleExpand = (nodeId: string, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -95,22 +91,6 @@ export const InteractiveCanvasDemo: React.FC = () => {
     setShowAddModal(false);
   };
 
-  const getCategoryBadgeClass = (category: LandingReasoningNode['category']) => {
-    switch (category) {
-      case 'root':
-        return 'bg-indigo-500/20 text-indigo-300 border-indigo-500/30';
-      case 'strategy':
-        return 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30';
-      case 'risk':
-        return 'bg-amber-500/20 text-amber-300 border-amber-500/30';
-      case 'action':
-        return 'bg-blue-500/20 text-blue-300 border-blue-500/30';
-      case 'tradeoff':
-        return 'bg-purple-500/20 text-purple-300 border-purple-500/30';
-      default:
-        return 'bg-slate-800 text-slate-300 border-slate-700';
-    }
-  };
 
   return (
     <section id="demo" className="relative py-20 bg-[#fafaf9] border-t border-[#e5e5e5]">
@@ -428,62 +408,6 @@ export const InteractiveCanvasDemo: React.FC = () => {
 
               </div>
             </div>
-          </div>
-
-          {/* Bottom Inspector Drawer for Selected Node */}
-          <div className="border-t border-white/[0.08] bg-[#11111a] p-4 sm:p-5 z-20 relative">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <span className={`px-2.5 py-1 rounded text-xs font-mono uppercase border ${getCategoryBadgeClass(selectedNode.category)}`}>
-                  {selectedNode.category}
-                </span>
-                <div>
-                  <h3 className="text-sm sm:text-base font-semibold text-white">
-                    {selectedNode.title}
-                  </h3>
-                  <p className="text-xs text-slate-400 mt-0.5">
-                    {selectedNode.summary}
-                  </p>
-                </div>
-              </div>
-
-              {selectedNode.confidenceScore !== undefined && (
-                <div className="flex items-center gap-3 shrink-0">
-                  <div className="text-right">
-                    <span className="text-[10px] font-mono text-slate-400 block uppercase">Confidence Index</span>
-                    <span className="text-sm font-semibold text-indigo-300 font-mono">
-                      {selectedNode.confidenceScore}%
-                    </span>
-                  </div>
-                  <div className="h-8 w-px bg-white/10" />
-                  <button
-                    onClick={() => setShowAddModal(true)}
-                    className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-slate-200 hover:bg-white/10"
-                  >
-                    <Plus className="h-3.5 w-3.5 text-indigo-400" />
-                    <span>Branch Out</span>
-                  </button>
-                </div>
-              )}
-            </div>
-
-            {/* Pros / Cons / Sources if available */}
-            {(selectedNode.pros || selectedNode.sources) && (
-              <div className="mt-4 pt-3 border-t border-white/[0.06] grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                {selectedNode.pros && (
-                  <div className="flex items-start gap-2 text-emerald-300">
-                    <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-400 mt-0.5" />
-                    <span><strong>Key Advantage:</strong> {selectedNode.pros.join(', ')}</span>
-                  </div>
-                )}
-                {selectedNode.sources && (
-                  <div className="flex items-start gap-2 text-slate-400">
-                    <FileText className="h-4 w-4 shrink-0 text-indigo-400 mt-0.5" />
-                    <span><strong>Research Grounding:</strong> {selectedNode.sources.join(', ')}</span>
-                  </div>
-                )}
-              </div>
-            )}
           </div>
 
         </div>
