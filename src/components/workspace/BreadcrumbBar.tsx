@@ -4,7 +4,7 @@ import React, { useMemo } from 'react';
 import { ChevronRight, Home, Crosshair } from 'lucide-react';
 import { useGraphStore } from '../../store';
 import { graphCommands } from '../../lib/graphCommands';
-import { GraphNode } from '../../types';
+import type { GraphNode } from '../../types';
 
 /**
  * BreadcrumbBar — shows root → selected node path.
