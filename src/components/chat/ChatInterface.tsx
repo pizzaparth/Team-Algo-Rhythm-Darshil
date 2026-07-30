@@ -2,9 +2,9 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import {
-  Send, Bot, User, Paperclip, Sparkles, ChevronRight,
+  Send, Bot, User, Paperclip, Sparkles, ChevronLeft, ChevronRight,
   ArrowUpRight, Plus, MessageSquare, Terminal, Copy, Check,
-  Edit3, Trash2, PanelLeftClose, PanelLeftOpen, X
+  Edit3, Trash2, X
 } from 'lucide-react';
 import { useChatStore, useAppStore, useProjectStore } from '../../store/';
 import { renderMarkdown, getRelativeTime } from '../../lib/markdownRenderer';
@@ -66,110 +66,112 @@ export const ChatInterface: React.FC = () => {
         />
       )}
 
-      {/* Sessions Left Sidebar — slides in as an overlay on mobile, docks inline on desktop */}
-      <div
-        className={`fixed md:static inset-y-0 top-14 md:top-0 left-0 z-40 md:z-auto w-72 md:w-64 h-[calc(100vh-3.5rem)] md:h-full bg-[#F3F1ED] border-r border-[#E5E2DD] flex flex-col transform transition-transform duration-200 ease-in-out ${
-          sidebarOpen ? 'translate-x-0' : '-translate-x-full md:hidden'
-        }`}
-      >
-        <div className="p-4 border-b border-[#E5E2DD] flex items-center justify-between">
-          <h3 className="text-xs font-bold text-[#1A1A1A] uppercase tracking-wider">Sessions</h3>
-          <div className="flex items-center space-x-1.5">
+      {/* Sessions Left Sidebar */}
+      <div className="relative flex h-full bg-[#F3F1ED] border-r border-[#E5E2DD] shrink-0">
+        {/* Expand/Collapse Handle — sits centered on the sidebar's right edge */}
+        <button
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          title={sidebarOpen ? 'Collapse Sidebar' : 'Expand Sidebar'}
+          className="absolute top-1/2 -right-3 -translate-y-1/2 z-30 w-6 h-6 rounded-full bg-[#1A1A1A] hover:bg-[#2c2c2c] flex items-center justify-center shadow-md transition-colors"
+        >
+          {sidebarOpen ? <ChevronLeft className="w-3.5 h-3.5 text-white" /> : <ChevronRight className="w-3.5 h-3.5 text-white" />}
+        </button>
+
+        {/* Icon Rail — always visible */}
+        <div className="w-12 flex flex-col items-center py-3 space-y-3 border-r border-[#E5E2DD] bg-[#EEEBE6] shrink-0">
+          {sidebarOpen && (
             <button
               onClick={() => createSession(`Session ${sessions.length + 1}`)}
-              className="p-1 rounded bg-[#1A1A1A] text-white hover:bg-[#2c2c2c] transition-colors"
               title="New Chat Session"
+              className="p-2 rounded-md bg-[#1A1A1A] text-white hover:bg-[#2c2c2c] transition-colors"
             >
               <Plus className="w-4 h-4" />
             </button>
-            <button
-              onClick={() => setSidebarOpen(false)}
-              className="p-1 rounded bg-[#1A1A1A] text-white hover:bg-[#2c2c2c] transition-colors md:hidden"
-              title="Close Sessions"
-            >
-              <X className="w-4 h-4" />
-            </button>
-          </div>
+          )}
         </div>
 
-        <div className="flex-1 overflow-y-auto p-2 space-y-1">
-          {sessions.map((sess) => (
-            <div
-              key={sess.id}
-              onClick={() => selectSession(sess.id)}
-              className={`w-full text-left p-2.5 rounded-lg text-xs transition-all flex items-start space-x-2 group relative cursor-pointer ${
-                activeSessionId === sess.id
-                  ? 'bg-white text-[#1A1A1A] border border-[#E5E2DD] font-bold shadow-sm'
-                  : 'text-[#666666] hover:bg-white/60 hover:text-[#1A1A1A]'
-              }`}
-            >
-              <MessageSquare className="w-3.5 h-3.5 mt-0.5 shrink-0 text-[#1A1A1A]" />
-              <div className="truncate min-w-0 flex-1">
-                <div className="truncate font-medium pr-8">{sess.title}</div>
-                <div className="text-[10px] text-amber-700 mt-0.5">{getRelativeTime(sess.updatedAt)}</div>
-              </div>
-              {/* Rename & Delete — visible on hover */}
-              <div className="absolute top-1.5 right-1.5 flex items-center space-x-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    const newName = window.prompt('Rename session:', sess.title);
-                    if (newName && newName.trim()) {
-                      renameSession(sess.id, newName.trim());
-                    }
-                  }}
-                  className="p-1 rounded hover:bg-[#E5E2DD] transition-colors"
-                  title="Rename session"
-                >
-                  <Edit3 className="w-3 h-3 text-[#666]" />
-                </button>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    if (sessions.length <= 1) {
-                      addToast('Cannot delete the last session', 'warning');
-                      return;
-                    }
-                    if (window.confirm(`Delete session "${sess.title}"?`)) {
-                      deleteSession(sess.id);
-                    }
-                  }}
-                  className="p-1 rounded hover:bg-rose-100 transition-colors"
-                  title="Delete session"
-                >
-                  <Trash2 className="w-3 h-3 text-rose-500" />
-                </button>
-              </div>
+        {/* Sessions Drawer — slides in as an overlay on mobile, docks inline on desktop */}
+        {sidebarOpen && (
+          <div className="fixed md:static inset-y-0 top-14 md:top-auto left-12 md:left-auto z-40 md:z-auto w-64 h-[calc(100vh-3.5rem)] md:h-full flex flex-col overflow-y-auto bg-[#F3F1ED]">
+            <div className="p-4 border-b border-[#E5E2DD] flex items-center justify-between">
+              <h3 className="text-xs font-bold text-[#1A1A1A] uppercase tracking-wider">Sessions</h3>
+              <button
+                onClick={() => setSidebarOpen(false)}
+                className="md:hidden p-1 rounded-md bg-[#1A1A1A] text-white hover:bg-[#2c2c2c] transition-colors"
+                title="Close Sessions"
+              >
+                <X className="w-4 h-4" />
+              </button>
             </div>
-          ))}
-        </div>
 
-        {/* Transition Helper Footer */}
-        <div className="p-3 border-t border-[#E5E2DD] bg-[#EEEBE6]/50">
-          <button
-            onClick={() => setViewMode('workspace')}
-            className="w-full py-2 px-3 bg-[#1A1A1A] hover:bg-[#2c2c2c] text-white text-xs font-semibold rounded-md flex items-center justify-center space-x-1.5 transition-all shadow-sm"
-          >
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Open Decision Canvas</span>
-          </button>
-        </div>
+            <div className="flex-1 overflow-y-auto p-2 space-y-1">
+              {sessions.map((sess) => (
+                <div
+                  key={sess.id}
+                  onClick={() => selectSession(sess.id)}
+                  className={`w-full text-left p-2.5 rounded-lg text-xs transition-all flex items-start space-x-2 group relative cursor-pointer ${
+                    activeSessionId === sess.id
+                      ? 'bg-white text-[#1A1A1A] border border-[#E5E2DD] font-bold shadow-sm'
+                      : 'text-[#666666] hover:bg-white/60 hover:text-[#1A1A1A]'
+                  }`}
+                >
+                  <MessageSquare className="w-3.5 h-3.5 mt-0.5 shrink-0 text-[#1A1A1A]" />
+                  <div className="truncate min-w-0 flex-1">
+                    <div className="truncate font-medium pr-8">{sess.title}</div>
+                    <div className="text-[10px] text-amber-700 mt-0.5">{getRelativeTime(sess.updatedAt)}</div>
+                  </div>
+                  {/* Rename & Delete — visible on hover */}
+                  <div className="absolute top-1.5 right-1.5 flex items-center space-x-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        const newName = window.prompt('Rename session:', sess.title);
+                        if (newName && newName.trim()) {
+                          renameSession(sess.id, newName.trim());
+                        }
+                      }}
+                      className="p-1 rounded hover:bg-[#E5E2DD] transition-colors"
+                      title="Rename session"
+                    >
+                      <Edit3 className="w-3 h-3 text-[#666]" />
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (sessions.length <= 1) {
+                          addToast('Cannot delete the last session', 'warning');
+                          return;
+                        }
+                        if (window.confirm(`Delete session "${sess.title}"?`)) {
+                          deleteSession(sess.id);
+                        }
+                      }}
+                      className="p-1 rounded hover:bg-rose-100 transition-colors"
+                      title="Delete session"
+                    >
+                      <Trash2 className="w-3 h-3 text-rose-500" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Transition Helper Footer */}
+            <div className="p-3 border-t border-[#E5E2DD] bg-[#EEEBE6]/50">
+              <button
+                onClick={() => setViewMode('workspace')}
+                className="w-full py-2 px-3 bg-[#1A1A1A] hover:bg-[#2c2c2c] text-white text-xs font-semibold rounded-md flex items-center justify-center space-x-1.5 transition-all shadow-sm"
+              >
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>Open Decision Canvas</span>
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Main Conversation Stream */}
       <div className="flex-1 flex flex-col h-full min-w-0 bg-[#F9F8F6] relative">
-        {/* Sidebar Toggle Bar — always reachable regardless of screen size */}
-        <div className="flex items-center px-4 py-2.5 border-b border-[#E5E2DD] bg-[#F9F8F6] shrink-0">
-          <button
-            onClick={() => setSidebarOpen((open) => !open)}
-            className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-[#1A1A1A] hover:bg-[#2c2c2c] text-white text-xs font-semibold transition-colors shadow-sm"
-            title={sidebarOpen ? 'Collapse Sessions' : 'Expand Sessions'}
-          >
-            {sidebarOpen ? <PanelLeftClose className="w-4 h-4" /> : <PanelLeftOpen className="w-4 h-4" />}
-            <span>Sessions</span>
-          </button>
-        </div>
-
         {/* Banner Alert for Transition to Planning Workspace */}
         {contextSufficient && (
           <div className="bg-[#EEEBE6] border-b border-[#E5E2DD] px-4 py-2.5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs text-[#1A1A1A]">
