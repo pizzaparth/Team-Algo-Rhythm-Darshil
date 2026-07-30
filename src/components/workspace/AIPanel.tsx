@@ -2,10 +2,10 @@
 
 import React from 'react';
 import {
-  Bot, Sparkles, Clock, BarChart3, Users,
-  ChevronLeft, ChevronRight, Wifi, WifiOff
+  Bot, Sparkles,
+  ChevronRight, Wifi
 } from 'lucide-react';
-import { useGraphStore, useAppStore, useAIStore, useSessionStore } from '../../store/';
+import { useGraphStore, useAIStore, useSessionStore } from '../../store/';
 import { NodeContextCard } from './AIPanel/NodeContextCard';
 import { ConversationThread } from './AIPanel/ConversationThread';
 import { ChatInput } from './AIPanel/ChatInput';
@@ -28,7 +28,6 @@ export const AIPanel: React.FC<AIPanelProps> = ({ onClose }) => {
   const { selectedNodeId } = useGraphStore();
   const { aiSuggestions, addBranchFromSuggestion, ignoreSuggestion } = useAIStore();
   const { conversationMode, isStreaming } = useSessionStore();
-  const { sidebarOpen } = useAppStore();
 
   // Mode indicator
   const modeLabel = {
