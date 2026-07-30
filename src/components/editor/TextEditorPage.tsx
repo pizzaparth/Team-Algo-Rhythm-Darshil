@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import {
   Bold, Italic, Underline, Strikethrough, List, ListOrdered,
   AlignLeft, AlignCenter, AlignRight, Heading1, Heading2, Pilcrow,
-  Undo2, Redo2, Download, Plus, FileText, Trash2, Edit3,
+  Undo2, Redo2, Download, Plus, FileText,
   ChevronLeft, ChevronRight, Loader2, X,
 } from 'lucide-react';
 import { useEditorStore } from '../../store/';
@@ -12,6 +12,7 @@ import { getRelativeTime } from '../../lib/markdownRenderer';
 import { exportElementToPDF } from '../../lib/pdfExport';
 import { primaryButtonClasses } from '../../lib/uiClasses';
 import { CollapsibleSidebarShell } from '../common/CollapsibleSidebarShell';
+import { RenameDeleteListItem } from '../common/RenameDeleteListItem';
 
 interface ToolbarButton {
   icon: React.ReactNode;
@@ -165,39 +166,16 @@ export const TextEditorPage: React.FC = () => {
             </div>
             <div className="space-y-2">
               {documents.map((doc) => (
-                <div
+                <RenameDeleteListItem
                   key={doc.id}
-                  onClick={() => selectDocument(doc.id)}
-                  className={`p-3 rounded-lg border text-xs cursor-pointer transition-all group relative ${
-                    activeDocumentId === doc.id
-                      ? 'bg-white border-[#1A1A1A] shadow-sm text-[#1A1A1A] font-semibold'
-                      : 'bg-white/60 border-[#E5E2DD] hover:border-[#1A1A1A]/40 text-[#1A1A1A]/80'
-                  }`}
-                >
-                  <div className="flex items-start space-x-2">
-                    <FileText className="w-3.5 h-3.5 mt-0.5 shrink-0 opacity-60" />
-                    <div className="min-w-0 flex-1">
-                      <div className="font-semibold truncate pr-10">{doc.title}</div>
-                      <div className="text-[10px] mt-0.5 text-amber-700">{getRelativeTime(doc.updatedAt)}</div>
-                    </div>
-                  </div>
-                  <div className="absolute top-2 right-2 flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <button
-                      onClick={(e) => { e.stopPropagation(); handleRename(doc.id, doc.title); }}
-                      className="p-1 rounded hover:bg-[#E5E2DD] transition-colors"
-                      title="Rename"
-                    >
-                      <Edit3 className="w-3 h-3 text-[#666]" />
-                    </button>
-                    <button
-                      onClick={(e) => { e.stopPropagation(); handleDelete(doc.id, doc.title); }}
-                      className="p-1 rounded hover:bg-rose-100 transition-colors"
-                      title="Delete"
-                    >
-                      <Trash2 className="w-3 h-3 text-rose-500" />
-                    </button>
-                  </div>
-                </div>
+                  selected={activeDocumentId === doc.id}
+                  icon={<FileText className="w-3.5 h-3.5 mt-0.5 shrink-0 opacity-60" />}
+                  title={doc.title}
+                  updatedAt={getRelativeTime(doc.updatedAt)}
+                  onSelect={() => selectDocument(doc.id)}
+                  onRename={() => handleRename(doc.id, doc.title)}
+                  onDelete={() => handleDelete(doc.id, doc.title)}
+                />
               ))}
             </div>
           </div>
