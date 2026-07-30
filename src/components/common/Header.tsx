@@ -34,11 +34,11 @@ export const Header: React.FC = () => {
             onClick={() => setViewMode('landing')}
             className={`px-3 py-1 rounded-full text-sm font-medium transition-all flex items-center space-x-1.5 border ${
               viewMode === 'landing'
-                ? 'bg-white border-[#E5E2DD] text-[#1A1A1A] shadow-sm font-semibold'
+                ? 'bg-[#1A1A1A] border-[#1A1A1A] text-white shadow-sm font-semibold'
                 : 'border-transparent text-[#666666] hover:text-[#1A1A1A] hover:bg-[#F3F1ED]'
             }`}
           >
-            <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+            <Sparkles className={`w-3.5 h-3.5 ${viewMode === 'landing' ? 'text-white opacity-80' : 'text-amber-600'}`} />
             <span className="hidden sm:inline">Overview</span>
           </button>
 
@@ -46,11 +46,11 @@ export const Header: React.FC = () => {
             onClick={() => setViewMode('chat')}
             className={`px-3 py-1 rounded-full text-sm font-medium transition-all flex items-center space-x-1.5 border ${
               viewMode === 'chat'
-                ? 'bg-white border-[#E5E2DD] text-[#1A1A1A] shadow-sm font-semibold'
+                ? 'bg-[#1A1A1A] border-[#1A1A1A] text-white shadow-sm font-semibold'
                 : 'border-transparent text-[#666666] hover:text-[#1A1A1A] hover:bg-[#F3F1ED]'
             }`}
           >
-            <MessageSquare className="w-3.5 h-3.5 text-blue-600" />
+            <MessageSquare className={`w-3.5 h-3.5 ${viewMode === 'chat' ? 'text-white opacity-80' : 'text-blue-600'}`} />
             <span className="hidden sm:inline">Chat</span>
           </button>
 
@@ -73,11 +73,11 @@ export const Header: React.FC = () => {
             onClick={() => setViewMode('editor')}
             className={`px-3 py-1 rounded-full text-sm font-medium transition-all flex items-center space-x-1.5 border ${
               viewMode === 'editor'
-                ? 'bg-white border-[#E5E2DD] text-[#1A1A1A] shadow-sm font-semibold'
+                ? 'bg-[#1A1A1A] border-[#1A1A1A] text-white shadow-sm font-semibold'
                 : 'border-transparent text-[#666666] hover:text-[#1A1A1A] hover:bg-[#F3F1ED]'
             }`}
           >
-            <FileEdit className="w-3.5 h-3.5 text-emerald-600" />
+            <FileEdit className={`w-3.5 h-3.5 ${viewMode === 'editor' ? 'text-white opacity-80' : 'text-emerald-600'}`} />
             <span className="hidden sm:inline">Editor</span>
           </button>
         </div>
@@ -159,11 +159,11 @@ export const Header: React.FC = () => {
               onClick={() => { setViewMode('landing'); setMobileMenuOpen(false); }}
               className={`px-3 py-2 rounded-lg text-sm font-medium transition-all flex items-center space-x-2 ${
                 viewMode === 'landing'
-                  ? 'bg-[#F3F1ED] text-[#1A1A1A] font-semibold'
+                  ? 'bg-[#1A1A1A] text-white font-semibold'
                   : 'text-[#666666] hover:bg-[#F3F1ED] hover:text-[#1A1A1A]'
               }`}
             >
-              <Sparkles className="w-4 h-4 text-amber-600" />
+              <Sparkles className={`w-4 h-4 ${viewMode === 'landing' ? 'text-white opacity-80' : 'text-amber-600'}`} />
               <span>Overview</span>
             </button>
 
@@ -171,11 +171,11 @@ export const Header: React.FC = () => {
               onClick={() => { setViewMode('chat'); setMobileMenuOpen(false); }}
               className={`px-3 py-2 rounded-lg text-sm font-medium transition-all flex items-center space-x-2 ${
                 viewMode === 'chat'
-                  ? 'bg-[#F3F1ED] text-[#1A1A1A] font-semibold'
+                  ? 'bg-[#1A1A1A] text-white font-semibold'
                   : 'text-[#666666] hover:bg-[#F3F1ED] hover:text-[#1A1A1A]'
               }`}
             >
-              <MessageSquare className="w-4 h-4 text-blue-600" />
+              <MessageSquare className={`w-4 h-4 ${viewMode === 'chat' ? 'text-white opacity-80' : 'text-blue-600'}`} />
               <span>Chat</span>
             </button>
 
@@ -198,11 +198,11 @@ export const Header: React.FC = () => {
               onClick={() => { setViewMode('editor'); setMobileMenuOpen(false); }}
               className={`px-3 py-2 rounded-lg text-sm font-medium transition-all flex items-center space-x-2 ${
                 viewMode === 'editor'
-                  ? 'bg-[#F3F1ED] text-[#1A1A1A] font-semibold'
+                  ? 'bg-[#1A1A1A] text-white font-semibold'
                   : 'text-[#666666] hover:bg-[#F3F1ED] hover:text-[#1A1A1A]'
               }`}
             >
-              <FileEdit className="w-4 h-4 text-emerald-600" />
+              <FileEdit className={`w-4 h-4 ${viewMode === 'editor' ? 'text-white opacity-80' : 'text-emerald-600'}`} />
               <span>Editor</span>
             </button>
           </div>
