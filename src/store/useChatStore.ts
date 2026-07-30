@@ -1,8 +1,7 @@
 import { create } from 'zustand';
-import { ChatMessage } from '../types';
+import type { ChatMessage } from '../types';
 import { INITIAL_CHAT_MESSAGES } from '../data/mockData';
 import { useGraphStore } from './useGraphStore';
-import { useAppStore } from './useAppStore';
 import { useAIStore } from './useAIStore';
 
 interface ChatState {
@@ -17,7 +16,7 @@ interface ChatState {
   restoreMessages: (messages: ChatMessage[]) => void;
 }
 
-export const useChatStore = create<ChatState>((set, get) => ({
+export const useChatStore = create<ChatState>((set) => ({
   messages: INITIAL_CHAT_MESSAGES,
   isGenerating: false,
   contextSufficient: false,

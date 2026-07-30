@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { Project, Session, GraphNode, GraphEdge, ChatMessage, AISuggestion } from '../types';
+import type { Project, Session, GraphNode, GraphEdge, ChatMessage, AISuggestion } from '../types';
 import {
   INITIAL_PROJECTS, INITIAL_SESSIONS, INITIAL_NODES,
   INITIAL_EDGES, MOCK_AI_SUGGESTIONS, INITIAL_CHAT_MESSAGES

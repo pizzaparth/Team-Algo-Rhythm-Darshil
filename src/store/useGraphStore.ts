@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { GraphNode, GraphEdge, NodeData, ClipboardPayload, GeneratedNode } from '../types';
+import type { GraphNode, GraphEdge, NodeData, ClipboardPayload, GeneratedNode } from '../types';
 import { INITIAL_NODES, INITIAL_EDGES } from '../data/mockData';
 import { applyLayout } from '../lib/graphLayout';
 import { getMockedExpansion } from '../lib/mockExpansion';

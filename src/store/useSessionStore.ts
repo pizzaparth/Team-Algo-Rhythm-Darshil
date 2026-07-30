@@ -14,7 +14,7 @@
  */
 
 import { create } from 'zustand';
-import { ConversationMode, AIQuestion, AIContext } from '../types';
+import type { ConversationMode, AIQuestion, AIContext } from '../types';
 import { assembleAIContext } from '../lib/aiContextAssembler';
 import { eventBus } from '../lib/eventBus';
 

@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { ViewMode } from '../types';
+import type { ViewMode } from '../types';
 import { useGraphStore } from './useGraphStore';
 import { useChatStore } from './useChatStore';
 import { ROUTE_TO_VIEW_MODE } from '../lib/routes';
@@ -39,7 +39,7 @@ interface AppState {
  */
 async function generateInitialNodesFromChat(graphState: any, chatMessages: any[]): Promise<void> {
   try {
-    const { isLLMConfigured, chatCompletion, buildEnhancedContext, parseExpansionResponse } = await import('../lib/ai');
+    const { isLLMConfigured, chatCompletion } = await import('../lib/ai');
 
     if (!isLLMConfigured()) return;
 

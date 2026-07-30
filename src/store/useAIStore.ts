@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { AISuggestion, ActivityLog } from '../types';
+import type { AISuggestion, ActivityLog } from '../types';
 import { MOCK_AI_SUGGESTIONS } from '../data/mockData';
 import { useGraphStore } from './useGraphStore';
 import { useAppStore } from './useAppStore';
@@ -14,7 +14,7 @@ interface AIState {
   addActivity: (action: string, details: string, nodeId?: string) => void;
 }
 
-export const useAIStore = create<AIState>((set, get) => ({
+export const useAIStore = create<AIState>((set) => ({
   aiSuggestions: MOCK_AI_SUGGESTIONS,
   activities: [
     { id: 'act-1', timestamp: '11:20 AM', user: 'Alex Vance', action: 'Created Workspace', details: 'Initialized Enterprise Architecture tree.' },
