@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'motion/react';
-import { ArrowRight, Play, Cpu } from 'lucide-react';
+import { ArrowRight, Play } from 'lucide-react';
 
 interface HeroProps {
   onStartReasoning: () => void;
@@ -22,16 +22,6 @@ export const Hero: React.FC<HeroProps> = ({ onStartReasoning, onExploreDemo }) =
           {/* Left Column: Hero Content */}
           <div className="w-full lg:w-1/2 flex flex-col justify-center gap-8">
             <div className="space-y-4">
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="inline-flex items-center gap-2 px-3.5 py-1 bg-white border border-[#e5e5e5] rounded-full text-[11px] font-semibold tracking-wider text-[#737373] uppercase shadow-sm"
-              >
-                <Cpu className="h-3.5 w-3.5 text-[#171717]" />
-                <span>AI Native Reasoning Workspace</span>
-              </motion.div>
-
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
