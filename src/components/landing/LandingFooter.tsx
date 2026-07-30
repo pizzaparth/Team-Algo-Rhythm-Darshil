@@ -1,3 +1,5 @@
+// Author: Parth Pancholi
+
 import React from 'react';
 
 export const LandingFooter: React.FC = () => {

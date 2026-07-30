@@ -1,3 +1,5 @@
+// Author: Parth Pancholi
+
 import React, { useState, useEffect } from 'react';
 import { Modal } from '../common/Modal';
 import { ModalFooter } from '../common/ModalFooter';

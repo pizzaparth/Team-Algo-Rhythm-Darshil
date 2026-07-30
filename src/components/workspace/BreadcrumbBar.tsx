@@ -1,3 +1,5 @@
+// Author: Parth Pancholi
+
 import React, { useMemo } from 'react';
 import { ChevronRight, Home, Crosshair } from 'lucide-react';
 import { useGraphStore } from '../../store';

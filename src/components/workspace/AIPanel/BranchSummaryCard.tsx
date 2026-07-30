@@ -1,3 +1,5 @@
+// Author: Parth Pancholi
+
 import React, { useState } from 'react';
 import { FileText, ChevronDown, ChevronUp, Loader2 } from 'lucide-react';
 import { useGraphStore } from '../../../store/';

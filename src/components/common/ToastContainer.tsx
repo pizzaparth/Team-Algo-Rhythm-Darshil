@@ -1,3 +1,5 @@
+// Author: Parth Pancholi
+
 import React from 'react';
 import { useAppStore } from '../../store/';
 import { CheckCircle2, Info, AlertTriangle, XCircle, X } from 'lucide-react';

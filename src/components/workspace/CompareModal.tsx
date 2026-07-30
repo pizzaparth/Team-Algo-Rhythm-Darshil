@@ -1,3 +1,5 @@
+// Author: Parth Pancholi
+
 import React, { useState } from 'react';
 import { Modal } from '../common/Modal';
 import { useAppStore, useGraphStore } from '../../store/';

@@ -1,3 +1,5 @@
+// Author: Parth Pancholi
+
 import React from 'react';
 import { 
   Sparkles, Columns, FileText, Crosshair, 

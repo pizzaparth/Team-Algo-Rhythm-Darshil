@@ -1,3 +1,5 @@
+// Author: Parth Pancholi
+
 import React from 'react';
 import {
   Plus, Copy, Trash2, Edit3, Columns, Star,

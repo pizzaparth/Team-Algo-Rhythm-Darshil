@@ -1,3 +1,5 @@
+// Author: Parth Pancholi
+
 import React from 'react';
 import { 
   GitBranch, User, Bot, ShieldCheck, AlertTriangle,

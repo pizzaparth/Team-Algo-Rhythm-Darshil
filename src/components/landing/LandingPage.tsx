@@ -1,3 +1,5 @@
+// Author: Parth Pancholi
+
 import React from 'react';
 import { Sparkles, ArrowRight } from 'lucide-react';
 import { useAppStore, useChatStore } from '../../store/';

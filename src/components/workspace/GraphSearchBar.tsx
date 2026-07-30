@@ -1,3 +1,5 @@
+// Author: Parth Pancholi
+
 import React, { useRef, useEffect } from 'react';
 import { Search, X, ArrowUp, ArrowDown, ChevronRight } from 'lucide-react';
 import { useGraphSearch } from '../../hooks/useGraphSearch';

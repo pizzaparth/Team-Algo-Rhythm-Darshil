@@ -1,3 +1,5 @@
+// Author: Parth Pancholi
+
 import React, { useRef } from 'react';
 import {
   Crosshair, Keyboard, Info,

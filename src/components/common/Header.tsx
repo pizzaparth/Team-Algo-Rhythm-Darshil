@@ -1,3 +1,5 @@
+// Author: Parth Pancholi
+
 import React, { useState } from 'react';
 import {
   BrainCircuit, LayoutGrid, MessageSquare, Sparkles,

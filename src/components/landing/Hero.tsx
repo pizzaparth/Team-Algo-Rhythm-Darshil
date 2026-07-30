@@ -1,3 +1,5 @@
+// Author: Parth Pancholi
+
 import React from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, Play, Cpu } from 'lucide-react';

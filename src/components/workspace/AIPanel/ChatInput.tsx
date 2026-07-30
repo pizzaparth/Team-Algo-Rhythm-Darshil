@@ -1,3 +1,5 @@
+// Author: Parth Pancholi
+
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, Command, Loader2 } from 'lucide-react';
 import { useChatStore } from '../../../store/';

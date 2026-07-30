@@ -1,3 +1,5 @@
+// Author: Parth Pancholi
+
 import React, { useState, useRef, useEffect } from 'react';
 import { 
   Send, Bot, User, Paperclip, Sparkles, ChevronRight, 

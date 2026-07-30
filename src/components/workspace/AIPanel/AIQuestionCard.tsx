@@ -1,3 +1,5 @@
+// Author: Parth Pancholi
+
 import React, { useState } from 'react';
 import { HelpCircle, Send, SkipForward, ChevronDown, ChevronUp } from 'lucide-react';
 import { useSessionStore, useChatStore } from '../../../store/';

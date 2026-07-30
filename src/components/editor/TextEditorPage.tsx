@@ -1,3 +1,5 @@
+// Author: Parth Pancholi
+
 import React, { useEffect, useRef, useState } from 'react';
 import {
   Bold, Italic, Underline, Strikethrough, List, ListOrdered,

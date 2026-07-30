@@ -1,3 +1,5 @@
+// Author: Parth Pancholi
+
 import React from 'react';
 import { getBezierPath, EdgeProps } from '@xyflow/react';
 

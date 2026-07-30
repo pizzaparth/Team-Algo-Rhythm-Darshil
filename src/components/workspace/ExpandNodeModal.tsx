@@ -1,3 +1,5 @@
+// Author: Parth Pancholi
+
 import React, { useState, useEffect } from 'react';
 import { Sparkles, Plus, X, Loader2, ChevronRight, Bot, AlertTriangle, CheckCircle2, ShieldCheck } from 'lucide-react';
 import { useAppStore, useGraphStore } from '../../store';

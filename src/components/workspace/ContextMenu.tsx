@@ -1,3 +1,5 @@
+// Author: Parth Pancholi
+
 import React, { useEffect, useRef } from 'react';
 import { 
   Plus, Edit3, Copy, Trash2, Columns, Star, 

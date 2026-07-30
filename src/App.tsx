@@ -1,3 +1,5 @@
+// Author: Parth Pancholi
+
 import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { Header } from './components/common/Header';
