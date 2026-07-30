@@ -13,12 +13,12 @@
  * the research pipeline, and the graph state."
  */
 
-import {
-  AIContext, AIServiceResponse, AIQuestion, AISuggestion,
-  GraphNode, EnhancedAIContext, UserIntent,
+import type {
+  AIContext, AIServiceResponse, AIQuestion,
+  GraphNode, EnhancedAIContext,
 } from '../types';
 import {
-  chatCompletion, chatCompletionStream, isLLMConfigured,
+  chatCompletion, isLLMConfigured,
   buildEnhancedContext, addResearchToCache,
   classifyIntent,
   planningMemory,
@@ -108,7 +108,7 @@ export const aiService = {
    * Case A: Enough info → expand directly via LLM
    * Case B: High-risk/complex → ask clarification first
    */
-  async expandWithClarification(nodeId: string, context: AIContext): Promise<AIServiceResponse> {
+  async expandWithClarification(nodeId: string, _context: AIContext): Promise<AIServiceResponse> {
     const enhanced = buildEnhancedContext();
 
     if (!isLLMConfigured()) {
@@ -170,7 +170,7 @@ export const aiService = {
   /**
    * Generate a real branch summary via LLM.
    */
-  async summariseBranch(nodeId: string, context: AIContext): Promise<string> {
+  async summariseBranch(nodeId: string, _context: AIContext): Promise<string> {
     const enhanced = buildEnhancedContext();
 
     if (!isLLMConfigured()) {
@@ -239,7 +239,6 @@ async function executeExpansion(nodeId: string, context: EnhancedAIContext): Pro
   planningMemory.recordExpansion(nodeId, result.nodes.length);
 
   const nodeTitle = context.selectedNode?.data.title ?? nodeId;
-  const branchPath = context.pathFromRoot.map(n => n.data.title).join(' → ');
 
   let chatMessage = `I've expanded **"${nodeTitle}"** and generated **${result.nodes.length}** sub-branches.\n\n`;
 
