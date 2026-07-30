@@ -42,13 +42,6 @@ export interface AIQuestion {
   options?: string[];
 }
 
-/** Typed event for the Event Bus */
-export interface AIEvent {
-  type: string;
-  payload: Record<string, any>;
-  timestamp: number;
-}
-
 /** Command parsed from natural language */
 export interface GraphCommand {
   commandName: string;
