@@ -1,5 +1,5 @@
-import { GraphNode } from './graph';
-import { Project, ActivityLog } from './project';
+import type { GraphNode } from './graph';
+import type { Project, ActivityLog } from './project';
 
 export interface AISuggestion {
   id: string;

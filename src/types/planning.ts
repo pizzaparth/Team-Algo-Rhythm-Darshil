@@ -1,4 +1,4 @@
-import { AIContext } from './ai';
+import type { AIContext } from './ai';
 
 // ==========================================
 // Phase 4 — AI Planning Engine Types
