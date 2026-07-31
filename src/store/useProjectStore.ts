@@ -1,8 +1,10 @@
 import { create } from 'zustand';
 import type { Project, Session, GraphNode, GraphEdge, ChatMessage, AISuggestion } from '../types';
 import {
-  INITIAL_PROJECTS, INITIAL_SESSIONS, INITIAL_NODES,
-  INITIAL_EDGES, MOCK_AI_SUGGESTIONS, INITIAL_CHAT_MESSAGES
+  INITIAL_PROJECTS, INITIAL_SESSIONS,
+  SAAS_NODES, SAAS_EDGES, SAAS_SUGGESTIONS, SAAS_MESSAGES,
+  E20_NODES, E20_EDGES, E20_SUGGESTIONS, E20_MESSAGES,
+  GHATS_NODES, GHATS_EDGES, GHATS_SUGGESTIONS, GHATS_MESSAGES,
 } from '../data/mockData';
 import { useGraphStore } from './useGraphStore';
 import { useChatStore } from './useChatStore';
@@ -25,12 +27,26 @@ interface SessionSnapshot {
 // In-memory session snapshot storage
 const sessionSnapshots = new Map<string, SessionSnapshot>();
 
-// Initialize snapshot for session-1 with mock data
+// Initialize snapshots for the three seeded sessions, each with its own
+// topic: sess-1 (B2B SaaS market entry), sess-2 (E20 fuel investigation),
+// sess-3 (Western Ghats climate research).
 sessionSnapshots.set('sess-1', {
-  nodes: INITIAL_NODES,
-  edges: INITIAL_EDGES,
-  messages: INITIAL_CHAT_MESSAGES,
-  aiSuggestions: MOCK_AI_SUGGESTIONS,
+  nodes: SAAS_NODES,
+  edges: SAAS_EDGES,
+  messages: SAAS_MESSAGES,
+  aiSuggestions: SAAS_SUGGESTIONS,
+});
+sessionSnapshots.set('sess-2', {
+  nodes: E20_NODES,
+  edges: E20_EDGES,
+  messages: E20_MESSAGES,
+  aiSuggestions: E20_SUGGESTIONS,
+});
+sessionSnapshots.set('sess-3', {
+  nodes: GHATS_NODES,
+  edges: GHATS_EDGES,
+  messages: GHATS_MESSAGES,
+  aiSuggestions: GHATS_SUGGESTIONS,
 });
 
 interface ProjectState {
