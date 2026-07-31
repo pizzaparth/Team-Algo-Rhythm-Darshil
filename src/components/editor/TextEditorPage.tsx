@@ -5,12 +5,15 @@ import {
   Bold, Italic, Underline, Strikethrough, List, ListOrdered,
   AlignLeft, AlignCenter, AlignRight, Heading1, Heading2, Pilcrow,
   Undo2, Redo2, Download, Plus, FileText,
-  ChevronLeft, ChevronRight, Loader2, X,
+  ChevronLeft, ChevronRight, Loader2, X, Sigma, SquareSigma,
 } from 'lucide-react';
 import { useEditorStore } from '../../store/';
 import { getRelativeTime } from '../../lib/markdownRenderer';
 import { exportElementToPDF } from '../../lib/pdfExport';
 import { primaryButtonClasses } from '../../lib/uiClasses';
+import {
+  createMathElement, findClosedMathAtCaret, placeCaretAfter, replaceRangeWithMath,
+} from '../../lib/mathRenderer';
 import { CollapsibleSidebarShell } from '../common/CollapsibleSidebarShell';
 import { RenameDeleteListItem } from '../common/RenameDeleteListItem';
 
@@ -60,6 +63,72 @@ export const TextEditorPage: React.FC = () => {
     if (editorRef.current && activeDocument) {
       updateContent(activeDocument.id, editorRef.current.innerHTML);
     }
+  };
+
+  /**
+   * Converts `$…$` / `$$…$$` into rendered math the moment the closing
+   * delimiter is typed, then syncs. Runs on every input event but bails
+   * immediately unless the character just typed was a `$`.
+   */
+  const handleInput = () => {
+    const selection = window.getSelection();
+    const node = selection?.anchorNode;
+
+    if (
+      selection?.isCollapsed &&
+      node?.nodeType === Node.TEXT_NODE &&
+      editorRef.current?.contains(node)
+    ) {
+      const textNode = node as Text;
+      const match = findClosedMathAtCaret(textNode.data, selection.anchorOffset);
+      if (match) replaceRangeWithMath(textNode, match);
+    }
+
+    syncContent();
+  };
+
+  /**
+   * Toolbar entry point. window.prompt steals focus and collapses the
+   * selection, so the caret position is captured beforehand and restored
+   * after — otherwise math would always land at the start of the document.
+   */
+  const handleInsertMath = (display: boolean) => {
+    const editor = editorRef.current;
+    if (!editor) return;
+
+    const selection = window.getSelection();
+    const savedRange =
+      selection && selection.rangeCount > 0 && editor.contains(selection.anchorNode)
+        ? selection.getRangeAt(0).cloneRange()
+        : null;
+
+    const latex = window.prompt(
+      display ? 'Block math (LaTeX):' : 'Inline math (LaTeX):',
+      display ? '\\int_0^1 x^2\\,dx' : 'e^{i\\pi} + 1 = 0',
+    );
+    if (!latex?.trim()) return;
+
+    editor.focus();
+    const sel = window.getSelection();
+    if (!sel) return;
+
+    // Restore the pre-prompt caret, or fall back to the end of the document.
+    const range = savedRange ?? (() => {
+      const r = document.createRange();
+      r.selectNodeContents(editor);
+      r.collapse(false);
+      return r;
+    })();
+
+    range.deleteContents();
+    const mathEl = createMathElement(latex.trim(), display);
+    range.insertNode(mathEl);
+
+    sel.removeAllRanges();
+    sel.addRange(range);
+    placeCaretAfter(mathEl, sel);
+
+    syncContent();
   };
 
   const applyCommand = (command: string, value?: string) => {
@@ -129,6 +198,10 @@ export const TextEditorPage: React.FC = () => {
       { icon: <AlignLeft className="w-4 h-4" />, title: 'Align Left', onClick: () => applyCommand('justifyLeft') },
       { icon: <AlignCenter className="w-4 h-4" />, title: 'Align Center', onClick: () => applyCommand('justifyCenter') },
       { icon: <AlignRight className="w-4 h-4" />, title: 'Align Right', onClick: () => applyCommand('justifyRight') },
+    ],
+    [
+      { icon: <Sigma className="w-4 h-4" />, title: 'Inline Math — or type $x^2$', onClick: () => handleInsertMath(false) },
+      { icon: <SquareSigma className="w-4 h-4" />, title: 'Block Math — or type $$x^2$$', onClick: () => handleInsertMath(true) },
     ],
   ];
 
@@ -231,7 +304,7 @@ export const TextEditorPage: React.FC = () => {
             ref={editorRef}
             contentEditable
             suppressContentEditableWarning
-            onInput={syncContent}
+            onInput={handleInput}
             className="prose-editor max-w-3xl w-full mx-auto px-4 sm:px-8 py-6 min-h-[60vh] text-sm text-[#1A1A1A] leading-relaxed focus:outline-none"
           />
         </div>

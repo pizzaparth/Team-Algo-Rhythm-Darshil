@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "@xyflow/react/dist/style.css";
+@import "katex/dist/katex.min.css";
 
 @layer base {
   :root {
@@ -96,6 +97,38 @@
 
 .prose-editor u {
   text-decoration: underline;
+}
+
+/* LaTeX math nodes — atomic, non-editable spans holding KaTeX output.
+   Selected state uses a visible highlight so it's obvious the whole
+   expression is about to be replaced or deleted, since the browser treats
+   it as a single unit. */
+.math-node {
+  display: inline-block;
+  padding: 0 1px;
+  border-radius: 3px;
+  cursor: default;
+  user-select: all;
+}
+
+.math-node:hover {
+  background: #F3F1ED;
+}
+
+.math-node::selection,
+.math-node ::selection {
+  background: #cfe4ff;
+}
+
+.math-node-display {
+  display: block;
+  margin: 0.9rem 0;
+  text-align: center;
+}
+
+/* KaTeX sets its own line-height; keep it from stretching editor lines. */
+.prose-editor .katex {
+  line-height: 1.2;
 }
 
 /* Custom editorial scrollbar */
