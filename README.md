@@ -23,9 +23,9 @@ A collaborative AI-powered reasoning and planning workspace with interactive gra
 | Name | Registration Number |
 |------|---------------------|
 | Parth Pancholi | 25BCE10443 |
-| Darshil Jha | REG-XXXXXXX |
+| Darshil Jha | 25BCE10213 |
 | Ayushmann Prakash | 25BCE10347 |
-| Student 4 | REG-XXXXXXX |
+| Shaurya Agrawal | 25BCE10402 |
 
 ## Screenshots
 
