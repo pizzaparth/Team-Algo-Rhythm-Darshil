@@ -1,6 +1,41 @@
-# AI Reasoning Workspace
+# StateGraph — AI Reasoning Workspace
 
 A collaborative AI-powered reasoning and planning workspace with interactive graph-based decision trees, multi-domain AI research agents, and a full-stack architecture.
+
+![React](https://img.shields.io/badge/React_19-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite_6-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS_4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+![Zustand](https://img.shields.io/badge/Zustand-433E38?style=for-the-badge&logo=react&logoColor=white)
+![React Router](https://img.shields.io/badge/React_Router_7-CA4245?style=for-the-badge&logo=reactrouter&logoColor=white)
+![React Flow](https://img.shields.io/badge/React_Flow-FF0072?style=for-the-badge&logo=react&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js_25-339933?style=for-the-badge&logo=node.js&logoColor=white)
+![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![Render](https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)
+
+## University
+
+**VIT Bhopal University**
+
+| Name | Registration Number |
+|------|---------------------|
+| Student 1 | REG-XXXXXXX |
+| Student 2 | REG-XXXXXXX |
+| Student 3 | REG-XXXXXXX |
+| Student 4 | REG-XXXXXXX |
+
+## Screenshots
+
+**Landing Page**
+
+![Landing Page](./landing%20page.png)
+
+**Decision Graph Canvas**
+
+![Decision Graph Tree](./tree.png)
 
 ## Prerequisites
 
@@ -71,6 +106,8 @@ npm run server:dev
 │   └── middleware/  # Auth, error handling, validation
 ├── packages/       # Shared packages (WIP)
 ├── data/           # SQLite database files
+├── Dockerfile      # Container build for deployment
+├── render.yaml     # Render Blueprint (Docker web service)
 └── .env            # API keys (included — repo is private)
 ```
 
@@ -78,11 +115,13 @@ npm run server:dev
 
 | Layer | Tech |
 |-------|------|
-| Frontend | React 19, Vite 6, Tailwind CSS 4, Zustand |
+| Frontend | React 19, TypeScript, Vite 6, Tailwind CSS 4, Zustand |
+| Routing | React Router 7 |
 | Graph UI | @xyflow/react (React Flow), dagre |
 | Backend | Express 4, Node 25 built-in SQLite |
-| AI | Mimo AI, Tavily Search, Google GenAI |
 | Auth | JWT + bcryptjs |
+| AI | Mimo AI (LLM), Tavily Search |
+| Deployment | Docker, Render |
 
 ## Scripts
 
