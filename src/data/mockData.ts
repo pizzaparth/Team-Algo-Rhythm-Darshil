@@ -99,7 +99,7 @@ export const STRATEGY_TEMPLATES: StrategyTemplate[] = [
 export const SAAS_NODES: GraphNode[] = [
   {
     id: 'node-saas-root',
-    position: { x: 450, y: 50 },
+    position: { x: 60, y: 380 },
     data: {
       title: 'B2B SaaS Market Entry Strategy',
       summary: 'Root strategy evaluating go-to-market approach and vertical focus for a new B2B SaaS venture.',
@@ -142,7 +142,7 @@ export const SAAS_NODES: GraphNode[] = [
   },
   {
     id: 'node-saas-a',
-    position: { x: 150, y: 250 },
+    position: { x: 540, y: 540 },
     data: {
       title: 'Vertical SaaS vs Horizontal Platform',
       summary: 'Deciding whether to build a narrow vertical-specific product or a broad horizontal tool.',
@@ -164,7 +164,7 @@ export const SAAS_NODES: GraphNode[] = [
   },
   {
     id: 'node-saas-b',
-    position: { x: 750, y: 250 },
+    position: { x: 540, y: 60 },
     data: {
       title: 'Bottom-Up PLG vs Enterprise Sales-Led GTM',
       summary: 'Choosing between product-led growth with self-serve signup versus a traditional enterprise sales motion.',
@@ -186,7 +186,7 @@ export const SAAS_NODES: GraphNode[] = [
   },
   {
     id: 'node-saas-a1',
-    position: { x: 20, y: 450 },
+    position: { x: 1020, y: 700 },
     data: {
       title: 'Target Vertical: Healthcare Compliance Tooling',
       summary: 'Building workflow automation for HIPAA compliance documentation in mid-size clinics.',
@@ -208,7 +208,7 @@ export const SAAS_NODES: GraphNode[] = [
   },
   {
     id: 'node-saas-a2',
-    position: { x: 300, y: 450 },
+    position: { x: 1020, y: 380 },
     data: {
       title: 'Target Vertical: Fintech Reconciliation Tools',
       summary: 'Building automated transaction reconciliation software for small fintech lenders.',
@@ -230,7 +230,7 @@ export const SAAS_NODES: GraphNode[] = [
   },
   {
     id: 'node-saas-b1',
-    position: { x: 750, y: 450 },
+    position: { x: 1020, y: 60 },
     data: {
       title: 'Product-Led Growth Funnel Design',
       summary: 'Designing a self-serve trial-to-paid funnel with in-product upgrade prompts.',
@@ -252,7 +252,7 @@ export const SAAS_NODES: GraphNode[] = [
   },
   {
     id: 'node-saas-a1a',
-    position: { x: 20, y: 650 },
+    position: { x: 1500, y: 700 },
     data: {
       title: 'HIPAA Compliance & Data Residency Requirements',
       summary: 'Mapping infrastructure and legal requirements to achieve HIPAA compliance before first customer contract.',
@@ -274,7 +274,7 @@ export const SAAS_NODES: GraphNode[] = [
   },
   {
     id: 'node-saas-b1a',
-    position: { x: 750, y: 650 },
+    position: { x: 1500, y: 60 },
     data: {
       title: 'Freemium Pricing Tier Cannibalization Risk',
       summary: 'Assessing whether a generous free tier will suppress conversion to paid plans.',
@@ -296,7 +296,7 @@ export const SAAS_NODES: GraphNode[] = [
   },
   {
     id: 'node-saas-a1a1',
-    position: { x: 20, y: 850 },
+    position: { x: 1980, y: 700 },
     data: {
       title: 'SOC 2 Type II Audit Timeline & Cost',
       summary: 'Scoping the audit process required alongside HIPAA to satisfy enterprise procurement teams.',
@@ -318,7 +318,7 @@ export const SAAS_NODES: GraphNode[] = [
   },
   {
     id: 'node-saas-b1a1',
-    position: { x: 750, y: 850 },
+    position: { x: 1980, y: 60 },
     data: {
       title: 'Usage-Based Pricing Model as Mitigation',
       summary: 'Replacing flat freemium tiers with metered usage-based pricing to align cost with value delivered.',
@@ -411,7 +411,7 @@ What would you like to explore next? I can evaluate pricing risk, map compliance
 export const E20_NODES: GraphNode[] = [
   {
     id: 'node-e20-root',
-    position: { x: 450, y: 50 },
+    position: { x: 60, y: 380 },
     data: {
       title: 'Investigating the Real-World Impact of E20 Fuel Adoption',
       summary: "Root investigation into how India's shift to 20% ethanol-blended petrol (E20) affects vehicles, farmers, and food supply.",
@@ -454,7 +454,7 @@ export const E20_NODES: GraphNode[] = [
   },
   {
     id: 'node-e20-a',
-    position: { x: 150, y: 250 },
+    position: { x: 540, y: 540 },
     data: {
       title: 'Vehicle Engine Compatibility & Consumer Impact',
       summary: 'Examining claims of reduced mileage and engine wear in non-flex-fuel vehicles running on E20.',
@@ -476,7 +476,7 @@ export const E20_NODES: GraphNode[] = [
   },
   {
     id: 'node-e20-b',
-    position: { x: 750, y: 250 },
+    position: { x: 540, y: 60 },
     data: {
       title: 'Agricultural & Land-Use Trade-offs',
       summary: 'Examining how increased ethanol demand affects sugarcane and maize allocation between fuel and food.',
@@ -498,7 +498,7 @@ export const E20_NODES: GraphNode[] = [
   },
   {
     id: 'node-e20-a1',
-    position: { x: 20, y: 450 },
+    position: { x: 1020, y: 700 },
     data: {
       title: 'Fuel Efficiency & Mileage Reduction Claims',
       summary: 'Investigating owner-reported and lab-tested mileage drops of 3-6% on E20 versus E10 petrol.',
@@ -520,7 +520,7 @@ export const E20_NODES: GraphNode[] = [
   },
   {
     id: 'node-e20-a2',
-    position: { x: 300, y: 450 },
+    position: { x: 1020, y: 380 },
     data: {
       title: 'Older Vehicle Fleet Compatibility Risk',
       summary: 'Assessing risk to pre-2008 vehicles with rubber seals not rated for higher ethanol content.',
@@ -542,7 +542,7 @@ export const E20_NODES: GraphNode[] = [
   },
   {
     id: 'node-e20-b1',
-    position: { x: 750, y: 450 },
+    position: { x: 1020, y: 60 },
     data: {
       title: 'Sugarcane & Maize Diversion from Food Supply',
       summary: 'Quantifying how much sugarcane and maize output is now diverted to ethanol distilleries versus food/feed use.',
@@ -564,7 +564,7 @@ export const E20_NODES: GraphNode[] = [
   },
   {
     id: 'node-e20-a1a',
-    position: { x: 20, y: 650 },
+    position: { x: 1500, y: 700 },
     data: {
       title: 'Independent Lab Testing vs Manufacturer Data',
       summary: 'Commissioning third-party dynamometer testing to verify mileage claims independent of automaker data.',
@@ -586,7 +586,7 @@ export const E20_NODES: GraphNode[] = [
   },
   {
     id: 'node-e20-b1a',
-    position: { x: 750, y: 650 },
+    position: { x: 1500, y: 60 },
     data: {
       title: 'State-wise Ethanol Procurement Price Policy',
       summary: 'Comparing state government ethanol procurement prices against open-market sugar prices to assess farmer incentives.',
@@ -608,7 +608,7 @@ export const E20_NODES: GraphNode[] = [
   },
   {
     id: 'node-e20-a1a1',
-    position: { x: 20, y: 850 },
+    position: { x: 1980, y: 700 },
     data: {
       title: 'SIAM Industry Body Response & Rebuttal',
       summary: 'Requesting formal comment from the Society of Indian Automobile Manufacturers on independent test findings.',
@@ -630,7 +630,7 @@ export const E20_NODES: GraphNode[] = [
   },
   {
     id: 'node-e20-b1a1',
-    position: { x: 750, y: 850 },
+    position: { x: 1980, y: 60 },
     data: {
       title: 'Farmer Income Impact Interview Findings',
       summary: 'Field interviews with sugarcane farmers in Kolhapur district on income changes since the E20 rollout.',
@@ -724,7 +724,7 @@ What would you like to explore next? I can help you cross-check lab data, map fa
 export const GHATS_NODES: GraphNode[] = [
   {
     id: 'node-ghats-root',
-    position: { x: 450, y: 50 },
+    position: { x: 60, y: 380 },
     data: {
       title: 'Climate Change Impacts on the Western Ghats Ecosystem (Kerala)',
       summary: 'Doctoral research root mapping observed and projected climate impacts across the Kerala segment of the Western Ghats biodiversity hotspot.',
@@ -767,7 +767,7 @@ export const GHATS_NODES: GraphNode[] = [
   },
   {
     id: 'node-ghats-a',
-    position: { x: 150, y: 250 },
+    position: { x: 540, y: 540 },
     data: {
       title: 'Biodiversity & Endemic Species Vulnerability',
       summary: 'Assessing climate-driven range shifts and population decline among Western Ghats endemic species.',
@@ -789,7 +789,7 @@ export const GHATS_NODES: GraphNode[] = [
   },
   {
     id: 'node-ghats-b',
-    position: { x: 750, y: 250 },
+    position: { x: 540, y: 60 },
     data: {
       title: 'Hydrology & Monsoon Pattern Shifts',
       summary: 'Studying changes in monsoon onset timing, intensity, and downstream landslide/flood risk.',
@@ -811,7 +811,7 @@ export const GHATS_NODES: GraphNode[] = [
   },
   {
     id: 'node-ghats-a1',
-    position: { x: 20, y: 450 },
+    position: { x: 1020, y: 700 },
     data: {
       title: 'Shola Grassland Ecosystem Degradation',
       summary: 'Tracking the retreat of native shola forest-grassland mosaic at high elevations (>1500m).',
@@ -833,7 +833,7 @@ export const GHATS_NODES: GraphNode[] = [
   },
   {
     id: 'node-ghats-a2',
-    position: { x: 300, y: 450 },
+    position: { x: 1020, y: 380 },
     data: {
       title: 'Endemic Amphibian Population Decline',
       summary: 'Documenting decline in Western Ghats endemic frog species linked to stream temperature rise.',
@@ -855,7 +855,7 @@ export const GHATS_NODES: GraphNode[] = [
   },
   {
     id: 'node-ghats-b1',
-    position: { x: 750, y: 450 },
+    position: { x: 1020, y: 60 },
     data: {
       title: 'Landslide Frequency Correlation with Rainfall Intensity',
       summary: 'Correlating short-duration high-intensity rainfall events with landslide incidence in Idukki and Wayanad districts.',
@@ -877,7 +877,7 @@ export const GHATS_NODES: GraphNode[] = [
   },
   {
     id: 'node-ghats-a1a',
-    position: { x: 20, y: 650 },
+    position: { x: 1500, y: 700 },
     data: {
       title: 'Invasive Species Encroachment (Eucalyptus/Acacia Plantations)',
       summary: 'Assessing how colonial-era eucalyptus and acacia plantations accelerate shola-grassland loss under warming conditions.',
@@ -899,7 +899,7 @@ export const GHATS_NODES: GraphNode[] = [
   },
   {
     id: 'node-ghats-b1a',
-    position: { x: 750, y: 650 },
+    position: { x: 1500, y: 60 },
     data: {
       title: '2018 & 2024 Kerala Flood Case Study Data',
       summary: 'Using the 2018 and 2024 major flood events as case studies for extreme rainfall attribution analysis.',
@@ -921,7 +921,7 @@ export const GHATS_NODES: GraphNode[] = [
   },
   {
     id: 'node-ghats-a1a1',
-    position: { x: 20, y: 850 },
+    position: { x: 1980, y: 700 },
     data: {
       title: 'Restoration Pilot: Native Grassland Reforestation',
       summary: 'Proposing a pilot native-species reforestation plot to compare regeneration rates against adjacent plantation land.',
@@ -943,7 +943,7 @@ export const GHATS_NODES: GraphNode[] = [
   },
   {
     id: 'node-ghats-b1a1',
-    position: { x: 750, y: 850 },
+    position: { x: 1980, y: 60 },
     data: {
       title: 'Early Warning System Policy Recommendations',
       summary: 'Drafting policy recommendations for rainfall-triggered landslide early warning thresholds for district disaster authorities.',

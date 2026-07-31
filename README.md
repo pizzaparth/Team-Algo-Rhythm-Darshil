@@ -22,8 +22,8 @@ A collaborative AI-powered reasoning and planning workspace with interactive gra
 
 | Name | Registration Number |
 |------|---------------------|
-| Student 1 | REG-XXXXXXX |
-| Student 2 | REG-XXXXXXX |
+| Parth Pancholi | 25BCE10443 |
+| Darshil Jha | REG-XXXXXXX |
 | Student 3 | REG-XXXXXXX |
 | Student 4 | REG-XXXXXXX |
 
