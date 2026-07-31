@@ -248,10 +248,21 @@ export const useGraphStore = create<GraphState>((set, get) => ({
   setSearchHighlightIds: (ids) => set({ searchHighlightIds: ids }),
   setFocusedBranchRoot: (id) => set({ focusedBranchRootId: id }),
 
+  // Only invoked by explicit user actions (the canvas Auto Arrange button and
+  // the "arrange/layout" chat command) — the automatic structural re-layout in
+  // useAutoLayout calls setNodes directly, so history stays free of noise.
+  // Pushes history because re-laying out discards any manual node positioning,
+  // which the user should be able to undo.
   applyAutoLayout: () => {
-    const { nodes, edges } = get();
+    const { nodes, edges, history, historyIndex } = get();
     const laidOutNodes = applyLayout(nodes, edges);
-    set({ nodes: laidOutNodes });
+    const newHistory = history.slice(0, historyIndex + 1);
+    newHistory.push({ nodes: laidOutNodes, edges });
+
+    set({
+      nodes: laidOutNodes, history: newHistory,
+      historyIndex: newHistory.length - 1, canUndo: true, canRedo: false
+    });
   },
 
   copyNode: (nodeId) => {

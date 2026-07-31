@@ -2,9 +2,10 @@
 
 import React from 'react';
 import {
-  Keyboard,
+  Keyboard, Network,
   Bot, User
 } from 'lucide-react';
+import { graphCommands } from '../../lib/graphCommands';
 
 const shortcutGroups = [
   {
@@ -40,15 +41,33 @@ const shortcutGroups = [
 export const CanvasControls: React.FC = () => {
   const [showShortcuts, setShowShortcuts] = React.useState(false);
 
+  // Re-runs the dagre LR layout, then frames the result. The fitView is
+  // deferred a tick so ReactFlow has re-rendered at the new positions before
+  // it measures the bounds.
+  const handleAutoArrange = () => {
+    graphCommands.applyLayout();
+    setTimeout(() => graphCommands.fitView(), 60);
+  };
+
   return (
     <>
       {/* Main Controls — bottom-left above ReactFlow controls */}
       <div className="absolute bottom-16 left-4 z-20 flex flex-col space-y-1.5">
+        {/* Auto Arrange — restores a clean left-to-right tree layout */}
+        <button
+          onClick={handleAutoArrange}
+          title="Auto Arrange Nodes"
+          className="flex items-center space-x-1.5 px-2.5 py-1.5 bg-white/90 backdrop-blur-sm border border-[#E5E2DD] rounded-lg shadow-sm text-[#666666] hover:text-[#1A1A1A] hover:bg-[#F3F1ED] transition-colors"
+        >
+          <Network className="w-3.5 h-3.5" />
+          <span className="text-[10px] font-semibold">Auto Arrange</span>
+        </button>
+
         {/* Keyboard Shortcuts Legend */}
         <button
           onClick={() => setShowShortcuts(v => !v)}
           title="Keyboard Shortcuts"
-          className="p-1.5 bg-white/90 backdrop-blur-sm border border-[#E5E2DD] rounded-lg shadow-sm text-[#666666] hover:text-[#1A1A1A] hover:bg-[#F3F1ED] transition-colors"
+          className="p-1.5 bg-white/90 backdrop-blur-sm border border-[#E5E2DD] rounded-lg shadow-sm text-[#666666] hover:text-[#1A1A1A] hover:bg-[#F3F1ED] transition-colors self-start"
         >
           <Keyboard className="w-3.5 h-3.5" />
         </button>
