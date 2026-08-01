@@ -16,16 +16,7 @@ A collaborative AI-powered reasoning and planning workspace with interactive gra
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 ![Render](https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)
 
-## University
 
-**VIT Bhopal University**
-
-| Name | Registration Number |
-|------|---------------------|
-| Parth Pancholi | 25BCE10443 |
-| Darshil Jha | 25BCE10213 |
-| Ayushmann Prakash | 25BCE10347 |
-| Shaurya Agrawal | 25BCE10402 |
 
 ## Screenshots
 
